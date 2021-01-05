@@ -1,0 +1,84 @@
+<LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.onandon.moca.view.customView.MyToggleButton
+        android:id="@+id/alarm_setting_weekdays_0"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        app:index = "0"
+        style="@style/BasicToggleButton"
+        android:layout_gravity="center"
+        android:textOff="@string/weekday_sun"
+        android:textOn="@string/weekday_sun"/>
+
+    <com.onandon.moca.view.customView.MyToggleButton
+        android:id="@+id/alarm_setting_weekdays_1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        app:index = "1"
+        style="@style/BasicToggleButton"
+        android:layout_gravity="center"
+        android:textOff="@string/weekday_mon"
+        android:textOn="@string/weekday_mon"/>
+
+    <com.onandon.moca.view.customView.MyToggleButton
+        android:id="@+id/alarm_setting_weekdays_2"
+        android:layout_width="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="30dp"
+        app:index = "2"
+        style="@style/BasicToggleButton"
+        android:layout_gravity="center"
+        android:textOff="@string/weekday_tus"
+        android:textOn="@string/weekday_tus"/>
+
+    <com.onandon.moca.view.customView.MyToggleButton
+        android:id="@+id/alarm_setting_weekdays_3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        app:index = "3"
+        style="@style/BasicToggleButton"
+        android:layout_gravity="center"
+        android:textOff="@string/weekday_wen"
+        android:textOn="@string/weekday_wen"/>
+
+    <com.onandon.moca.view.customView.MyToggleButton
+        android:id="@+id/alarm_setting_weekdays_4"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        app:index = "4"
+        style="@style/BasicToggleButton"
+        android:layout_gravity="center"
+        android:textOff="@string/weekday_thu"
+        android:textOn="@string/weekday_thu"/>
+
+    <com.onandon.moca.view.customView.MyToggleButton
+        android:id="@+id/alarm_setting_weekdays_5"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        app:index = "5"
+        style="@style/BasicToggleButton"
+        android:layout_gravity="center"
+        android:textOff="@string/weekday_fri"
+        android:textOn="@string/weekday_fri"/>
+
+    <com.onandon.moca.view.customView.MyToggleButton
+        android:id="@+id/alarm_setting_weekdays_6"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:index = "6"
+        style="@style/BasicToggleButton"
+        android:layout_gravity="center"
+        android:textOff="@string/weekday_sat"
+        android:textOn="@string/weekday_sat"/>
+
+</LinearLayout>

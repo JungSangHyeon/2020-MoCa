@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/alarm_setting_vibration_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alarm_setting_vibration_title"
+        android:layout_gravity="center_vertical"
+        style="@style/BasicTextView"/>
+
+    <TextView
+        android:id="@+id/alarm_setting_vibration_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text=""
+        android:layout_gravity="center_vertical"
+        style="@style/SubTextView"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/alarm_setting_vibration_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BasicSwitch"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentRight="true" />
+</LinearLayout>

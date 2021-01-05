@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alarm_setting_power_title"
+        android:layout_gravity="center_vertical"
+        style="@style/BasicTextView"/>
+
+    <SeekBar
+        android:id="@+id/seekBar_power"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        style="@style/BasicSeekBar"
+        android:max="100"
+        android:min="0"
+        android:progress="50"/>
+</LinearLayout>

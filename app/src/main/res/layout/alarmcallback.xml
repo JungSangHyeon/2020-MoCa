@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/alarmcallback_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Temp"
+        style="@style/BigTextView"
+        android:gravity="center"
+        android:layout_weight="2"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/alarmcallback_off"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="@style/BigButton"
+            android:text="@string/alarmcallback_off"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/alarmcallback_snooze"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        style="@style/BigButton"
+        android:text="@string/alarmcallback_snooze"
+        android:layout_weight="2"/>
+</LinearLayout>

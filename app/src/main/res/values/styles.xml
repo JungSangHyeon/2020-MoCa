@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Button  -->
+    <style name="BasicButton" >
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="BigButton" parent="BasicButton">
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="InvisibleBackgroundButton" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">?colorOnBackground</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="BasicRadioButton" >
+    </style>
+
+    <style name="BasicToggleButton" >
+        <item name="android:background">@drawable/button_states</item>
+<!--        <item name="android:stateListAnimator">@null</item>-->
+    </style>
+
+    <!--  TextView  -->
+    <style name="BasicTextView" >
+        <item name="android:textColor">?colorOnSurface</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="BigTextView" parent="BasicTextView">
+        <item name="android:textSize">50sp</item>
+    </style>
+
+    <style name="EditTextView" parent="BasicTextView">
+    </style>
+
+    <style name="SubTextView" >
+    </style>
+
+    <style name="ClickSubTextView" parent="SubTextView">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!--  Switch  -->
+    <style name="BasicSwitch">
+    </style>
+
+    <!--  Seek Bar  -->
+    <style name="BasicSeekBar">
+    </style>
+
+    <!--  TimePicker  -->
+    <style name="BasicTimePicker"  >
+        <item name="colorControlNormal">@color/invisible</item> <!--   대체 방법 모르겠음     -->
+        <item name="android:textSize">50sp</item>
+    </style>
+
+    <!--  RecyclerView  -->
+    <style name="BasicRecyclerView" >
+        <item name="android:scrollbarFadeDuration">0</item>
+        <item name="android:scrollbarSize">5dp</item>
+    </style>
+</resources>

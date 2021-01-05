@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarm_setting_day"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/alarm_setting_day_date"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        style="@style/SubTextView"
+        android:text="2021/01/01" />
+
+    <TextView
+        android:id="@+id/alarm_setting_day_dayofweek"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        style="@style/SubTextView"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="(금)" />
+
+</LinearLayout>

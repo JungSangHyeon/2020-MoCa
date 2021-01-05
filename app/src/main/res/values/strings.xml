@@ -1,0 +1,70 @@
+<resources>
+    <!--  main  -->
+    <string name="app_name">MoCa</string>
+    <string name="hint">Default</string>
+
+    <!--  tabs  -->
+    <string name="mainitem_alarm_title">알람</string>
+    <string name="tab_globalclock">세계시간</string>
+    <string name="tab_stopwatch">스톱워치</string>
+
+    <!--  common  -->
+    <string name="common_ok">확인</string>
+    <string name="common_cancel">취소</string>
+    <string name="common_save">저장</string>
+
+    <!--  alarm_list  -->
+    <!--   alarm_list_item     -->
+    <string name="alarm_list_item_default_time">오전 10:00</string>
+    <string name="alarm_list_item_default_day">2020/10/10</string>
+    <string name="alarm_list_item_default_dayofweek">(Wen)</string>
+    <string name="alarm_list_item_default_name">알람 이름</string>
+    <string name="alarm_list_item_create">새 알람</string>
+
+    <!--  alarm_setting  -->
+    <string name="alarm_setting_day_pattern">yyyy/MM/dd (EEE)</string>
+    <!--  alarm_setting_weekdays  -->
+    <string name="weekday_sun">일</string>
+    <string name="weekday_mon">월</string>
+    <string name="weekday_tus">화</string>
+    <string name="weekday_wen">수</string>
+    <string name="weekday_thu">목</string>
+    <string name="weekday_fri">금</string>
+    <string name="weekday_sat">토</string>
+
+    <!--  alarm_setting_name  -->
+    <string name="alarm_setting_name_hint">알람 이름</string>
+
+    <!--  alarm_setting_holidayoff  -->
+    <string name="alarm_setting_holidayoff_title">공휴일 알람 끄기</string>
+
+    <!--  alarm_setting_ringtone  -->
+    <string name="alarm_setting_ringtone_title">알림음</string>
+    <string name="alarm_setting_ringtone_slectiondialog">알람음 설정</string>
+
+    <!--  alarm_setting_vibration  -->
+    <string name="alarm_setting_vibration_title">진동</string>
+    <string name="alarm_setting_vibration_pattern">진동 패턴 선택</string>
+
+    <!--  alarm_setting_flash  -->
+    <string name="alarm_setting_flash_title">플래시</string>
+
+    <!--  alarm_setting_screen  -->
+    <string name="alarm_setting_screen_title">화면 깜빡임</string>
+
+    <!--  alarm_settingre_alarm  -->
+    <string name="alarm_setting_realarm_title">다시 울림</string>
+    <string name="alarm_setting_realarm_default_interval">5</string>
+    <string name="alarm_setting_realarm_intervalunit">분후 </string>
+    <string name="alarm_setting_re_alarm_default_count">3</string>
+    <string name="alarm_setting_realarm_count_unit">회</string>
+
+    <!-- alarmcallback_off  -->
+    <string name="alarmcallback_off">Alarm Off</string>
+
+    <!--  사용 예정?  -->
+    <string name="alarmcallback_snooze">Snooze</string>
+    <string name="alarm_setting_power_title">알람 세기</string>
+
+
+</resources>
