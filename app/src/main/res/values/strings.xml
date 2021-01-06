@@ -65,6 +65,8 @@
     <!--  사용 예정?  -->
     <string name="alarmcallback_snooze">Snooze</string>
     <string name="alarm_setting_power_title">알람 세기</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

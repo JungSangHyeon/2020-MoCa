@@ -14,9 +14,9 @@ import com.onandon.moca.R;
 
 public class VStopWatch extends Fragment {
 
-    public VStopWatch(AppCompatActivity mainActivity) {
-        super(R.layout.stopwatch);
-    }
+//    public VStopWatch(AppCompatActivity mainActivity) {
+//        super(R.layout.stopwatch);
+//    }
 
     @Nullable
     @Override

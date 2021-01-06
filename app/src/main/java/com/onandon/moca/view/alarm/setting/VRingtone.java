@@ -75,7 +75,5 @@ public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeLi
         builder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_RINGTONE);
         builder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_ALARM);
         builder.show();
-
-
     }
 }

@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alarm_setting_flash_title"
-        style="@style/BasicTextView"
+        style="@style/OnSurfaceTextView"
         android:layout_gravity="center_vertical" />
 
     <View
@@ -20,7 +20,7 @@
         android:id="@+id/alarm_setting_flash_on"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BasicSwitch"
+        style="@style/AccentSwitch"
         android:layout_gravity="center_vertical"
         android:layout_alignParentRight="true" />
 </LinearLayout>

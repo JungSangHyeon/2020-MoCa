@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -31,7 +30,7 @@
 
         <Button
             android:id="@+id/alarm_list_create"
-            style="@style/BasicButton"
+            style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/alarm_list_item_create" />

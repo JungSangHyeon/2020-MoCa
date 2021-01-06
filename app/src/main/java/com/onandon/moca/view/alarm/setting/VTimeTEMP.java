@@ -10,13 +10,14 @@ import android.widget.TimePicker;
 import androidx.annotation.RequiresApi;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.utility.UHolidays;
-import com.onandon.moca.view.customView.VDayOfWeekButtonGroup;
+import com.onandon.moca.view.customView.VIndexToggleButton;
 
-public class VTime implements
-        TimePicker.OnTimeChangedListener, CompoundButton.OnCheckedChangeListener, VDayOfWeekButtonGroup.InterfaceSetAlarmDay {
+public class VTimeTEMP implements
+        TimePicker.OnTimeChangedListener, CompoundButton.OnCheckedChangeListener {
 
     // time
     public static final String TIME_PATTERN = "hh:mm a";
@@ -29,17 +30,16 @@ public class VTime implements
     private final TextView vDayOfWeek;
 
     // day of week
-//    private final VIndexToggleButton[] checkBoxes
-//            = new VIndexToggleButton[Constant.EWeekDay.values().length];
-//    private int numberOfDaysChecked;
-    private VDayOfWeekButtonGroup vDayOfWeekButtonGroup;
+    private final VIndexToggleButton[] checkBoxes
+            = new VIndexToggleButton[Constant.EWeekDay.values().length];
+    private int numberOfDaysChecked;
 
     // holidayoff
     private SwitchMaterial switchHolidayOff;
 
     private final MAlarm mAlarm;
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public VTime(View view, MAlarm mAlarm) {
+    public VTimeTEMP(View view, MAlarm mAlarm) {
         this.mAlarm = mAlarm;
 
         // time
@@ -54,23 +54,21 @@ public class VTime implements
         this.vDayOfWeek = view.findViewById(R.id.alarm_setting_day_dayofweek);
         this.setAlarmDay();
 
-        this.vDayOfWeekButtonGroup = view.findViewById(R.id.alarm_setting_weekday);
-        this.vDayOfWeekButtonGroup.init(this, this.mAlarm);
-//         // day of week
-//        this.checkBoxes[Constant.EWeekDay.eSun.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_0);
-//        this.checkBoxes[Constant.EWeekDay.eMon.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_1);
-//        this.checkBoxes[Constant.EWeekDay.eTue.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_2);
-//        this.checkBoxes[Constant.EWeekDay.eWed.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_3);
-//        this.checkBoxes[Constant.EWeekDay.eThu.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_4);
-//        this.checkBoxes[Constant.EWeekDay.eFri.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_5);
-//        this.checkBoxes[Constant.EWeekDay.eSat.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_6);
-//        int index=0;
-//        for (VIndexToggleButton checkBox: this.checkBoxes) {
-//            checkBox.setChecked(this.mAlarm.getTime().isDayOfWeekChecked(index));
-//            checkBox.setOnCheckedChangeListener(this);
-//            checkBox.setIndex(index++);
-//        }
-//        this.numberOfDaysChecked = 1;
+         // day of week
+        this.checkBoxes[Constant.EWeekDay.eSun.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_0);
+        this.checkBoxes[Constant.EWeekDay.eMon.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_1);
+        this.checkBoxes[Constant.EWeekDay.eTue.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_2);
+        this.checkBoxes[Constant.EWeekDay.eWed.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_3);
+        this.checkBoxes[Constant.EWeekDay.eThu.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_4);
+        this.checkBoxes[Constant.EWeekDay.eFri.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_5);
+        this.checkBoxes[Constant.EWeekDay.eSat.ordinal()] = view.findViewById(R.id.alarm_setting_weekdays_6);
+        int index=0;
+        for (VIndexToggleButton checkBox: this.checkBoxes) {
+            checkBox.setChecked(this.mAlarm.getTime().isDayOfWeekChecked(index));
+            checkBox.setOnCheckedChangeListener(this);
+            checkBox.setIndex(index++);
+        }
+        this.numberOfDaysChecked = 1;
 
         // holidayOff switch
         this.switchHolidayOff = view.findViewById(R.id.alarm_setting_holidayoff_on);
@@ -79,8 +77,7 @@ public class VTime implements
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public void setAlarmDay() {
+    private void setAlarmDay() {
         MAlarm alarmScheduled = this.mAlarm.schedulerNextAlarm();
         // check holiday
         Calendar calendar = (Calendar) Calendar.getInstance();
@@ -104,26 +101,26 @@ public class VTime implements
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         if (compoundButton == this.switchHolidayOff) {
             this.mAlarm.getTime().setHolidayOffChecked(isChecked);
+        } else {
+            this.checkDayOfWeek((VIndexToggleButton) compoundButton, isChecked);
         }
-//        else {
-//            this.checkDayOfWeek((VIndexToggleButton) compoundButton, isChecked);
-//        }
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.N)
-//    private void checkDayOfWeek(VIndexToggleButton vIndexToggleButton, boolean isChecked) {
-//        // at least one be checked
-//        // if no checkbox is checked
-//        if (this.numberOfDaysChecked==1 && !isChecked) {
-//            // recheck current checkbox
-//            vIndexToggleButton.setChecked(true);
-//        } else {
-//            if (this.mAlarm.getTime().isDayOfWeekChecked(vIndexToggleButton.getIndex()) != isChecked) {
-//                this.numberOfDaysChecked = (isChecked) ? this.numberOfDaysChecked + 1 : this.numberOfDaysChecked - 1;
-//                this.mAlarm.getTime().setDayOfWeekChecked(vIndexToggleButton.getIndex(), isChecked);
-//                // recompute alarm schedule
-//                this.setAlarmDay();
-//            }
-//        }
-//    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void checkDayOfWeek(VIndexToggleButton vIndexToggleButton, boolean isChecked) {
+        // at least one be checked
+        // if no checkbox is checked
+        if (this.numberOfDaysChecked==1 && !isChecked) {
+            // recheck current checkbox
+            vIndexToggleButton.setChecked(true);
+        } else {
+            if (this.mAlarm.getTime().isDayOfWeekChecked(vIndexToggleButton.getIndex()) != isChecked) {
+                this.numberOfDaysChecked = (isChecked) ? this.numberOfDaysChecked + 1 : this.numberOfDaysChecked - 1;
+                this.mAlarm.getTime().setDayOfWeekChecked(vIndexToggleButton.getIndex(), isChecked);
+                // recompute alarm schedule
+                this.setAlarmDay();
+            }
+        }
+
+    }
 }

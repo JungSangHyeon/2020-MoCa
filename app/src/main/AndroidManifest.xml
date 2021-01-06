@@ -17,7 +17,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MoCa">
+        android:theme="@style/Theme.MoCa"
+
+        >
         <service
             android:name=".service.SAlarm"
             android:enabled="true"

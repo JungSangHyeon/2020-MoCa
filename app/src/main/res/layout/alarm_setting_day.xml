@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        style="@style/SubTextView"
+        style="@style/OnSurfaceSubTextView"
         android:text="2021/01/01" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        style="@style/SubTextView"
+        style="@style/OnSurfaceSubTextView"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:text="(금)" />

@@ -14,12 +14,7 @@
     <color name="light_gray">#eeeeee</color>
     <color name="green">#85ff85</color>
     <color name="dark_green">#55df57</color>
-
-    <!--  Theme  -->
+    <color name="red">#B00020</color>
+    <color name="gold">#FFD600</color>
     <color name="invisible">#00ff0000</color>
-    <color name="text_color_dark">@color/black</color>
-    <color name="text_color_light">@color/white</color>
-    <color name="sub_color">@color/gray</color>
-    <color name="main_color">@color/sky</color>
-
 </resources>

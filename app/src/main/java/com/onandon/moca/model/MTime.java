@@ -46,6 +46,7 @@ public class MTime implements Serializable, Cloneable {
         this.setDayOfWeekChecked(todayOfWeek.ordinal(), true);
         this.setRecurringChecked(true);
 
+
         // holiday
         this.setHolidayOffChecked(false);
     }
@@ -86,6 +87,7 @@ public class MTime implements Serializable, Cloneable {
         this.timeInMillis = calendar.getTimeInMillis();
     }
 
+    // week
     public Constant.EWeekDay getDayOfWeek() {
         // mon = 0 .. sun = 6
         Calendar calendar = Calendar.getInstance();
@@ -93,7 +95,9 @@ public class MTime implements Serializable, Cloneable {
         return Constant.getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
     }
     public Boolean isDayOfWeekChecked(int dayOfWeek) { return this.bDayOfWeeks[dayOfWeek]; }
-    public void setDayOfWeekChecked(int dayOfWeek, boolean bChecked) { this.bDayOfWeeks[dayOfWeek] = bChecked; }
+    public void setDayOfWeekChecked(int dayOfWeek, boolean bChecked) {
+            this.bDayOfWeeks[dayOfWeek] = bChecked;
+    }
 
     public boolean isRecurringChecked() { return bRecurring; }
     public void setRecurringChecked(boolean bRecurringChecked) { this.bRecurring = bRecurringChecked; }

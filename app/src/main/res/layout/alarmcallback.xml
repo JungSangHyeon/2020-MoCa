@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="Temp"
-        style="@style/BigTextView"
+        style="@style/BigOnSurfaceTextView"
         android:gravity="center"
         android:layout_weight="2"/>
 
@@ -32,7 +32,7 @@
             android:id="@+id/alarmcallback_off"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            style="@style/BigButton"
+            style="@style/BigPrimaryButton"
             android:text="@string/alarmcallback_off"
             android:layout_weight="1"/>
         <View
@@ -50,7 +50,7 @@
         android:id="@+id/alarmcallback_snooze"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        style="@style/BigButton"
+        style="@style/BigPrimaryButton"
         android:text="@string/alarmcallback_snooze"
         android:layout_weight="2"/>
 </LinearLayout>

@@ -5,12 +5,16 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.onandon.moca.R;
+import com.onandon.moca.utility.ChineseCalendarUtil;
 import com.onandon.moca.view.VMain;
+
+import java.util.Calendar;
 
 public class AMain extends AppCompatActivity {
 
@@ -21,6 +25,16 @@ public class AMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+//        Calendar c = Calendar.getInstance();
+//        c.set(Calendar.MONTH, 6 -1);
+//        c.set(Calendar.DAY_OF_MONTH, 27);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            ChineseCalendarUtil.convertSolarToLunar(c);
+//            Log.d("CALENDAR LU", ChineseCalendarUtil.getDateByString(c.getTime()));
+//            ChineseCalendarUtil.convertLunarToSolar(c);
+//            Log.d("CALENDAR SO", ChineseCalendarUtil.getDateByString(c.getTime()));
+//        }
 
         if(!Settings.canDrawOverlays(this)){
             // ask for setting

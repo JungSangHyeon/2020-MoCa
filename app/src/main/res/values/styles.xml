@@ -1,64 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--  Button  -->
-    <style name="BasicButton" >
+    <style name="PrimaryButton" >
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="BigButton" parent="BasicButton">
+    <style name="BigPrimaryButton" parent="PrimaryButton">
         <item name="android:textSize">25sp</item>
     </style>
 
-    <style name="InvisibleBackgroundButton" parent="@style/Widget.AppCompat.Button.Borderless">
+    <style name="OnBackgroundButton" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">?colorOnBackground</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="BasicRadioButton" >
-    </style>
+<!--    <style name="OnSurfaceRadioButton" >-->
+<!--    </style>-->
 
-    <style name="BasicToggleButton" >
+    <style name="AccentToggleButton" >
         <item name="android:background">@drawable/button_states</item>
 <!--        <item name="android:stateListAnimator">@null</item>-->
     </style>
 
     <!--  TextView  -->
-    <style name="BasicTextView" >
+    <style name="OnSurfaceTextView" >
         <item name="android:textColor">?colorOnSurface</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="BigTextView" parent="BasicTextView">
+    <style name="BigOnSurfaceTextView" parent="OnSurfaceTextView">
         <item name="android:textSize">50sp</item>
     </style>
 
-    <style name="EditTextView" parent="BasicTextView">
+    <style name="OnSurfaceEditTextView" parent="OnSurfaceTextView">
     </style>
 
-    <style name="SubTextView" >
+    <style name="OnSurfaceSubTextView" >
     </style>
 
-    <style name="ClickSubTextView" parent="SubTextView">
+    <style name="OnSurfaceClickSubTextView" parent="OnSurfaceSubTextView">
         <item name="android:textSize">30sp</item>
     </style>
 
     <!--  Switch  -->
-    <style name="BasicSwitch">
+    <style name="AccentSwitch">
     </style>
 
     <!--  Seek Bar  -->
-    <style name="BasicSeekBar">
+    <style name="AccentSeekBar">
     </style>
 
     <!--  TimePicker  -->
-    <style name="BasicTimePicker"  >
-        <item name="colorControlNormal">@color/invisible</item> <!--   대체 방법 모르겠음     -->
+    <style name="OnBackgroundTimePicker"  >
+        <item name="colorControlNormal">@color/invisible</item>
         <item name="android:textSize">50sp</item>
     </style>
 
     <!--  RecyclerView  -->
-    <style name="BasicRecyclerView" >
+    <style name="OnBackgroundRecyclerView" >
         <item name="android:scrollbarFadeDuration">0</item>
         <item name="android:scrollbarSize">5dp</item>
     </style>
+
+    <style name="OnSurfaceRecyclerViewItem" >
+        <item name="android:background">@drawable/round</item>
+    </style>
+
+    <!--  Scroll  -->
+    <style name="OnBackgroundScrollView" >
+        <item name="android:background">@drawable/round</item>
+    </style>
+
 </resources>

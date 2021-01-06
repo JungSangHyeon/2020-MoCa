@@ -14,9 +14,9 @@ import com.onandon.moca.R;
 
 public class VWorldTime extends Fragment {
 
-    public VWorldTime(AppCompatActivity mainActivity) {
-        super(R.layout.worldtime);
-    }
+//    public VWorldTime(AppCompatActivity mainActivity) {
+//        super(R.layout.worldtime);
+//    }
 
     @Nullable
     @Override

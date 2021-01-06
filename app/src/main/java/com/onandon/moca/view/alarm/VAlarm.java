@@ -25,15 +25,15 @@ import java.util.Map;
 
 public class VAlarm extends Fragment implements View.OnClickListener {
 
-    private final AppCompatActivity mainActivity;
+//    private AppCompatActivity mainActivity;
     private CAlarm cAlarm;
     private Map<Integer, Fragment> fragmentMap; // <R.Id, index>
 
-    public VAlarm(AppCompatActivity mainActivity) {
-        Log.d("VAlarm", "VAlarm");
-        this.mainActivity = mainActivity;
-        this.cAlarm = new CAlarm(mainActivity);
-    }
+//    public VAlarm(AppCompatActivity mainActivity) {
+//        Log.d("VAlarm", "VAlarm");
+//        this.mainActivity = mainActivity;
+//        this.cAlarm = new CAlarm(mainActivity);
+//    }
 
     @Nullable
     @Override
@@ -42,6 +42,7 @@ public class VAlarm extends Fragment implements View.OnClickListener {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         Log.d("VAlarmFragment", "onCreateView");
+        this.cAlarm = new CAlarm(this.getActivity());
         View view = inflater.inflate(R.layout.alarm, container, false);
         this.cAlarm.onCreate(Locale.KOREA);
 
@@ -74,7 +75,7 @@ public class VAlarm extends Fragment implements View.OnClickListener {
     public void onDestroyView() {
         Log.d("VAlarm", "onDestroyView");
         String toastText = String.format("VAlarm onDestroyView");
-        Toast.makeText(this.mainActivity, toastText, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getActivity(), toastText, Toast.LENGTH_LONG).show();
 
         super.onDestroyView();
         this.cAlarm.onDestroy();

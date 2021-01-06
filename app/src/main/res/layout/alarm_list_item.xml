@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/round"
+    style="@style/OnSurfaceRecyclerViewItem"
     android:minHeight="80dp"
     android:orientation="horizontal">
 
@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/alarm_list_item_time"
-            style="@style/BasicTextView"
+            style="@style/OnSurfaceTextView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.6"
@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/alarm_list_item_name"
-            style="@style/BasicTextView"
+            style="@style/OnSurfaceTextView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_vertical"
@@ -58,7 +58,7 @@
 
         <TextView
             android:id="@+id/alarm_list_item_date"
-            style="@style/BasicTextView"
+            style="@style/OnSurfaceTextView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3.7"
@@ -76,7 +76,7 @@
 
         <Switch
             android:id="@+id/alarm_list_item_on"
-            style="@style/BasicSwitch"
+            style="@style/AccentSwitch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

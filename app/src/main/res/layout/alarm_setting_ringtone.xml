@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="@string/alarm_setting_ringtone_title"
-        style="@style/BasicTextView"/>
+        style="@style/OnSurfaceTextView"/>
 
     <TextView
         android:id="@+id/alarm_setting_ringtone_name"
@@ -21,7 +21,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        style="@style/SubTextView"/>
+        style="@style/OnSurfaceSubTextView"/>
 
     <View
         android:layout_width="0dp"
@@ -32,7 +32,7 @@
         android:id="@+id/alarm_setting_ringtone_on"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BasicSwitch"
+        style="@style/AccentSwitch"
         android:layout_gravity="center_vertical" />
 
 </LinearLayout>
