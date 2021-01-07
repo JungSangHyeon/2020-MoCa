@@ -26,24 +26,26 @@ public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeLi
         this.view = view;
         this.mAlarm = mAlarm;
 
-        TextView ringtoneTitle = view.findViewById(R.id.alarm_setting_ringtone_title);
-        ringtoneTitle.setOnClickListener(this);
-
         this.ringtoneName = view.findViewById(R.id.alarm_setting_ringtone_name);
-        this.ringtoneName.setText(this.mAlarm.getRingtone().getName());
         this.ringtoneName.setOnClickListener(this);
 
         this.aSwitch = view.findViewById(R.id.alarm_setting_ringtone_on);
-        this.aSwitch.setChecked(this.mAlarm.getRingtone().isChecked());
         this.aSwitch.setOnCheckedChangeListener(this);
+        this.aSwitch.setChecked(this.mAlarm.getRingtone().isChecked());
+
+        TextView ringtoneTitle = view.findViewById(R.id.alarm_setting_ringtone_title);
+        ringtoneTitle.setOnClickListener((v)->{
+            this.aSwitch.setChecked(!this.aSwitch.isChecked());
+        });
 
         Log.d("VRingtone::VRingtone", Boolean.toString(this.aSwitch.isChecked()));
-        Log.d("cAlarmManager::getAlarm", "id:"+ this.mAlarm.getId());
+//        Log.d("cAlarmManager::getAlarm", "id:"+ this.mAlarm.getId());
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         this.mAlarm.getRingtone().setChecked(isChecked);
+        this.ringtoneName.setText(isChecked? this.mAlarm.getRingtone().getName():"");
         Log.d("VHoliday::onChecked", Boolean.toString(this.mAlarm.getRingtone().isChecked()));
     }
 

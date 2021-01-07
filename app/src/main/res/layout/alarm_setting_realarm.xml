@@ -16,7 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="@string/alarm_setting_realarm_default_interval"
         android:layout_gravity="center_vertical"
         style="@style/OnSurfaceClickSubTextView"/>
 
@@ -25,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="@string/alarm_setting_realarm_intervalunit"
         style="@style/OnSurfaceSubTextView"
         android:layout_gravity="center_vertical"/>
 
@@ -34,7 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="@string/alarm_setting_re_alarm_default_count"
         android:layout_gravity="center_vertical"
         style="@style/OnSurfaceClickSubTextView"/>
 
@@ -43,7 +40,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="@string/alarm_setting_realarm_count_unit"
         android:layout_gravity="center_vertical"
         style="@style/OnSurfaceSubTextView"/>
 

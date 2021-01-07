@@ -133,7 +133,7 @@ public class CAlarm {
         // remove earlier scheduler
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void schedulerAnAlarm(MAlarm mAlarm) {
         if (mAlarm == null) return;
         if (mAlarm.isChecked()) {
@@ -159,7 +159,7 @@ public class CAlarm {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void scheduleAlarms() {
         // register pending intent for alarm
         for (int i=this.mAlarms.size()-1; i>=0; i--) {
@@ -173,7 +173,8 @@ public class CAlarm {
         try {
             toastText = String.format(this.locale,
                     "Alarm %d scheduled for %s at %s",
-                    mAlarm.getId(),
+//                    mAlarm.getId(),
+                    1234,
                     mAlarm.getName(),
                     mAlarm.getTime().format("MM/dd (E), hh:mm"));
         } catch (Exception e) {

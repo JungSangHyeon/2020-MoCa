@@ -29,8 +29,9 @@ public class UWeek {
         Calendar targetTime = Calendar.getInstance();
         targetTime.set(Calendar.HOUR_OF_DAY, tempTime.get(Calendar.HOUR_OF_DAY));
         targetTime.set(Calendar.MINUTE, tempTime.get(Calendar.MINUTE));
+        targetTime.set(Calendar.SECOND, 0);
 
-        if (Calendar.getInstance().get(Calendar.MILLISECONDS_IN_DAY) < targetTime.get(Calendar.MILLISECONDS_IN_DAY)) {
+        if (Calendar.getInstance().get(Calendar.MILLISECONDS_IN_DAY) > targetTime.get(Calendar.MILLISECONDS_IN_DAY)) {
             targetTime.add(Calendar.DATE, 1);
         }
         while(!bDayOfWeeks[targetTime.get(Calendar.DAY_OF_WEEK)-1] && (bHolidayOff || UHolidays.isHoliday(targetTime)==null)){

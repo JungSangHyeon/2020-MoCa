@@ -9,8 +9,7 @@
         android:id="@+id/main_alarm"
         android:name="com.onandon.moca.view.alarm.VAlarm"
         android:label="alarm"
-        tools:layout="@layout/alarm" >
-    </fragment>
+        tools:layout="@layout/alarm" />
 
     <fragment
         android:id="@+id/main_stopwatch"
@@ -31,7 +30,6 @@
     <action
         android:id="@+id/action_to_main_worldtime"
         app:destination="@id/main_worldtime" />
-    <action
-        android:id="@+id/action_to_main_stopwatch"
-        app:destination="@id/main_stopwatch" />
+    <action android:id="@+id/action_global_main_stopwatch"
+        app:destination="@id/main_stopwatch"/>
 </navigation>

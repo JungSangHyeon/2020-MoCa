@@ -32,11 +32,12 @@ public class MAlarm implements Serializable, Cloneable {
 
     private boolean bScheduled;
 
-    private int id; // Id -> remove
+//    private int id; // Id -> remove
     private String name; // Name
     private boolean bChecked; // is On
 
     private MTime mTime; // Time
+    private int power;
     private MRingtone mRingtone; // Sound
     private MVibration mVibration;
     private boolean bFlashChecked; // Flash
@@ -46,13 +47,14 @@ public class MAlarm implements Serializable, Cloneable {
     public MAlarm(int index) {
         this.bScheduled = false;
 
-        this.id = index;
-        this.setName("alarm" + index);
+//        this.id = index;
+//        this.setName("alarm" + index);
         this.setChecked(true);
 
         // set current time as default time
         this.mTime = new MTime();
 
+        this.power = Constant.MaxPower/4*3; // 75% Power
         this.mRingtone = new MRingtone();
         this.mVibration = new MVibration();
         this.setFlashChecked(false);
@@ -67,12 +69,12 @@ public class MAlarm implements Serializable, Cloneable {
         this.bScheduled = bScheduled;
     }
 
-    public int getId() {
-        return this.id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public int getId() {
+//        return this.id;
+//    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
     public String getName() {
         return name;
     }
@@ -93,6 +95,8 @@ public class MAlarm implements Serializable, Cloneable {
     public void setTime(MTime mTime) {
         this.mTime = mTime;
     }
+    public int getPower() { return power; }
+    public void setPower(int power) { this.power = power; }
     public MRingtone getRingtone() {
         return mRingtone;
     }

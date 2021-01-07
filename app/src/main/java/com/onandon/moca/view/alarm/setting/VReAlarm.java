@@ -13,6 +13,8 @@ import com.onandon.moca.model.MAlarm;
 public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeListener {
 
     private int intervalIndex, countIndex;
+    // Attribute
+    private String intervalUnitString, countUnitString;
     // Components
     private TextView title;
     private TextView interval, intervalUnit;
@@ -26,21 +28,19 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         this.view = view;
         this.mAlarm = mAlarm;
 
-        this.intervalIndex = 0;
-        this.countIndex = 0;
+        this.intervalIndex = this.findIndex(Constant.ReAlarm.interval, this.mAlarm.getReAlarm().getInterval());
+        this.countIndex = this.findIndex(Constant.ReAlarm.count, this.mAlarm.getReAlarm().getCount());
 
-        this.title = view.findViewById(R.id.alarm_setting_realarm_title);
-        this.title.setOnClickListener(this);
+        this.intervalUnitString = this.view.getResources().getString(R.string.alarm_setting_realarm_intervalunit);
+        this.countUnitString = this.view.getResources().getString(R.string.alarm_setting_realarm_count_unit);
 
         this.interval = view.findViewById(R.id.alarm_setting_realarm_interval);
-        this.interval.setText(Integer.toString(this.mAlarm.getReAlarm().getInterval()));
         this.interval.setOnClickListener(this);
 
         this.intervalUnit = view.findViewById(R.id.alarm_setting_realarm_intervalunit);
         this.intervalUnit.setOnClickListener(this);
 
         this.count = view.findViewById(R.id.alarm_setting_realarm_count);
-        this.count.setText(Integer.toString(this.mAlarm.getReAlarm().getCount()));
         this.count.setOnClickListener(this);
 
         this.countUnit = view.findViewById(R.id.alarm_setting_realarm_countunit);
@@ -48,6 +48,19 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
 
         this.aSwitch = view.findViewById(R.id.alarm_setting_realarm_on);
         this.aSwitch.setOnCheckedChangeListener(this);
+        this.aSwitch.setChecked(this.mAlarm.getReAlarm().isChecked());
+
+        this.title = view.findViewById(R.id.alarm_setting_realarm_title);
+        this.title.setOnClickListener((v)->{
+            this.aSwitch.setChecked(!this.aSwitch.isChecked());
+        });
+    }
+
+    private int findIndex(String[] intervals, int interval) {
+        for(int i=0; i<intervals.length; i++){
+            if(interval == Integer.parseInt(intervals[i])){ return i; }
+        }
+        return -1;
     }
 
     // For "selectedNameView"
@@ -56,9 +69,6 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         if (view == this.interval || view == this.intervalUnit) {
             this.nextInterval();
         } else if (view == this.count || view == this.countUnit) {
-            this.nextCount();
-        } else if (view == this.title) {
-            this.nextInterval();
             this.nextCount();
         }
         this.mAlarm.getReAlarm().setChecked(true);
@@ -81,5 +91,10 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         this.mAlarm.getReAlarm().setChecked(isChecked);
+
+        this.interval.setText(isChecked? Integer.toString(this.mAlarm.getReAlarm().getInterval()):"");
+        this.intervalUnit.setText(isChecked? this.intervalUnitString:"");
+        this.count.setText(isChecked? Integer.toString(this.mAlarm.getReAlarm().getCount()):"");
+        this.countUnit.setText(isChecked? this.countUnitString:"");
     }
 }

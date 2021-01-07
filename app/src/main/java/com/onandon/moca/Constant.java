@@ -22,6 +22,9 @@ public class Constant {
     // C Alarm
 //        public static final int AlarmWaitLimit = 1000*5; // ms, 5minute
     public static final int AlarmWaitLimit = 1000*60*5; // ms, 5minute
+    // Power
+    public static int MaxPower = 100;
+
     // Vibration Manager
     public static final int defaultVibrationPattern = 0;
     public static final long[] NoEffectVibrationPattern = {500, 2500, 500, 2500};

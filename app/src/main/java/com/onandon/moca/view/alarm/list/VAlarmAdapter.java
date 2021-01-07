@@ -1,5 +1,6 @@
 package com.onandon.moca.view.alarm.list;
 
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.onandon.moca.R;
@@ -36,6 +38,7 @@ public class VAlarmAdapter
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(VAlarmViewHolder viewHolderAlarm, int position) {
         Log.d("VAlarmAdapter", "onCreateViewHolder");

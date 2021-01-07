@@ -37,22 +37,26 @@ public class VVibration implements
         this.view = view;
         this.mAlarm = mAlarm;
 
-        this.title = view.findViewById(R.id.alarm_setting_vibration_title);
-        this.title.setOnClickListener(this);
+        this.selectedPattern = this.mAlarm.getVibration().getPattern();
 
         this.name = view.findViewById(R.id.alarm_setting_vibration_name);
         this.name.setOnClickListener(this);
-        this.name.setText(Constant.VibrationNames[this.mAlarm.getVibration().getPattern()]);
 
         this.aSwitch = view.findViewById(R.id.alarm_setting_vibration_on);
         this.aSwitch.setOnCheckedChangeListener(this);
         this.aSwitch.setChecked(this.mAlarm.getVibration().isVibrationChecked());
+
+        this.title = view.findViewById(R.id.alarm_setting_vibration_title);
+        this.title.setOnClickListener((v)->{
+            this.aSwitch.setChecked(!this.aSwitch.isChecked());
+        });
     }
 
     @Override
     public void onClick(View v) {
 //        this.showVibrationSettingDialog();
         this.selectedPattern = (this.selectedPattern+1 == Constant.VibrationNames.length)? 0:this.selectedPattern+1;
+        this.mAlarm.getVibration().setPattern(this.selectedPattern);
         this.name.setText(Constant.VibrationNames[this.selectedPattern]);
         new TVibrator((Activity)this.view.getContext()).start(
                 Constant.VibrationTimings[selectedPattern],
@@ -62,6 +66,7 @@ public class VVibration implements
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         this.mAlarm.getVibration().setVibrationChecked(isChecked);
+        this.name.setText(isChecked? Constant.VibrationNames[this.mAlarm.getVibration().getPattern()]:"");
     }
 
 //    public void showVibrationSettingDialog() {

@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.onandon.moca.R;
 import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.technical.TAlarm;
 
 public class VAlarmSetting extends Fragment implements View.OnClickListener {
     // Component
@@ -50,9 +51,12 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
 
         this.mAlarm = this.cAlarm.getAlarm();
         this.setDefaultValues();
+        TAlarm tAlarm = new TAlarm(this.getActivity());
+        tAlarm.onCreate(this.mAlarm);
 
         this.vName = new VName(view, mAlarm);
         VTime vTime = new VTime(view, mAlarm);
+        VPower vPower = new VPower(view, mAlarm, tAlarm);
         VRingtone vRingtone = new VRingtone(view, mAlarm);
         VVibration vVibration = new VVibration(view, mAlarm);
         VFlash vFlash = new VFlash(view, mAlarm);
@@ -77,7 +81,7 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
         Log.d("VFragmentAlarmMain", "onClick");

@@ -26,16 +26,6 @@ public class AMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-//        Calendar c = Calendar.getInstance();
-//        c.set(Calendar.MONTH, 6 -1);
-//        c.set(Calendar.DAY_OF_MONTH, 27);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            ChineseCalendarUtil.convertSolarToLunar(c);
-//            Log.d("CALENDAR LU", ChineseCalendarUtil.getDateByString(c.getTime()));
-//            ChineseCalendarUtil.convertLunarToSolar(c);
-//            Log.d("CALENDAR SO", ChineseCalendarUtil.getDateByString(c.getTime()));
-//        }
-
         if(!Settings.canDrawOverlays(this)){
             // ask for setting
             Intent intent = new Intent(
@@ -46,7 +36,6 @@ public class AMain extends AppCompatActivity {
 
         VMain vMain = new VMain(this);
         vMain.onCreate();
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

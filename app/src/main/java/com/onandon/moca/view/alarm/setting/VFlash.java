@@ -3,6 +3,7 @@ package com.onandon.moca.view.alarm.setting;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.R;
@@ -19,8 +20,14 @@ public class VFlash implements CompoundButton.OnCheckedChangeListener {
         SwitchMaterial aSwitch = view.findViewById(R.id.alarm_setting_flash_on);
         aSwitch.setChecked(this.currentAlarm.isFlashChecked());
         aSwitch.setOnCheckedChangeListener(this);
+
+        TextView flashTitle = view.findViewById(R.id.alarm_setting_flash_title);
+        flashTitle.setOnClickListener((v)->{
+            aSwitch.setChecked(!aSwitch.isChecked());
+        });
+
         Log.d("VFlash::VFlash", Boolean.toString(aSwitch.isChecked()));
-        Log.d("cAlarmManager::getAlarm", "id:"+ this.currentAlarm.getId());
+//        Log.d("cAlarmManager::getAlarm", "id:"+ this.currentAlarm.getId());
     }
 
     @Override

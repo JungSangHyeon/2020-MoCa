@@ -29,15 +29,16 @@ public class TAlarm {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onCreate(MAlarm mAlarm) {
         this.mAlarm = mAlarm;
-        this.tDevices = new TDevices(this.activity, this.mAlarm);
     }
     public void onDestroy() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onStartCommand() {
+        this.tDevices = new TDevices(this.activity, this.mAlarm);
         this.tDevices.onStart();
         this.tDevices.start();
+        Log.d("TDevices", "start");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -46,9 +47,13 @@ public class TAlarm {
             this.tDevices.setRunning(false);
             this.tDevices.join();
             this.tDevices.onStop();
+            Log.d("TDevices", "stop");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+    public void updatePower(){
+        this.tDevices.update();
     }
 
     private class TDevices extends Thread {
@@ -71,6 +76,9 @@ public class TAlarm {
             this.tVibrator = new TVibrator(activity);
             this.tFlash = new TFlash(activity);
             this.tScreen = new TScreen(activity);
+
+            this.tRingtone.init(this.mAlarm.getPower());
+            this.tVibrator.init(this.mAlarm.getPower());
         }
         private synchronized boolean isRunning() {
             return this.bRunning;
@@ -103,6 +111,11 @@ public class TAlarm {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+
+        public void update() {
+            if(mAlarm.getRingtone().isChecked()){ this.tRingtone.updatePower(this.mAlarm.getPower());}
+            if(mAlarm.getVibration().isVibrationChecked()){this.tVibrator.updatePower(this.mAlarm.getPower());}
         }
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

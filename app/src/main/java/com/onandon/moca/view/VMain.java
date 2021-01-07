@@ -39,7 +39,7 @@ public class VMain implements View.OnClickListener {
         NavController navCo = navHostFragment.getNavController();
         this.mainActivity.findViewById(R.id.main_alarmbutton).setOnClickListener((v)->{ navCo.navigate(R.id.action_to_main_alarm); });
         this.mainActivity.findViewById(R.id.main_worldtimebutton).setOnClickListener((v)->{ navCo.navigate(R.id.action_to_main_worldtime); });
-        this.mainActivity.findViewById(R.id.main_stopwatchbutton).setOnClickListener((v)->{ navCo.navigate(R.id.action_to_main_stopwatch); });
+        this.mainActivity.findViewById(R.id.main_stopwatchbutton).setOnClickListener((v)->{ navCo.navigate(R.id.action_global_main_stopwatch); });
     }
 
     public void onCreate(){

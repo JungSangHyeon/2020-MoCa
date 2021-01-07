@@ -20,6 +20,7 @@ public class VAlarmCallBack implements View.OnClickListener{
 
     private final TextView textviewName;
     private final Button alarmOffBtn;
+    private final Button snoozeBtn;
 
     private final AAlarmCallback activity;
     private MAlarm mAlarm;
@@ -34,8 +35,12 @@ public class VAlarmCallBack implements View.OnClickListener{
         this.cAlarm = new CAlarm(activity);
 
         this.textviewName = this.activity.findViewById(R.id.alarmcallback_name);
+
         this.alarmOffBtn = this.activity.findViewById(R.id.alarmcallback_off);
         this.alarmOffBtn.setOnClickListener(this);
+
+        this.snoozeBtn = this.activity.findViewById(R.id.alarmcallback_off);
+        this.snoozeBtn.setOnClickListener(this);
 
         this.tAlarm = new TAlarm(this.activity);
     }
@@ -50,7 +55,7 @@ public class VAlarmCallBack implements View.OnClickListener{
             if (mAlarm.isChecked()) {
                 this.tAlarm.onCreate(mAlarm);
                 this.tAlarm.onStartCommand();
-                this.textviewName.setText(mAlarm.getRingtone().getName());
+                this.textviewName.setText(mAlarm.getName());
             } // if disabled
             else {
                 this.activity.finish();
@@ -67,7 +72,7 @@ public class VAlarmCallBack implements View.OnClickListener{
         this.cAlarm.onDestroy();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
         if (view == this.alarmOffBtn) {
@@ -76,6 +81,8 @@ public class VAlarmCallBack implements View.OnClickListener{
             }
             this.tAlarm.onStopCommand();
             this.activity.finish();
+        }else if(view == this.snoozeBtn){
+            // TODO Snooze
         }
     }
 }
