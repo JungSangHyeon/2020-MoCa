@@ -57,7 +57,6 @@ public class VAlarm extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Log.d("VFragmentAlarmMain", "onClick");
-
        Fragment newFragment = null;
        if (view.getId() == R.id.alarm_setting_save || view.getId() == R.id.alarm_setting_cancel ) {
            newFragment = new VAlarmList(this, this.cAlarm);

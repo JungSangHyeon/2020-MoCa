@@ -15,9 +15,9 @@ import com.onandon.moca.control.CAlarm;
 
 import java.util.Locale;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class RAlarm extends BroadcastReceiver {
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("RAlarm", intent.getAction());
@@ -31,7 +31,6 @@ public class RAlarm extends BroadcastReceiver {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void rescheduleAlarms(Context context, Intent intent) {
         Log.d("RAlarm", "rescheduleAlarms");
         String toastText = String.format("RAlarm: " + "rescheduleAlarms");
@@ -39,7 +38,7 @@ public class RAlarm extends BroadcastReceiver {
 
         CAlarm cAlarm = new CAlarm(context);
         cAlarm.onCreate(Locale.KOREA);
-        cAlarm.scheduleAlarms();
+        cAlarm.scheduleAlarm();
     }
     private void startAlarm(Context context, Intent intent) {
         Log.d("RAlarm", "startAlarm");

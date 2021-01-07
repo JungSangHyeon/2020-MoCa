@@ -12,6 +12,7 @@ import com.onandon.moca.model.MTime;
 public class Constant {
 
     public final static int NotDefined = -1;
+
     public static class Alarm {
         public static final int DefaultRepeatInterval = 1;
         public static final int DefaultRepeatCount = 3;
@@ -23,8 +24,10 @@ public class Constant {
     public static String dbName = "UserDB";
 
     // Alarm Callback
+    public static int SnoozeInterval = 5; // min
+
     // C Alarm
-//        public static final int AlarmWaitLimit = 1000*5; // ms, 5minute
+//        public static final int AlarmWaitLimit = 1000*5; // 5s
     public static final int AlarmWaitLimit = 1000*60*5; // ms, 5minute
     // Power
     public static int MaxPower = 100;

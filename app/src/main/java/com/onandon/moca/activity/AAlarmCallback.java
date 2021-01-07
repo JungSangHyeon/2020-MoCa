@@ -15,11 +15,11 @@ import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.view.alarm.VAlarmCallBack;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class AAlarmCallback extends AppCompatActivity {
 
     private VAlarmCallBack vCallBack;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +39,6 @@ public class AAlarmCallback extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDestroy() {
         super.onDestroy();

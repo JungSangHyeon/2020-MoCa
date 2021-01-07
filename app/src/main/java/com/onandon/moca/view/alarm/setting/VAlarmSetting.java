@@ -87,9 +87,10 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
         Log.d("VFragmentAlarmMain", "onClick");
         if (view.getId()  == R.id.alarm_setting_save) {
             this.mAlarm.setName(this.vName.getName());
+            this.mAlarm.setChecked(true);
             this.cAlarm.saveAlarm();
             this.cAlarm.store();
-            this.cAlarm.schedulerAnAlarm(this.mAlarm);
+            this.cAlarm.scheduleAlarm();
         }
         this.vAlarm.onClick(view);
     }

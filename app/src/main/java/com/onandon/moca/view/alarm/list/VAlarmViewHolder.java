@@ -17,6 +17,7 @@ import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.view.alarm.setting.VTime;
 
 // Provide a reference to the views for each data item
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class VAlarmViewHolder
         extends RecyclerView.ViewHolder
         implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, View.OnLongClickListener {
@@ -52,7 +53,6 @@ public class VAlarmViewHolder
     }
 
     // load alarm data
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void setView(CAlarm cAlarm, int position) {
         Log.d("VAlarmViewHolder::", "setMAlarm-MAlarms Pos "+position);
 
@@ -75,7 +75,6 @@ public class VAlarmViewHolder
         this.aSwitch.setOnCheckedChangeListener(this);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View view) {
         Log.d("VAlarmViewHolder", "onClick-edit");
@@ -85,7 +84,6 @@ public class VAlarmViewHolder
     }
 
     // delete item
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onLongClick(View view) {
         Log.d("VAlarmViewHolder", "onLongClick-erase");
@@ -95,12 +93,12 @@ public class VAlarmViewHolder
         return true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         this.cAlarm.editAlarm(this.getAdapterPosition());
         this.cAlarm.getAlarm().setChecked(isChecked);
         this.cAlarm.saveAlarm();
         this.cAlarm.store();
+        this.cAlarm.scheduleAlarm();
     }
 }

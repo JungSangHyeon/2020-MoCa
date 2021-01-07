@@ -20,6 +20,7 @@ import com.onandon.moca.model.db.UserDao;
 import com.onandon.moca.receiver.RAlarm;
 import com.onandon.moca.utility.ObjectAndByteArrayConverter;
 
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -69,12 +70,14 @@ public class CAlarm {
 //        this.mAlarms = this.dataAccessObject.read();
         this.user = (User) this.dao.findById(Constant.userId);
         if(this.user==null){
-            this.mAlarms = new Vector<>();
-            this.user = new User(Constant.userId, ObjectAndByteArrayConverter.objectToByteArray(this.mAlarms));
+            this.user = new User(Constant.userId, null);
             this.dao.insertAll(this.user);
-        }else{
-            this.mAlarms = (Vector<MAlarm>) ObjectAndByteArrayConverter.byteArrayToObject(this.user.mAlarms);
         }
+        this.mAlarms = (Vector<MAlarm>) ObjectAndByteArrayConverter.byteArrayToObject(this.user.mAlarms);
+        if(this.mAlarms==null){
+            this.mAlarms = new Vector<>();
+        }
+        Log.d("TEST", ""+mAlarms.size());
 //        if(this.mAlarms == null){
 //            Log.println(Log.INFO,"load","null");
 //            this.mAlarms = new Vector<>();
@@ -123,7 +126,7 @@ public class CAlarm {
     public void createAlarm() {
         Log.d("CAlarmManager::create",Integer.toString(currentPosition));
         this.currentPosition = this.mAlarms.size();
-        this.currentAlarm = new MAlarm(this.currentPosition);
+        this.currentAlarm = new MAlarm();
         this.bCreate = true;
     }   // edit
     public void editAlarm(int currentPosition) {
@@ -136,11 +139,31 @@ public class CAlarm {
     public void saveAlarm() {
         if (this.bCreate) {
             Log.d(currentPosition+"CAlarmManager::addAlarm", Integer.toString(this.mAlarms.size()));
-            this.mAlarms.add(this.currentAlarm);
+//            this.mAlarms.add(this.currentAlarm);
+//            this.addWithTimeSort(this.currentAlarm);
         } else {
             Log.d("currentPosition", "CAlarmManager::setAlarm"+this.currentPosition);
-            this.mAlarms.set(this.currentPosition, this.currentAlarm);
+//            this.mAlarms.set(this.currentPosition, this.currentAlarm);
+            this.mAlarms.remove(this.currentPosition);
         }
+        this.addWithTimeSort(this.currentAlarm);
+    }
+
+    private void addWithTimeSort(MAlarm currentAlarm) {
+        if(this.mAlarms.size()==0){this.mAlarms.add(currentAlarm); return;}
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(currentAlarm.getTime().getTimeInMillis());
+        int timeValue = calendar.get(Calendar.MINUTE) + calendar.get(Calendar.HOUR_OF_DAY)*60;
+        for(int i=0; i<this.mAlarms.size(); i++){
+            calendar.setTimeInMillis(this.mAlarms.get(i).getTime().getTimeInMillis());
+            int tempTimeValue = calendar.get(Calendar.MINUTE) + calendar.get(Calendar.HOUR_OF_DAY)*60;
+            if(timeValue < tempTimeValue){
+                if(i==0){this.mAlarms.add(0, currentAlarm);}
+                else{this.mAlarms.add(i-1, currentAlarm); }
+                return;
+            }
+        }
+        this.mAlarms.add(currentAlarm);
     }
 
     public void removeAlarm(int position) {
@@ -153,37 +176,26 @@ public class CAlarm {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void schedulerAnAlarm(MAlarm mAlarm) {
-        if (mAlarm == null) return;
-        if (mAlarm.isChecked()) {
-            MAlarm nextAlarm = mAlarm.schedulerNextAlarm();
-            if (nextAlarm != null) {
-                mAlarm.setScheduled(true);
-
-                AlarmManager alarmManager = (AlarmManager) this.mainActivity.getSystemService(Context.ALARM_SERVICE);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(MAlarm.class.getSimpleName(), nextAlarm);
-                Intent intentStartAlarm = new Intent(this.mainActivity, RAlarm.class);
-                intentStartAlarm.setAction("RAlarm.START");
-                intentStartAlarm.putExtra("bundle", bundle);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                        this.mainActivity, 0, intentStartAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
-                alarmManager.setExact(
-                        AlarmManager.RTC_WAKEUP,
-                        nextAlarm.getTime().getTimeInMillis(),
-                        pendingIntent
-                );
-                this.toastMAlarm(nextAlarm);
+    public void scheduleAlarm() {
+        MAlarm nextCloneAlarm = null;
+        long minTime = Long.MAX_VALUE;
+        for(MAlarm mAlarm : this.mAlarms){
+            MAlarm cloneAlarm = mAlarm.schedulerNextAlarm();
+            if(cloneAlarm.getAlarmTime() < minTime){
+                nextCloneAlarm = cloneAlarm;
+                minTime = cloneAlarm.getAlarmTime();
             }
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void scheduleAlarms() {
-        // register pending intent for alarm
-        for (int i=this.mAlarms.size()-1; i>=0; i--) {
-            MAlarm mAlarm = this.mAlarms.get(i);
-            this.schedulerAnAlarm(mAlarm);
+        if (nextCloneAlarm != null && nextCloneAlarm.isChecked()){
+            AlarmManager alarmManager = (AlarmManager) this.mainActivity.getSystemService(Context.ALARM_SERVICE);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(MAlarm.class.getSimpleName(), nextCloneAlarm);
+            Intent intentStartAlarm = new Intent(this.mainActivity, RAlarm.class);
+            intentStartAlarm.setAction("RAlarm.START");
+            intentStartAlarm.putExtra("bundle", bundle);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.mainActivity, 0, intentStartAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextCloneAlarm.getAlarmTime(), pendingIntent);
+//            this.toastMAlarm(nextCloneAlarm);
         }
     }
 

@@ -20,9 +20,10 @@ public class MAlarm implements Serializable, Cloneable {
             cloned.setRingtone(this.getRingtone().clone());
             cloned.setVibration(this.getVibration().clone());
             cloned.setReAlarm(this.getReAlarm().clone());
+            cloned.setmAlarmSnooze(this.getmAlarmSnooze().clone());
             return cloned;
         } catch (CloneNotSupportedException e) {
-            return new MAlarm(Constant.NotDefined);
+            return new MAlarm();
         }
     }
     public static final String KEY_PATTERN = "EEEHHmm";
@@ -43,8 +44,9 @@ public class MAlarm implements Serializable, Cloneable {
     private boolean bFlashChecked; // Flash
     private boolean bScreenChecked;
     private MReAlarm mReAlarm;
+    private MAlarmSnooze mAlarmSnooze;
 
-    public MAlarm(int index) {
+    public MAlarm() {
         this.bScheduled = false;
 
 //        this.id = index;
@@ -60,14 +62,15 @@ public class MAlarm implements Serializable, Cloneable {
         this.setFlashChecked(false);
         this.setScreenChecked(false);
         this.mReAlarm = new MReAlarm();
+        this.mAlarmSnooze = new MAlarmSnooze();
     }
 
-    public boolean isScehduled() {
-        return bScheduled;
-    }
-    public void setScheduled(boolean bScheduled) {
-        this.bScheduled = bScheduled;
-    }
+//    public boolean isScehduled() {//?
+//        return bScheduled;
+//    }
+//    public void setScheduled(boolean bScheduled) {
+//        this.bScheduled = bScheduled;
+//    }
 
 //    public int getId() {
 //        return this.id;
@@ -127,11 +130,19 @@ public class MAlarm implements Serializable, Cloneable {
     public void setReAlarm(MReAlarm mReAlarm) {
         this.mReAlarm = mReAlarm;
     }
+    public MAlarmSnooze getmAlarmSnooze() { return mAlarmSnooze; }
+    public void setmAlarmSnooze(MAlarmSnooze mAlarmSnooze) { this.mAlarmSnooze = mAlarmSnooze; }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public MAlarm schedulerNextAlarm() {
         MAlarm alarmScheduled = this.clone();
         alarmScheduled.getTime().scheduleNextAlarmDay();
         return alarmScheduled;
+    }
+
+    public long getAlarmTime() {
+        if(this.mAlarmSnooze.isSnoozing()){return this.mAlarmSnooze.getSnoozeAlarmTime();}
+        else if(this.mReAlarm.isReAlarming()){ return this.mReAlarm.getReAlarmTime(); }
+        else{return this.getTime().getTimeInMillis();}
     }
 }
