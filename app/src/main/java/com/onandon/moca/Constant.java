@@ -18,6 +18,10 @@ public class Constant {
         public static final String DefaulFileName = "MAlarms";
     }
 
+    // DB
+    public static int userId = 1; // TODO 나중에 서버까지 연동하면 제대로 줄 것
+    public static String dbName = "UserDB";
+
     // Alarm Callback
     // C Alarm
 //        public static final int AlarmWaitLimit = 1000*5; // ms, 5minute

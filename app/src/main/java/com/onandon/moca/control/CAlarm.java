@@ -10,11 +10,15 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.room.Room;
 
 import com.onandon.moca.Constant;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.model.db.AppDatabase;
+import com.onandon.moca.model.db.User;
+import com.onandon.moca.model.db.UserDao;
 import com.onandon.moca.receiver.RAlarm;
-import com.onandon.moca.technical.DataAccessObject;
+import com.onandon.moca.utility.ObjectAndByteArrayConverter;
 
 import java.util.Locale;
 import java.util.Vector;
@@ -28,7 +32,9 @@ public class CAlarm {
     private boolean bCreate;
 
     private final Context mainActivity;
-    private DataAccessObject dataAccessObject;
+//    private DataAccessObject dataAccessObject;
+    private UserDao dao;
+    private User user;
 
     public CAlarm(Context mainActivity) {
         this.mainActivity = mainActivity;
@@ -48,7 +54,11 @@ public class CAlarm {
     // file read & write
     private void open() {
         Log.d("CAlarmManager::open","");
-        this.dataAccessObject = new DataAccessObject(this.mainActivity);
+//        this.dataAccessObject = new DataAccessObject(this.mainActivity);
+        AppDatabase db = Room.databaseBuilder(this.mainActivity.getApplicationContext(),
+                AppDatabase.class, Constant.dbName).allowMainThreadQueries().build();
+        this.dao = db.userDao();
+
         this.mAlarms = null;
         this.currentAlarm = null;
         this.currentPosition = Constant.NotDefined;
@@ -56,21 +66,30 @@ public class CAlarm {
     }
     private void load() {
         Log.d("CAlarmManager::load","");
-        this.mAlarms = this.dataAccessObject.read();
-        if(this.mAlarms == null){
-            Log.println(Log.INFO,"load","null");
+//        this.mAlarms = this.dataAccessObject.read();
+        this.user = (User) this.dao.findById(Constant.userId);
+        if(this.user==null){
             this.mAlarms = new Vector<>();
+            this.user = new User(Constant.userId, ObjectAndByteArrayConverter.objectToByteArray(this.mAlarms));
+            this.dao.insertAll(this.user);
+        }else{
+            this.mAlarms = (Vector<MAlarm>) ObjectAndByteArrayConverter.byteArrayToObject(this.user.mAlarms);
         }
+//        if(this.mAlarms == null){
+//            Log.println(Log.INFO,"load","null");
+//            this.mAlarms = new Vector<>();
+//        }
     }
     public void store() {
         Log.d("CAlarmManager::store","");
-        this.dataAccessObject.save(this.mAlarms);
+        this.dao.updateMAlarms(this.user.uid, ObjectAndByteArrayConverter.objectToByteArray(this.mAlarms));
+//        this.dataAccessObject.save(this.mAlarms);
     }
     private void close() {
         Log.d("CAlarmManager::close","");
-        this.dataAccessObject.close();
-
-        this.dataAccessObject = null;
+//        this.dataAccessObject.close();
+//
+//        this.dataAccessObject = null;
         this.mAlarms = null;
 
         this.currentAlarm = null;
