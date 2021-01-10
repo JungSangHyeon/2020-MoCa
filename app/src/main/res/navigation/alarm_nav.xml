@@ -13,7 +13,9 @@
         <action
             android:id="@+id/action_VAlarmList_to_VAlarmSetting"
             app:destination="@id/VAlarmSetting" />
+        <argument android:name="CAlarm" app:argType="com.onandon.moca.control.CAlarm"/>
     </fragment>
+
     <fragment
         android:id="@+id/VAlarmSetting"
         android:name="com.onandon.moca.view.alarm.setting.VAlarmSetting"
@@ -22,5 +24,7 @@
         <action
             android:id="@+id/action_VAlarmSetting_to_VAlarmList"
             app:destination="@id/VAlarmList" />
+        <argument android:name="CAlarm" app:argType="com.onandon.moca.control.CAlarm"/>
     </fragment>
+
 </navigation>

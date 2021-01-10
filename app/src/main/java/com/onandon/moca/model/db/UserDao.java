@@ -5,10 +5,11 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Dao
-public interface UserDao {
+public interface UserDao extends Serializable {
     @Query("SELECT * FROM user")
     List<User> getAll();
 

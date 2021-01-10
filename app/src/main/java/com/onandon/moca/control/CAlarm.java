@@ -20,11 +20,12 @@ import com.onandon.moca.model.db.UserDao;
 import com.onandon.moca.receiver.RAlarm;
 import com.onandon.moca.utility.ObjectAndByteArrayConverter;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Vector;
 
-public class CAlarm {
+public class CAlarm implements Serializable {
 
     private Locale locale;
     private Vector<MAlarm> mAlarms;

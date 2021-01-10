@@ -4,7 +4,6 @@ import android.os.Build;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -13,8 +12,8 @@ import com.onandon.moca.R;
 import com.onandon.moca.activity.AAlarmCallback;
 import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.MSnooze;
 import com.onandon.moca.model.MReAlarm;
+import com.onandon.moca.model.MSnooze;
 import com.onandon.moca.technical.TAlarm;
 
 import java.util.Locale;
@@ -75,10 +74,7 @@ public class VAlarmCallBack implements View.OnClickListener{
         }
     }
 
-    public void onDestroy() {
-        Toast.makeText(this.activity, "VAlarmCallBack::onDestroy", Toast.LENGTH_LONG).show();
-        this.cAlarm.onDestroy();
-    }
+    public void onDestroy() { this.cAlarm.onDestroy(); }
 
     @Override
     public void onClick(View view) {

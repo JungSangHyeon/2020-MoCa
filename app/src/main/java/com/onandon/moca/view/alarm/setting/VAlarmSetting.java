@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.onandon.moca.R;
 import com.onandon.moca.control.CAlarm;
@@ -24,20 +25,13 @@ import com.onandon.moca.technical.TAlarm;
 public class VAlarmSetting extends Fragment implements View.OnClickListener {
 
     // Associate
-    private final View.OnClickListener vAlarm;
-    private final CAlarm cAlarm;
+    private CAlarm cAlarm;
     private MAlarm mAlarm;
     private VName vName;
 
-    // Constructor
-    public VAlarmSetting(View.OnClickListener vAlarm, CAlarm cAlarm) {
-        super(R.layout.alarm_setting);
-        this.vAlarm = vAlarm;
-        this.cAlarm = cAlarm;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.cAlarm = (CAlarm) this.getArguments().getSerializable("CAlarm");
         View view = inflater.inflate(R.layout.alarm_setting, container, false);
 
         this.mAlarm = this.cAlarm.getAlarm();
@@ -80,6 +74,8 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
             this.cAlarm.store();
             this.cAlarm.scheduleAlarm();
         }
-        this.vAlarm.onClick(view);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("CAlarm", this.cAlarm);
+        Navigation.findNavController(view).navigate(R.id.action_VAlarmSetting_to_VAlarmList, bundle);
     }
 }
