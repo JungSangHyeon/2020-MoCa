@@ -14,13 +14,8 @@ import com.onandon.moca.R;
 
 public class VStopWatch extends Fragment {
 
-//    public VStopWatch(AppCompatActivity mainActivity) {
-//        super(R.layout.stopwatch);
-//    }
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.stopwatch, container, false);
     }
 }

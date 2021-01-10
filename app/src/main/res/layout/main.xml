@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph">
+        app:navGraph="@navigation/main_nav">
     </fragment>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

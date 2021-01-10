@@ -11,26 +11,18 @@ import com.onandon.moca.model.MTime;
 
 public class Constant {
 
+// Common
     public final static int NotDefined = -1;
 
-    public static class Alarm {
-        public static final int DefaultRepeatInterval = 1;
-        public static final int DefaultRepeatCount = 3;
-        public static final String DefaulFileName = "MAlarms";
-    }
-
-    // DB
+// DB
     public static int userId = 1; // TODO 나중에 서버까지 연동하면 제대로 줄 것
     public static String dbName = "UserDB";
 
-    // Alarm Callback
-    public static int SnoozeInterval = 5; // min
-
-    // C Alarm
-//        public static final int AlarmWaitLimit = 1000*5; // 5s
+// Alarm Callback
     public static final int AlarmWaitLimit = 1000*60*5; // ms, 5minute
     // Power
     public static int MaxPower = 100;
+    public static int DefaultPower = 75;
 
     // Vibration Manager
     public static final int defaultVibrationPattern = 0;
@@ -50,11 +42,12 @@ public class Constant {
             {0, 255, 0, 255, 0, 255, 0, 255},
             {255,50,255,50,255,50,255,50}
     };
-
     // Flash Manager
     public static int FlashInterval = 100;
     // Screen Brightness
     public static int ScreenInterval = 1000;
+    // Snooze
+    public static int SnoozeInterval = 5; // min
 
 // Alarm Setting
     // V Repeat
@@ -63,9 +56,7 @@ public class Constant {
         public static final String[] count = {"1", "2", "3", "4", "5"};
     }
 
-// Alarm List
-    public static final String IntentExtra_AlarmId = "AlarmId";
-
+// Calendar
     public enum EWeekDay {
         eSun(1),
         eMon(2),
@@ -123,7 +114,7 @@ public class Constant {
         return null;
     }
 
-    public static enum EHolidayKorea {
+    public enum EHolidayKorea {
         eNewYearsDay(1,1,"신정", false),
         // test
         eNewYearsDay3(1,5,"신정", false),

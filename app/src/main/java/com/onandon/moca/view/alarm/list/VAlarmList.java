@@ -18,23 +18,19 @@ import com.onandon.moca.control.CAlarm;
 
 public class VAlarmList extends Fragment implements View.OnClickListener {
 
-    private final View.OnClickListener vAlarm;
-    private final CAlarm cAlarm;
+    // Associate
+    private View.OnClickListener vAlarm;
+    private CAlarm cAlarm;
 
+    // Constructor
     public VAlarmList(View.OnClickListener vAlarm, CAlarm cAlarm) {
         super(R.layout.alarm_list);
-        Log.d("VAlarmListFragment", "VAlarmListFragment");
         this.vAlarm = vAlarm;
         this.cAlarm = cAlarm;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        Log.d("VAlarmListFragment", "onCreateView");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.alarm_list, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.alarm_list_recycleview);
@@ -44,16 +40,12 @@ public class VAlarmList extends Fragment implements View.OnClickListener {
 
         Button createAlarmBtn = view.findViewById(R.id.alarm_list_create);
         createAlarmBtn.setOnClickListener(this);
-
         return view;
     }
 
     @Override
     public void onClick(View view) {
-        Log.d("VFragmentAlarmMain", "onClick");
-        if (view.getId()  == R.id.alarm_list_create) {
-            this.cAlarm.createAlarm();
-        }
+        if (view.getId()  == R.id.alarm_list_create) this.cAlarm.createAlarm();
         this.vAlarm.onClick(view);
     }
  }

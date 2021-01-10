@@ -12,18 +12,17 @@ import com.onandon.moca.model.MAlarm;
 
 public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeListener {
 
+    // Working Variable
     private int intervalIndex, countIndex;
-    // Attribute
     private String intervalUnitString, countUnitString;
-    // Components
-    private TextView title;
-    private TextView interval, intervalUnit;
-    private TextView count, countUnit;
-    private SwitchMaterial aSwitch;
 
     // Associations
     private View view;
     private MAlarm mAlarm;
+    private TextView title, interval, intervalUnit, count, countUnit;
+    private SwitchMaterial aSwitch;
+
+    // Constructor
     public VReAlarm(View view, MAlarm mAlarm) {
         this.view = view;
         this.mAlarm = mAlarm;
@@ -63,14 +62,10 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         return -1;
     }
 
-    // For "selectedNameView"
-    @Override
+    @Override // For "selectedNameView"
     public void onClick(View view) {
-        if (view == this.interval || view == this.intervalUnit) {
-            this.nextInterval();
-        } else if (view == this.count || view == this.countUnit) {
-            this.nextCount();
-        }
+        if (view == this.interval || view == this.intervalUnit) { this.nextInterval(); }
+        else if (view == this.count || view == this.countUnit) { this.nextCount(); }
         this.mAlarm.getReAlarm().setChecked(true);
         this.aSwitch.setChecked(true);
     }
@@ -87,8 +82,7 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         this.count.setText(newCount);
     }
 
-    // For "switch"
-    @Override
+    @Override // For "switch"
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         this.mAlarm.getReAlarm().setChecked(isChecked);
 

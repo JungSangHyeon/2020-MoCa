@@ -19,21 +19,20 @@ import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.technical.device.TVibrator;
 
-public class VVibration implements
-        Switch.OnCheckedChangeListener,
-        View.OnClickListener
-//        RadioGroup.OnCheckedChangeListener
-{
+public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickListener {
 
-    private TextView title;
-    private TextView name;
-    private SwitchMaterial aSwitch;
-
-    private int selectedPattern;
-
+    // Associate
     private View view;
     private MAlarm mAlarm;
+    private TextView title, name;
+    private SwitchMaterial aSwitch;
+
+    // Working Variable
+    private int selectedPattern;
+
+    // Constructor
     public VVibration(View view, MAlarm mAlarm) {
+        // Associate
         this.view = view;
         this.mAlarm = mAlarm;
 
@@ -54,7 +53,6 @@ public class VVibration implements
 
     @Override
     public void onClick(View v) {
-//        this.showVibrationSettingDialog();
         this.selectedPattern = (this.selectedPattern+1 == Constant.VibrationNames.length)? 0:this.selectedPattern+1;
         this.mAlarm.getVibration().setPattern(this.selectedPattern);
         this.name.setText(Constant.VibrationNames[this.selectedPattern]);
@@ -68,46 +66,5 @@ public class VVibration implements
         this.mAlarm.getVibration().setVibrationChecked(isChecked);
         this.name.setText(isChecked? Constant.VibrationNames[this.mAlarm.getVibration().getPattern()]:"");
     }
-
-//    public void showVibrationSettingDialog() {
-//        // Inflate Layout
-//        LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        LinearLayout dialogView = (LinearLayout) inflater.inflate(R.layout.alarm_setting_vibration_dialog, null);
-//
-//        RadioGroup radioGroup = (RadioGroup) dialogView.findViewById(R.id.radioGroup);
-//        this.selectedPattern = mAlarm.getVibration().getPattern();
-//        ((RadioButton) radioGroup.getChildAt(this.selectedPattern)).setChecked(true);
-//        radioGroup.setOnCheckedChangeListener(this);
-//
-//        for(int i=0; i<radioGroup.getChildCount(); i++){
-//            RadioButton radioButton = (RadioButton) radioGroup.getChildAt(i);
-//            radioButton.setText(Constant.VibrationNames[i]);
-//        }
-//
-//        // Create & Show Dialog
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
-//        alertDialog.setTitle(view.getResources().getString(R.string.alarm_setting_vibration_pattern));
-//        alertDialog.setView(dialogView);
-//
-//        alertDialog.setPositiveButton(view.getResources().getString(R.string.common_ok), (dialogInterface, index) -> {
-//            mAlarm.getVibration().setPattern(this.selectedPattern);
-//            mAlarm.getVibration().setVibrationChecked(true);
-//            this.name.setText(Constant.VibrationNames[this.selectedPattern]);
-//            this.aSwitch.setChecked(true);
-//        });
-//        alertDialog.setNegativeButton(view.getResources().getString(R.string.common_cancel), (dialogInterface, i) -> {
-//        });
-//        alertDialog.show();
-//    }
-
-//    @Override
-//    public void onCheckedChanged(RadioGroup group, int checkedId) {
-//        this.selectedPattern = group.indexOfChild(group.findViewById(checkedId));
-//        new TVibrator((Activity)this.view.getContext()).start(
-//                Constant.VibrationTimings[selectedPattern],
-//                Constant.VibrationAmplitudes[selectedPattern],
-//               -1);
-//    }
-
 }
 

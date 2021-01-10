@@ -5,12 +5,12 @@ import com.onandon.moca.Constant;
 import java.io.Serializable;
 import java.util.Calendar;
 
-public class MAlarmSnooze implements Serializable, Cloneable {
+public class MSnooze implements Serializable, Cloneable {
 
     @Override
-    public MAlarmSnooze clone() {
+    public MSnooze clone() {
         try {
-            return (MAlarmSnooze) super.clone();
+            return (MSnooze) super.clone();
         } catch (CloneNotSupportedException e) {
             return null;
         }
@@ -22,7 +22,7 @@ public class MAlarmSnooze implements Serializable, Cloneable {
     private int snoozeInterval;
 
     // Constructor
-    public MAlarmSnooze(){
+    public MSnooze(){
         this.snoozeInterval = Constant.SnoozeInterval;
         this.isSnoozing =false;
         this.snoozeAlarmTime =null;

@@ -14,13 +14,8 @@ import com.onandon.moca.R;
 
 public class VWorldTime extends Fragment {
 
-//    public VWorldTime(AppCompatActivity mainActivity) {
-//        super(R.layout.worldtime);
-//    }
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.worldtime, container, false);
     }
 }

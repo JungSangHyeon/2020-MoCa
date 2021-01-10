@@ -1,7 +1,6 @@
-package com.onandon.moca.view.alarm;
+package com.onandon.moca.view.alarm.callback;
 
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,7 +13,7 @@ import com.onandon.moca.R;
 import com.onandon.moca.activity.AAlarmCallback;
 import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.MAlarmSnooze;
+import com.onandon.moca.model.MSnooze;
 import com.onandon.moca.model.MReAlarm;
 import com.onandon.moca.technical.TAlarm;
 
@@ -23,18 +22,18 @@ import java.util.Locale;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class VAlarmCallBack implements View.OnClickListener{
 
-    private final TextView textviewName;
-    private final Button alarmOffBtn;
-    private final Button snoozeBtn;
-
-    private final AAlarmCallback activity;
+    // Associate
+    private TextView textviewName;
+    private Button alarmOffBtn, snoozeBtn;
+    private AAlarmCallback activity;
     private MAlarm mAlarm;
 
-    private final CAlarm cAlarm;
-    private final TAlarm tAlarm;
-
+    // Component
+    private TAlarm tAlarm;
+    private CAlarm cAlarm;
     private Thread alarmDismissThread;
 
+    // Constructor
     public VAlarmCallBack(AAlarmCallback activity) {
         this.activity = activity;
 
@@ -54,15 +53,13 @@ public class VAlarmCallBack implements View.OnClickListener{
     public void onCreate(MAlarm scheduledAlarm) {
         this.cAlarm.onCreate(Locale.KOREA);
         this.mAlarm = this.cAlarm.findByKey(scheduledAlarm.getKey());
-        // if not removed
-        if (this.mAlarm != null) {
-            // if enabled
-            if (mAlarm.isChecked()) {
+        if (this.mAlarm != null) { // if not removed
+            if (mAlarm.isChecked()) { // if enabled
                 this.tAlarm.onCreate(mAlarm);
                 this.tAlarm.onStartCommand();
                 this.textviewName.setText(mAlarm.getName());
-                MAlarmSnooze mAlarmSnooze = this.mAlarm.getmAlarmSnooze();
-                if(mAlarmSnooze.isSnoozing()){ mAlarmSnooze.resetSnooze(); }
+                MSnooze mSnooze = this.mAlarm.getmAlarmSnooze();
+                if(mSnooze.isSnoozing()){ mSnooze.resetSnooze(); }
                 this.alarmDismissThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -70,12 +67,10 @@ public class VAlarmCallBack implements View.OnClickListener{
                     }
                 });
                 this.alarmDismissThread.start();
-            } // if disabled
-            else {
+            } else { // if disabled
                 this.activity.finish();
             }
-        } // if removed
-        else {
+        } else { // if removed
             this.activity.finish();
         }
     }

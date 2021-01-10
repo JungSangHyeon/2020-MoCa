@@ -24,10 +24,10 @@ public class DataAccessObject {
      * @param objectToSave The object to save.
      * @param <T> The type of the object.
      */
-    public <T extends Serializable> void save(T objectToSave) {
+    public <T extends Serializable> void save(String fileName, T objectToSave) {
         try {
             FileOutputStream fileOutputStream =
-                    this.applicationContext.openFileOutput(Constant.Alarm.DefaulFileName, Context.MODE_PRIVATE);
+                    this.applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
             objectOutputStream.writeObject(objectToSave);
@@ -47,11 +47,11 @@ public class DataAccessObject {
      *
      * @return the serializable object.
      */
-    public <T extends Serializable> T read() {
+    public <T extends Serializable> T read(String fileName) {
         T objectToReturn = null;
         try {
             FileInputStream fileInputStream =
-                    this.applicationContext.openFileInput(Constant.Alarm.DefaulFileName);
+                    this.applicationContext.openFileInput(fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             objectToReturn = (T) objectInputStream.readObject();
 

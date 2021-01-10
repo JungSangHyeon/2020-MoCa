@@ -1,5 +1,4 @@
 package com.onandon.moca.model;
-import android.util.Log;
 
 import com.onandon.moca.Constant;
 
@@ -7,7 +6,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 public class MReAlarm implements Serializable, Cloneable {
-    // Repeat
+
+    // Attribute
     private Calendar reAlarmTime;
     private boolean bChecked, isReAlarming;
     private int interval, count, nowReAlarmCount;
@@ -66,7 +66,6 @@ public class MReAlarm implements Serializable, Cloneable {
     public void setCount(int count) {
         this.count = count;
     }
-
     public boolean isReAlarmOn() {return this.bChecked; }
     public boolean isReAlarming() {return this.isReAlarming; }
     public long getReAlarmTime() {return this.reAlarmTime.getTimeInMillis(); }

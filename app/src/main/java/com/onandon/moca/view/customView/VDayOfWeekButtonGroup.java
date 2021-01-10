@@ -2,6 +2,7 @@ package com.onandon.moca.view.customView;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
@@ -15,15 +16,26 @@ public class VDayOfWeekButtonGroup extends LinearLayout implements CompoundButto
 
     public interface InterfaceSetAlarmDay { void setAlarmDay();}
 
+    // Working Variable
+    private int numberOfDaysChecked;
+
+    // Associate
     private MAlarm mAlarm;
     private InterfaceSetAlarmDay interfaceSetAlarmDay;
 
-    private final VIndexToggleButton[] checkBoxes = new VIndexToggleButton[Constant.EWeekDay.values().length];
-    private int numberOfDaysChecked;
+    // Component
+    private VIndexToggleButton[] checkBoxes;
 
+    // Constructor
     public VDayOfWeekButtonGroup(Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
 
     public void init(InterfaceSetAlarmDay interfaceSetAlarmDay, MAlarm mAlarm){
+        // Create Component
+        this.checkBoxes = new VIndexToggleButton[Constant.EWeekDay.values().length];
+
+        // Associate
+        this.interfaceSetAlarmDay=interfaceSetAlarmDay;
+        this.mAlarm=mAlarm;
         this.checkBoxes[Constant.EWeekDay.eSun.ordinal()] = this.findViewById(R.id.alarm_setting_weekdays_0);
         this.checkBoxes[Constant.EWeekDay.eMon.ordinal()] = this.findViewById(R.id.alarm_setting_weekdays_1);
         this.checkBoxes[Constant.EWeekDay.eTue.ordinal()] = this.findViewById(R.id.alarm_setting_weekdays_2);
@@ -31,31 +43,29 @@ public class VDayOfWeekButtonGroup extends LinearLayout implements CompoundButto
         this.checkBoxes[Constant.EWeekDay.eThu.ordinal()] = this.findViewById(R.id.alarm_setting_weekdays_4);
         this.checkBoxes[Constant.EWeekDay.eFri.ordinal()] = this.findViewById(R.id.alarm_setting_weekdays_5);
         this.checkBoxes[Constant.EWeekDay.eSat.ordinal()] = this.findViewById(R.id.alarm_setting_weekdays_6);
-        this.interfaceSetAlarmDay=interfaceSetAlarmDay;
-        this.mAlarm=mAlarm;
+
+        this.initButtons();
+    }
+    private void initButtons() {
         int index=0;
-        for (VIndexToggleButton checkBox: this.checkBoxes) {
+        for (VIndexToggleButton checkBox: this.checkBoxes) { // init buttons
             checkBox.setChecked(this.mAlarm.getTime().isDayOfWeekChecked(index));
+            if(checkBox.isChecked()){this.numberOfDaysChecked++;}
             checkBox.setOnCheckedChangeListener(this);
             checkBox.setIndex(index++);
         }
-        this.numberOfDaysChecked = 1;
     }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         VIndexToggleButton vIndexToggleButton = (VIndexToggleButton) compoundButton;
-        // at least one be checked
-        // if no checkbox is checked
-        if (this.numberOfDaysChecked==1 && !isChecked) {
-            // recheck current checkbox
-            vIndexToggleButton.setChecked(true);
-        } else {
+        if (this.numberOfDaysChecked==1 && !isChecked) { // if no checkbox is checked
+            vIndexToggleButton.setChecked(true); // recheck current checkbox
+        } else { // at least one be checked
             if (this.mAlarm.getTime().isDayOfWeekChecked(vIndexToggleButton.getIndex()) != isChecked) {
                 this.numberOfDaysChecked = (isChecked) ? this.numberOfDaysChecked + 1 : this.numberOfDaysChecked - 1;
                 this.mAlarm.getTime().setDayOfWeekChecked(vIndexToggleButton.getIndex(), isChecked);
-                // recompute alarm schedule
-                this.interfaceSetAlarmDay.setAlarmDay();
+                this.interfaceSetAlarmDay.setAlarmDay();  // recompute alarm schedule
             }
         }
     }

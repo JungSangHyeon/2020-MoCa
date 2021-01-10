@@ -1,55 +1,37 @@
 package com.onandon.moca.view.alarm.list;
 
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.onandon.moca.R;
 import com.onandon.moca.control.CAlarm;
 
 // handling one list item at a time
-public class VAlarmAdapter
-        extends RecyclerView.Adapter<VAlarmViewHolder> {
+public class VAlarmAdapter extends RecyclerView.Adapter<VAlarmViewHolder> {
 
-    private final View.OnClickListener vAlarm;
-    private final CAlarm cAlarm;
-    private View view;
+    // Associate
+    private View.OnClickListener vAlarm;
+    private CAlarm cAlarm;
 
+    // Constructor
     public VAlarmAdapter(View.OnClickListener vAlarmMainFragment, CAlarm cAlarm) {
-        Log.d("VAlarmAdapter", "VAlarmAdapter");
         this.vAlarm = vAlarmMainFragment;
         this.cAlarm = cAlarm;
     }
-    // Create new views (invoked by the layout manager)
-    @NonNull
-    @Override
+
+    @Override // Create new views (invoked by the layout manager)
     public VAlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("VAlarmAdapter", "onCreateViewHolder");
-        this.view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.alarm_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_list_item, parent, false);
         return new VAlarmViewHolder(this.vAlarm,this, view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public void onBindViewHolder(VAlarmViewHolder viewHolderAlarm, int position) {
-        Log.d("VAlarmAdapter", "onCreateViewHolder");
-        viewHolderAlarm.setView(this.cAlarm, position);
-    }
+    @Override // Replace the contents of a view (invoked by the layout manager)
+    public void onBindViewHolder(VAlarmViewHolder viewHolderAlarm, int position) { viewHolderAlarm.setView(this.cAlarm, position); }
 
     // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        Log.d("VAlarmAdapter", "getItemCount");
-        return this.cAlarm.getAlarmSize();
-    }
+    @Override public int getItemCount() { return this.cAlarm.getAlarmSize(); }
 }
 

@@ -33,7 +33,6 @@ public class CAlarm {
     private boolean bCreate;
 
     private final Context mainActivity;
-//    private DataAccessObject dataAccessObject;
     private UserDao dao;
     private User user;
 
@@ -54,8 +53,6 @@ public class CAlarm {
     //////////////////////////////////////////////////////////////////
     // file read & write
     private void open() {
-        Log.d("CAlarmManager::open","");
-//        this.dataAccessObject = new DataAccessObject(this.mainActivity);
         AppDatabase db = Room.databaseBuilder(this.mainActivity.getApplicationContext(),
                 AppDatabase.class, Constant.dbName).allowMainThreadQueries().build();
         this.dao = db.userDao();
@@ -66,33 +63,21 @@ public class CAlarm {
         this.bCreate = false;
     }
     private void load() {
-        Log.d("CAlarmManager::load","");
-//        this.mAlarms = this.dataAccessObject.read();
-        this.user = (User) this.dao.findById(Constant.userId);
+        this.user = this.dao.findById(Constant.userId);
         if(this.user==null){
             this.user = new User(Constant.userId, null);
             this.dao.insertAll(this.user);
         }
-        this.mAlarms = (Vector<MAlarm>) ObjectAndByteArrayConverter.byteArrayToObject(this.user.mAlarms);
-        if(this.mAlarms==null){
+        if((Vector<MAlarm>) ObjectAndByteArrayConverter.byteArrayToObject(this.user.mAlarms)==null){
             this.mAlarms = new Vector<>();
+        }else{
+            this.mAlarms = (Vector<MAlarm>) ObjectAndByteArrayConverter.byteArrayToObject(this.user.mAlarms);
         }
-        Log.d("TEST", ""+mAlarms.size());
-//        if(this.mAlarms == null){
-//            Log.println(Log.INFO,"load","null");
-//            this.mAlarms = new Vector<>();
-//        }
     }
     public void store() {
-        Log.d("CAlarmManager::store","");
         this.dao.updateMAlarms(this.user.uid, ObjectAndByteArrayConverter.objectToByteArray(this.mAlarms));
-//        this.dataAccessObject.save(this.mAlarms);
     }
     private void close() {
-        Log.d("CAlarmManager::close","");
-//        this.dataAccessObject.close();
-//
-//        this.dataAccessObject = null;
         this.mAlarms = null;
 
         this.currentAlarm = null;
@@ -109,43 +94,22 @@ public class CAlarm {
         }
         return null;
     }
-    public int getAlarmSize() {
-        Log.d("CAlarmManager::Size",Integer.toString(this.mAlarms.size()));
-        return this.mAlarms.size();
-    }
-    public MAlarm getAlarm() {
-        Log.d("CAlarmManager::getAlarm", Integer.toString(currentPosition));
-        return this.currentAlarm;
-    }
-    public MAlarm getAlarm(int postion) {
-        Log.d("CAlarmManager::getAlarm", Integer.toString(postion));
-        return this.mAlarms.get(postion);
-    }
+    public int getAlarmSize() { return this.mAlarms.size(); }
+    public MAlarm getAlarm() { return this.currentAlarm; }
+    public MAlarm getAlarm(int postion) { return this.mAlarms.get(postion); }
 
-    // create
     public void createAlarm() {
-        Log.d("CAlarmManager::create",Integer.toString(currentPosition));
         this.currentPosition = this.mAlarms.size();
         this.currentAlarm = new MAlarm();
         this.bCreate = true;
-    }   // edit
+    }
     public void editAlarm(int currentPosition) {
-        Log.d("CAlarmManager::editAlar",Integer.toString(currentPosition));
         this.currentPosition = currentPosition;
         this.currentAlarm = this.mAlarms.get(this.currentPosition).clone();
         this.bCreate = false;
     }
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void saveAlarm() {
-        if (this.bCreate) {
-            Log.d(currentPosition+"CAlarmManager::addAlarm", Integer.toString(this.mAlarms.size()));
-//            this.mAlarms.add(this.currentAlarm);
-//            this.addWithTimeSort(this.currentAlarm);
-        } else {
-            Log.d("currentPosition", "CAlarmManager::setAlarm"+this.currentPosition);
-//            this.mAlarms.set(this.currentPosition, this.currentAlarm);
-            this.mAlarms.remove(this.currentPosition);
-        }
+        if (!this.bCreate) this.mAlarms.remove(this.currentPosition);
         this.addWithTimeSort(this.currentAlarm);
     }
 
@@ -167,7 +131,6 @@ public class CAlarm {
     }
 
     public void removeAlarm(int position) {
-        Log.d("CAlarmManager::remove", "");
         this.mAlarms.remove(position);
         this.currentPosition = Constant.NotDefined;
         this.currentAlarm = null;
@@ -175,7 +138,6 @@ public class CAlarm {
         // remove earlier scheduler
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void scheduleAlarm() {
         MAlarm nextCloneAlarm = null;
         long minTime = Long.MAX_VALUE;
@@ -195,23 +157,6 @@ public class CAlarm {
             intentStartAlarm.putExtra("bundle", bundle);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this.mainActivity, 0, intentStartAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextCloneAlarm.getAlarmTime(), pendingIntent);
-//            this.toastMAlarm(nextCloneAlarm);
         }
     }
-
-    private void toastMAlarm(MAlarm mAlarm) {
-        String toastText = null;
-        try {
-            toastText = String.format(this.locale,
-                    "Alarm %d scheduled for %s at %s",
-//                    mAlarm.getId(),
-                    1234,
-                    mAlarm.getName(),
-                    mAlarm.getTime().format("MM/dd (E), hh:mm"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(this.mainActivity, toastText, Toast.LENGTH_LONG).show();
-    }
-
 }

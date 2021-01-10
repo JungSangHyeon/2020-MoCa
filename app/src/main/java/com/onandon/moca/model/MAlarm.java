@@ -33,7 +33,6 @@ public class MAlarm implements Serializable, Cloneable {
 
     private boolean bScheduled;
 
-//    private int id; // Id -> remove
     private String name; // Name
     private boolean bChecked; // is On
 
@@ -44,25 +43,23 @@ public class MAlarm implements Serializable, Cloneable {
     private boolean bFlashChecked; // Flash
     private boolean bScreenChecked;
     private MReAlarm mReAlarm;
-    private MAlarmSnooze mAlarmSnooze;
+    private MSnooze mSnooze;
 
     public MAlarm() {
         this.bScheduled = false;
 
-//        this.id = index;
-//        this.setName("alarm" + index);
         this.setChecked(true);
 
         // set current time as default time
         this.mTime = new MTime();
 
-        this.power = Constant.MaxPower/4*3; // 75% Power
+        this.power = Constant.DefaultPower;
         this.mRingtone = new MRingtone();
         this.mVibration = new MVibration();
         this.setFlashChecked(false);
         this.setScreenChecked(false);
         this.mReAlarm = new MReAlarm();
-        this.mAlarmSnooze = new MAlarmSnooze();
+        this.mSnooze = new MSnooze();
     }
 
 //    public boolean isScehduled() {//?
@@ -72,12 +69,6 @@ public class MAlarm implements Serializable, Cloneable {
 //        this.bScheduled = bScheduled;
 //    }
 
-//    public int getId() {
-//        return this.id;
-//    }
-//    public void setId(int id) {
-//        this.id = id;
-//    }
     public String getName() {
         return name;
     }
@@ -130,8 +121,8 @@ public class MAlarm implements Serializable, Cloneable {
     public void setReAlarm(MReAlarm mReAlarm) {
         this.mReAlarm = mReAlarm;
     }
-    public MAlarmSnooze getmAlarmSnooze() { return mAlarmSnooze; }
-    public void setmAlarmSnooze(MAlarmSnooze mAlarmSnooze) { this.mAlarmSnooze = mAlarmSnooze; }
+    public MSnooze getmAlarmSnooze() { return mSnooze; }
+    public void setmAlarmSnooze(MSnooze mSnooze) { this.mSnooze = mSnooze; }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public MAlarm schedulerNextAlarm() {
@@ -141,7 +132,7 @@ public class MAlarm implements Serializable, Cloneable {
     }
 
     public long getAlarmTime() {
-        if(this.mAlarmSnooze.isSnoozing()){return this.mAlarmSnooze.getSnoozeAlarmTime();}
+        if(this.mSnooze.isSnoozing()){return this.mSnooze.getSnoozeAlarmTime();}
         else if(this.mReAlarm.isReAlarming()){ return this.mReAlarm.getReAlarmTime(); }
         else{return this.getTime().getTimeInMillis();}
     }

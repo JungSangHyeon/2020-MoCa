@@ -1,6 +1,5 @@
 package com.onandon.moca.view.alarm.setting;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -15,13 +14,13 @@ import com.onandon.moca.model.MAlarm;
 
 public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeListener {
 
-    // Associations
-    private final View view;
-    private final MAlarm mAlarm;
-
-    private final TextView ringtoneName;
+    // Association
+    private View view;
+    private MAlarm mAlarm;
+    private TextView ringtoneName;
     private SwitchMaterial aSwitch;
 
+    // Constructor
     public VRingtone(View view, MAlarm mAlarm) {
         this.view = view;
         this.mAlarm = mAlarm;
@@ -37,16 +36,12 @@ public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeLi
         ringtoneTitle.setOnClickListener((v)->{
             this.aSwitch.setChecked(!this.aSwitch.isChecked());
         });
-
-        Log.d("VRingtone::VRingtone", Boolean.toString(this.aSwitch.isChecked()));
-//        Log.d("cAlarmManager::getAlarm", "id:"+ this.mAlarm.getId());
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         this.mAlarm.getRingtone().setChecked(isChecked);
         this.ringtoneName.setText(isChecked? this.mAlarm.getRingtone().getName():"");
-        Log.d("VHoliday::onChecked", Boolean.toString(this.mAlarm.getRingtone().isChecked()));
     }
 
     @Override // For "selectedNameView"
@@ -66,7 +61,6 @@ public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeLi
             this.mAlarm.getRingtone().setName(ringtoneName);
             this.mAlarm.getRingtone().setUri(ringtoneUri);
             this.mAlarm.getRingtone().setChecked(true);
-
             this.ringtoneName.setText(this.mAlarm.getRingtone().getName());
             this.aSwitch.setChecked(true);
         });

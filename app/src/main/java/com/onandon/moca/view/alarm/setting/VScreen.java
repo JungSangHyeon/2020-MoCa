@@ -1,6 +1,5 @@
 package com.onandon.moca.view.alarm.setting;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -13,9 +12,11 @@ import com.onandon.moca.model.MAlarm;
 
 public class VScreen implements Switch.OnCheckedChangeListener {
 
-    private final MAlarm currentAlarm;
+    // Association
+    private MAlarm currentAlarm;
+
+    // Constructor
     public VScreen(View view, MAlarm currentAlarm) {
-        Log.println(Log.DEBUG, "VScreen", "");
         this.currentAlarm = currentAlarm;
 
         SwitchMaterial aSwitch = view.findViewById(R.id.alarm_setting_screen_on);
@@ -26,9 +27,6 @@ public class VScreen implements Switch.OnCheckedChangeListener {
         screenTitle.setOnClickListener((v)->{
             aSwitch.setChecked(!aSwitch.isChecked());
         });
-
-        Log.d("VFlash::VFlash", Boolean.toString(aSwitch.isChecked()));
-//        Log.d("cAlarmManager::getAlarm", "id:"+ this.currentAlarm.getId());
     }
 
     @Override

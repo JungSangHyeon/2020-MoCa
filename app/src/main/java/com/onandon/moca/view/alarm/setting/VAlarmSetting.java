@@ -22,31 +22,22 @@ import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.technical.TAlarm;
 
 public class VAlarmSetting extends Fragment implements View.OnClickListener {
-    // Component
+
+    // Associate
     private final View.OnClickListener vAlarm;
     private final CAlarm cAlarm;
-
     private MAlarm mAlarm;
     private VName vName;
 
-    public VAlarmSetting(
-            View.OnClickListener vAlarm,
-            CAlarm cAlarm) {
+    // Constructor
+    public VAlarmSetting(View.OnClickListener vAlarm, CAlarm cAlarm) {
         super(R.layout.alarm_setting);
-        Log.d("VAlarmSettingFragment::", "onCreateView");
         this.vAlarm = vAlarm;
         this.cAlarm = cAlarm;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-
-        Log.d("VAlarmSettingFragment::", "onCreateView");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.alarm_setting, container, false);
 
         this.mAlarm = this.cAlarm.getAlarm();
@@ -55,19 +46,18 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
         tAlarm.onCreate(this.mAlarm);
 
         this.vName = new VName(view, mAlarm);
-        VTime vTime = new VTime(view, mAlarm);
-        VPower vPower = new VPower(view, mAlarm, tAlarm);
-        VRingtone vRingtone = new VRingtone(view, mAlarm);
-        VVibration vVibration = new VVibration(view, mAlarm);
-        VFlash vFlash = new VFlash(view, mAlarm);
-        VScreen vScreen = new VScreen(view, mAlarm);
-        VReAlarm vReAlarm = new VReAlarm(view, mAlarm);
+        new VTime(view, mAlarm);
+        new VPower(view, mAlarm, tAlarm);
+        new VRingtone(view, mAlarm);
+        new VVibration(view, mAlarm);
+        new VFlash(view, mAlarm);
+        new VScreen(view, mAlarm);
+        new VReAlarm(view, mAlarm);
 
         Button saveBtn = view.findViewById(R.id.alarm_setting_save);
         saveBtn.setOnClickListener(this);
         Button cancelBtn = view.findViewById(R.id.alarm_setting_cancel);
         cancelBtn.setOnClickListener(this);
-
         return view;
     }
 
@@ -81,10 +71,8 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
-        Log.d("VFragmentAlarmMain", "onClick");
         if (view.getId()  == R.id.alarm_setting_save) {
             this.mAlarm.setName(this.vName.getName());
             this.mAlarm.setChecked(true);
