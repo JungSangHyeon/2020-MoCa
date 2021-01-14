@@ -11,7 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class DataAccessObject {
+public class DataAccessObject implements Serializable {
 
     private final Context applicationContext;
     public DataAccessObject(Context applicationContext) {

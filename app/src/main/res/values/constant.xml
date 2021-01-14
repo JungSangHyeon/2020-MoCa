@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--&lt;!&ndash;  Common  &ndash;&gt;-->
+<!--    <integer name="Integer_NotDefined">-1</integer>-->
+
+<!--&lt;!&ndash;  DB  &ndash;&gt;-->
+<!--    <string name="String_DefaultFileName">MAlarms</string>-->
+
+<!--&lt;!&ndash;  Alarm Callback  &ndash;&gt;-->
+<!--    <integer name="Integer_AlarmWaitMinute">5</integer>-->
+<!--    &lt;!&ndash;  Power &ndash;&gt;-->
+<!--    <integer name="Integer_MaxLevel">100</integer>-->
+<!--    <integer name="Integer_DefaultLevel">75</integer>-->
+<!--    <integer name="Integer_MinLevel">0</integer>-->
+<!--    &lt;!&ndash;  Vibration  &ndash;&gt;-->
+<!--    <integer name="Integer_DefaultVibrationPatternIndex">0</integer>-->
+<!--    <integer-array name="IntegerArray_VibrationPatternForVibrationEffectNotSupportDevice">-->
+<!--        <item>500</item><item>2500</item><item>500</item><item>2500</item>-->
+<!--    </integer-array>-->
+
+<!--    <array name="Array_VibrationPatterns">-->
+<!--        <item>@array/Array_VibrationPattern1</item>-->
+<!--        <item>@array/Array_VibrationPattern2</item>-->
+<!--    </array>-->
+
+<!--    <array name="Array_VibrationPattern1">-->
+<!--        <item>Pattern1</item>-->
+<!--        <item>@array/IntegerArray_VibrationPattern1Duration</item>-->
+<!--        <item>@array/IntegerArray_VibrationPattern1Amplitude</item>-->
+<!--    </array>-->
+<!--    <integer-array name="IntegerArray_VibrationPattern1Duration">-->
+<!--        <item>300</item><item>50</item><item>200</item><item>100</item>-->
+<!--        <item>300</item><item>50</item><item>200</item><item>100</item>-->
+<!--    </integer-array>-->
+<!--    <integer-array name="IntegerArray_VibrationPattern1Amplitude">-->
+<!--        <item>255</item><item>150</item><item>255</item><item>100</item>-->
+<!--        <item>255</item><item>150</item><item>255</item><item>100</item>-->
+<!--    </integer-array>-->
+
+<!--    <array name="Array_VibrationPattern2">-->
+<!--        <item>Pattern2</item>-->
+<!--        <item>@array/IntegerArray_VibrationPattern2Duration</item>-->
+<!--        <item>@array/IntegerArray_VibrationPattern2Amplitude</item>-->
+<!--    </array>-->
+<!--    <integer-array name="IntegerArray_VibrationPattern2Duration">-->
+<!--        <item>100</item><item>100</item><item>100</item><item>100</item>-->
+<!--        <item>100</item><item>100</item><item>100</item><item>100</item>-->
+<!--    </integer-array>-->
+<!--    <integer-array name="IntegerArray_VibrationPattern2Amplitude">-->
+<!--        <item>0</item><item>255</item><item>0</item><item>255</item>-->
+<!--        <item>0</item><item>255</item><item>0</item><item>255</item>-->
+<!--    </integer-array>-->
+
+<!--    <integer name="Integer_WaitMilliSecondPerCount">100</integer>-->
+<!--    &lt;!&ndash;  Flash  &ndash;&gt;-->
+<!--    <integer name="Integer_FlashSwitchCount">1</integer>-->
+<!--    &lt;!&ndash;  Screen  &ndash;&gt;-->
+<!--    <integer name="Integer_ScreenSwitchCount">10</integer>-->
+<!--    &lt;!&ndash;  Snooze  &ndash;&gt;-->
+<!--    <integer name="Integer_SnoozeWaitMinute">5</integer>-->
+
+<!--    &lt;!&ndash;  Repeat  &ndash;&gt;-->
+<!--    <integer-array name="IntegerArray_RepeatMinuteInterval">-->
+<!--        <item>1</item><item>3</item><item>5</item><item>8</item><item>10</item>-->
+<!--    </integer-array>-->
+<!--    <integer-array name="IntegerArray_RepeatCount">-->
+<!--        <item>1</item><item>2</item><item>3</item><item>4</item><item>5</item>-->
+<!--    </integer-array>-->
+
+</resources>

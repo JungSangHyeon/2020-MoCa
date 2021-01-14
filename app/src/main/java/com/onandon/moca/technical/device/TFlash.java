@@ -20,6 +20,9 @@ public class TFlash {
      *      <uses-feature android:name="android.hardware.camera.flash" />
      * */
 
+    // Attribute
+    private boolean isOn;
+
     // Associate
     private CameraManager cameraManager;
     private Activity activity;
@@ -35,20 +38,24 @@ public class TFlash {
     public void stop() {
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public void on(){
         try {
             this.cameraManager.setTorchMode(this.cameraManager.getCameraIdList()[0], true);
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }
+            this.isOn = true;
+        } catch (CameraAccessException e) { e.printStackTrace(); }
+        catch (IllegalArgumentException e) {/*No Torch*/}
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void off(){
         try {
             this.cameraManager.setTorchMode(this.cameraManager.getCameraIdList()[0], false);
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }
+            this.isOn = false;
+        } catch (CameraAccessException e) { e.printStackTrace(); }
+        catch (IllegalArgumentException e) {/*No Torch*/}
+    }
+
+    public void switchFlash() {
+        if(this.isOn) this.off();
+        else this.on();
     }
 }

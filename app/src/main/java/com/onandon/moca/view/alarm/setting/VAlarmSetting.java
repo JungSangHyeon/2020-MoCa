@@ -3,38 +3,36 @@ package com.onandon.moca.view.alarm.setting;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.onandon.moca.R;
 import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.technical.TAlarm;
+import com.onandon.moca.view.alarm.VAlarm;
+
+import java.io.Serializable;
 
 public class VAlarmSetting extends Fragment implements View.OnClickListener {
 
     // Associate
-    private CAlarm cAlarm;
     private MAlarm mAlarm;
     private VName vName;
+    private View.OnClickListener saveActionListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.cAlarm = (CAlarm) this.getArguments().getSerializable("CAlarm");
+        this.mAlarm = (MAlarm) this.getArguments().getSerializable("MAlarm");
+        this.saveActionListener = (View.OnClickListener) this.getArguments().getSerializable("SaveActionListener");
+
         View view = inflater.inflate(R.layout.alarm_setting, container, false);
 
-        this.mAlarm = this.cAlarm.getAlarm();
         this.setDefaultValues();
         TAlarm tAlarm = new TAlarm(this.getActivity());
         tAlarm.onCreate(this.mAlarm);
@@ -70,12 +68,9 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
         if (view.getId()  == R.id.alarm_setting_save) {
             this.mAlarm.setName(this.vName.getName());
             this.mAlarm.setChecked(true);
-            this.cAlarm.saveAlarm();
-            this.cAlarm.store();
-            this.cAlarm.scheduleAlarm();
+            this.saveActionListener.onClick(view);
         }
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("CAlarm", this.cAlarm);
-        Navigation.findNavController(view).navigate(R.id.action_VAlarmSetting_to_VAlarmList, bundle);
+        this.getActivity().onBackPressed();
     }
+
 }

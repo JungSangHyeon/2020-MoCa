@@ -53,7 +53,7 @@ public class MAlarm implements Serializable, Cloneable {
         // set current time as default time
         this.mTime = new MTime();
 
-        this.power = Constant.DefaultPower;
+        this.power = Constant.DefaultLevel;
         this.mRingtone = new MRingtone();
         this.mVibration = new MVibration();
         this.setFlashChecked(false);
@@ -61,13 +61,6 @@ public class MAlarm implements Serializable, Cloneable {
         this.mReAlarm = new MReAlarm();
         this.mSnooze = new MSnooze();
     }
-
-//    public boolean isScehduled() {//?
-//        return bScheduled;
-//    }
-//    public void setScheduled(boolean bScheduled) {
-//        this.bScheduled = bScheduled;
-//    }
 
     public String getName() {
         return name;

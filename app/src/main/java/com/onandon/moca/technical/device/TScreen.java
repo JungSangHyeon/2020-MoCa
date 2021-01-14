@@ -10,6 +10,7 @@ public class TScreen {
 
     // Attribute
     private float originalBrightness;
+    private boolean isOn;
 
     // Associate
     private Activity activity;
@@ -34,11 +35,26 @@ public class TScreen {
     }
 
     public void on(){
-        this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;;
-        this.window.setAttributes(this.layoutParams);
+        activity.runOnUiThread(
+                ()->{
+                    this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;;
+                    this.window.setAttributes(this.layoutParams);
+                    this.isOn = true;
+                }
+        );
     }
     public void off(){
-        this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_OFF;
-        this.window.setAttributes(this.layoutParams);
+        activity.runOnUiThread(
+                ()->{
+                    this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_OFF;
+                    this.window.setAttributes(this.layoutParams);
+                    this.isOn = false;
+                }
+        );
+    }
+
+    public void switchBrightness() {
+        if(this.isOn) this.off();
+        else this.on();
     }
 }

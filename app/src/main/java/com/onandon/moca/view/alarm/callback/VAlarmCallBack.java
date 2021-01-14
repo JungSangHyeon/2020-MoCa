@@ -62,7 +62,7 @@ public class VAlarmCallBack implements View.OnClickListener{
                 this.alarmDismissThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        try { Thread.sleep(Constant.AlarmWaitLimit); alarmMissed(); } catch (InterruptedException e) {}
+                        try { Thread.sleep(Constant.AlarmRingMinute *1000*60); alarmMissed(); } catch (InterruptedException e) {}
                     }
                 });
                 this.alarmDismissThread.start();

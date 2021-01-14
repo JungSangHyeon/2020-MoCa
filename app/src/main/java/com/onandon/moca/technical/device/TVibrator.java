@@ -29,7 +29,7 @@ public class TVibrator {
         this.vibrator = (Vibrator) this.activity.getSystemService(Context.VIBRATOR_SERVICE);
         this.power=100;
     }
-    public void init(int power) {this.power=power; }
+    public void onCreate(int power) {this.power=power; }
 
     public void start(long[] timing, int[] amp, int repeat) {
         this.running = true;

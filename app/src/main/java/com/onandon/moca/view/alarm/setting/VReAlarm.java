@@ -55,9 +55,9 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         });
     }
 
-    private int findIndex(String[] intervals, int interval) {
+    private int findIndex(int[] intervals, int interval) {
         for(int i=0; i<intervals.length; i++){
-            if(interval == Integer.parseInt(intervals[i])){ return i; }
+            if(interval == intervals[i]){ return i; }
         }
         return -1;
     }
@@ -71,15 +71,15 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
     }
     private void nextInterval() {
         this.intervalIndex = (this.intervalIndex+1) % Constant.ReAlarm.interval.length;
-        String newInterval = Constant.ReAlarm.interval[this.intervalIndex];
-        this.mAlarm.getReAlarm().setInterval(Integer.parseInt(newInterval));
-        this.interval.setText(newInterval);
+        int newInterval = Constant.ReAlarm.interval[this.intervalIndex];
+        this.mAlarm.getReAlarm().setInterval(newInterval);
+        this.interval.setText(Integer.toString(newInterval));
     }
     private void nextCount() {
         this.countIndex = (this.countIndex+1) % Constant.ReAlarm.count.length;
-        String newCount = Constant.ReAlarm.count[this.countIndex];
-        this.mAlarm.getReAlarm().setCount(Integer.parseInt(newCount));
-        this.count.setText(newCount);
+        int newCount = Constant.ReAlarm.count[this.countIndex];
+        this.mAlarm.getReAlarm().setCount(newCount);
+        this.count.setText(Integer.toString(newCount));
     }
 
     @Override // For "switch"

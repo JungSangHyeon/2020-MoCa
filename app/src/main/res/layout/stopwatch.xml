@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        style="@style/BigOnSurfaceTextView"
+        android:textSize="50sp"
         android:text="Stop Watch" />
 
 </FrameLayout>

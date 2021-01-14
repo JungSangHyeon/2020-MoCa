@@ -24,8 +24,8 @@ public class MReAlarm implements Serializable, Cloneable {
     // Constructor
     public MReAlarm(){
         this.setChecked(false);
-        this.setInterval(Integer.parseInt(Constant.ReAlarm.interval[0]));
-        this.setCount(Integer.parseInt(Constant.ReAlarm.count[0]));
+        this.setInterval(Constant.ReAlarm.interval[0]);
+        this.setCount(Constant.ReAlarm.count[0]);
     }
 
     public void startReAlarm(){
@@ -57,9 +57,7 @@ public class MReAlarm implements Serializable, Cloneable {
     public int getInterval() {
         return interval;
     }
-    public void setInterval(int interval) {
-        this.interval = interval;
-    }
+    public void setInterval(int interval) { this.interval = interval; }
     public int getCount() {
         return count;
     }

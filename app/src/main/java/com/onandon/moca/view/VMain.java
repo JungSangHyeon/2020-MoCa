@@ -17,8 +17,8 @@ public class VMain {
     public void onCreate(){
         NavHostFragment navHostFragment = (NavHostFragment) this.mainActivity.getSupportFragmentManager().findFragmentById(R.id.main_view);
         NavController navCo = navHostFragment.getNavController();
-        this.mainActivity.findViewById(R.id.main_alarmbutton).setOnClickListener((v)->{ navCo.navigate(R.id.action_to_main_alarm); });
-        this.mainActivity.findViewById(R.id.main_worldtimebutton).setOnClickListener((v)->{ navCo.navigate(R.id.action_to_main_worldtime); });
+        this.mainActivity.findViewById(R.id.main_alarmbutton).setOnClickListener((v)->{ navCo.navigate(R.id.action_global_main_alarm); });
+        this.mainActivity.findViewById(R.id.main_worldtimebutton).setOnClickListener((v)->{ navCo.navigate(R.id.action_global_main_worldtime); });
         this.mainActivity.findViewById(R.id.main_stopwatchbutton).setOnClickListener((v)->{ navCo.navigate(R.id.action_global_main_stopwatch); });
     }
 }

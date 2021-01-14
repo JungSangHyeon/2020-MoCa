@@ -12,6 +12,7 @@
     <string name="common_ok">확인</string>
     <string name="common_cancel">취소</string>
     <string name="common_save">저장</string>
+    <string name="common_off">종료</string>
 
     <!--  alarm_list  -->
     <!--   alarm_list_item     -->
@@ -67,6 +68,11 @@
     <string name="alarm_setting_power_title">알람 세기</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="overlayPermissionDialogTitle">알람을 앱 위에 띄우기 위해 권한이 필요합니다.</string>
+    <string name="overlayPermissionDialogMessage">다음 목록에서 MoCa를 선택하여 권한을 부여해 주세요.</string>
+    <string name="alarm_setting_vibration_pattern1_name">진동 패턴 1</string>
+    <string name="alarm_setting_vibration_pattern2_name">진동 패턴 2</string>
+    <string name="alarm_setting_vibration_pattern3_name">진동 패턴 3</string>
 
 
 </resources>

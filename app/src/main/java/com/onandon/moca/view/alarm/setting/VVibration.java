@@ -1,17 +1,10 @@
 package com.onandon.moca.view.alarm.setting;
 
 import android.app.Activity;
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.Constant;
@@ -53,18 +46,20 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
 
     @Override
     public void onClick(View v) {
-        this.selectedPattern = (this.selectedPattern+1 == Constant.VibrationNames.length)? 0:this.selectedPattern+1;
+        this.selectedPattern = (this.selectedPattern+1 == Constant.EVibrationPattern.values().length)? 0:this.selectedPattern+1;
         this.mAlarm.getVibration().setPattern(this.selectedPattern);
-        this.name.setText(Constant.VibrationNames[this.selectedPattern]);
+        Constant.EVibrationPattern selectedVibrationPattern = Constant.EVibrationPattern.values()[this.selectedPattern];
+        this.name.setText(this.view.getResources().getString(selectedVibrationPattern.getNameId()));
         new TVibrator((Activity)this.view.getContext()).start(
-                Constant.VibrationTimings[selectedPattern],
-                Constant.VibrationAmplitudes[selectedPattern],
+                selectedVibrationPattern.getDuration(),
+                selectedVibrationPattern.getAmplitude(),
                 -1);
     }
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         this.mAlarm.getVibration().setVibrationChecked(isChecked);
-        this.name.setText(isChecked? Constant.VibrationNames[this.mAlarm.getVibration().getPattern()]:"");
+        String name = this.view.getResources().getString(Constant.EVibrationPattern.values()[this.mAlarm.getVibration().getPattern()].getNameId());
+        this.name.setText(isChecked? name:"");
     }
 }
 

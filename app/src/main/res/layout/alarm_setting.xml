@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        style="@style/OnBackgroundScrollView"
+        android:background="@drawable/round"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintTop_toBottomOf="@+id/alarm_setting_day"
         tools:layout_editor_absoluteX="10dp">

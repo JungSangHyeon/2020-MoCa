@@ -1,18 +1,14 @@
 package com.onandon.moca.view.alarm.setting;
 
 import android.icu.util.Calendar;
-import android.os.Build;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.annotation.RequiresApi;
-
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.utility.UHolidays;
 import com.onandon.moca.view.customView.VDayOfWeekButtonGroup;
 
 public class VTime implements
@@ -54,7 +50,7 @@ public class VTime implements
 
         // day of week
         this.vDayOfWeekButtonGroup = view.findViewById(R.id.alarm_setting_weekday);
-        this.vDayOfWeekButtonGroup.init(this, this.mAlarm);
+        this.vDayOfWeekButtonGroup.onCreate(this, this.mAlarm);
 
         // holidayOff
         TextView holidayTitle = view.findViewById(R.id.alarm_setting_holidayoff_title);
@@ -72,7 +68,6 @@ public class VTime implements
         // check holiday
         Calendar calendar = (Calendar) Calendar.getInstance();
         calendar.setTimeInMillis(alarmScheduled.getTime().getTimeInMillis());
-        String hoiidayName = UHolidays.isHoliday(calendar);
 
         this.vDay.setText(alarmScheduled.getTime().format(DAY_PATTERN));
         this.vDayOfWeek.setText(alarmScheduled.getTime().format(DAYOFWEEK_PATTERN));
@@ -89,6 +84,7 @@ public class VTime implements
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         if (compoundButton == this.switchHolidayOff) {
             this.mAlarm.getTime().setHolidayOffChecked(isChecked);
+            this.setAlarmDay();
         }
     }
 }

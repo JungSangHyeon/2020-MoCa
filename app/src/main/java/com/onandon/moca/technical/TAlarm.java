@@ -26,28 +26,22 @@ public class TAlarm {
     public TAlarm(Activity activity) {
         this.activity = activity;
     }
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onCreate(MAlarm mAlarm) {
         this.mAlarm = mAlarm;
     }
-    public void onDestroy() {
-    }
+    public void onDestroy() { }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onStartCommand() {
         this.tDevices = new TDevices(this.activity, this.mAlarm);
         this.tDevices.onStart();
         this.tDevices.start();
-        Log.d("TDevices", "start");
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onStopCommand() {
         try {
             this.tDevices.setRunning(false);
             this.tDevices.join();
             this.tDevices.onStop();
-            Log.d("TDevices", "stop");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -67,7 +61,6 @@ public class TAlarm {
         private TFlash tFlash;
         private TScreen tScreen;
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public TDevices(Activity activity, MAlarm mAlarm) {
             this.bRunning = true;
             this.mAlarm = mAlarm;
@@ -77,8 +70,8 @@ public class TAlarm {
             this.tFlash = new TFlash(activity);
             this.tScreen = new TScreen(activity);
 
-            this.tRingtone.init(this.mAlarm.getPower());
-            this.tVibrator.init(this.mAlarm.getPower());
+            this.tRingtone.onCreate(this.mAlarm.getPower());
+            this.tVibrator.onCreate(this.mAlarm.getPower());
         }
         private synchronized boolean isRunning() {
             return this.bRunning;
@@ -87,27 +80,24 @@ public class TAlarm {
             this.bRunning = bRunning;
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.M)
         public void run() {
             try {
+                int flashWaitCount = 0, screenWaitCount = 0;
                 while (isRunning()) {
-                    if (mAlarm.isFlashChecked()) {
-                        tFlash.on();
-                    }
-                    if (mAlarm.isScreenChecked()) {
-                        tScreen.on();
-                    }
-                    Thread.sleep(500);
-                    if (mAlarm.isFlashChecked()) {
-                        tFlash.off();
-                    }
-                    if (mAlarm.isScreenChecked()) {
-                        tScreen.off();
-                    }
-                    Thread.sleep(500);
-                    Log.d("TDevices", "run");
-                }
+                    Thread.sleep(Constant.waitTimePerCount);
 
+                    flashWaitCount++;
+                    screenWaitCount++;
+
+                    if (mAlarm.isFlashChecked() && flashWaitCount > Constant.FlashSwitchCount) {
+                        flashWaitCount = 0;
+                        tFlash.switchFlash();
+                    }
+                    if (mAlarm.isScreenChecked() && screenWaitCount > Constant.ScreenSwitchCount) {
+                        screenWaitCount = 0;
+                        tScreen.switchBrightness();
+                    }
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -118,14 +108,13 @@ public class TAlarm {
             if(mAlarm.getVibration().isVibrationChecked()){this.tVibrator.updatePower(this.mAlarm.getPower());}
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public void onStart() {
             if (mAlarm.getRingtone().isChecked()) {
                 tRingtone.start(mAlarm.getRingtone().getUri().toString());
             }
             if (mAlarm.getVibration().isVibrationChecked()) {
-                tVibrator.start(Constant.VibrationTimings[mAlarm.getVibration().getPattern()],
-                        Constant.VibrationAmplitudes[mAlarm.getVibration().getPattern()], 0);
+                Constant.EVibrationPattern selectedVibrationPattern = Constant.EVibrationPattern.values()[mAlarm.getVibration().getPattern()];
+                tVibrator.start(selectedVibrationPattern.getDuration(), selectedVibrationPattern.getAmplitude(), 0);
             }
             if (mAlarm.isFlashChecked()) {
                 tFlash.start();

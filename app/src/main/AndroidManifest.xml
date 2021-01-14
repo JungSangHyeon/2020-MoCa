@@ -20,11 +20,6 @@
         android:theme="@style/Theme.MoCa"
 
         >
-        <service
-            android:name=".service.SAlarm"
-            android:enabled="true"
-            android:exported="true"></service>
-
         <activity android:name=".activity.AMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

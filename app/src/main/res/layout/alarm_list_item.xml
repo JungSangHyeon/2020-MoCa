@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    style="@style/OnSurfaceRecyclerViewItem"
+    android:background="@drawable/round"
     android:minHeight="80dp"
     android:orientation="horizontal">
 
@@ -76,7 +76,6 @@
 
         <Switch
             android:id="@+id/alarm_list_item_on"
-            style="@style/AccentSwitch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

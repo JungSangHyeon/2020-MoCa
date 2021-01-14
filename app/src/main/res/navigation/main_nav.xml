@@ -25,10 +25,10 @@
     </fragment>
 
     <action
-        android:id="@+id/action_to_main_alarm"
+        android:id="@+id/action_global_main_alarm"
         app:destination="@id/main_alarm" />
     <action
-        android:id="@+id/action_to_main_worldtime"
+        android:id="@+id/action_global_main_worldtime"
         app:destination="@id/main_worldtime" />
     <action android:id="@+id/action_global_main_stopwatch"
         app:destination="@id/main_stopwatch"/>

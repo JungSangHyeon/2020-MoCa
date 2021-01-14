@@ -7,70 +7,49 @@
 
     <com.onandon.moca.view.customView.VIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_0"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
         android:layout_marginRight="20dp"
-        style="@style/AccentToggleButton"
-        android:layout_gravity="center"
+        style="@style/OToggleButton"
         android:textOff="@string/weekday_sun"
         android:textOn="@string/weekday_sun"/>
 
     <com.onandon.moca.view.customView.VIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_1"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
         android:layout_marginRight="20dp"
-        style="@style/AccentToggleButton"
-        android:layout_gravity="center"
+        style="@style/OToggleButton"
         android:textOff="@string/weekday_mon"
         android:textOn="@string/weekday_mon"/>
 
     <com.onandon.moca.view.customView.VIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_2"
-        android:layout_width="30dp"
         android:layout_marginRight="20dp"
-        android:layout_height="30dp"
-        style="@style/AccentToggleButton"
-        android:layout_gravity="center"
+        style="@style/OToggleButton"
         android:textOff="@string/weekday_tus"
         android:textOn="@string/weekday_tus"/>
 
     <com.onandon.moca.view.customView.VIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
         android:layout_marginRight="20dp"
-        style="@style/AccentToggleButton"
-        android:layout_gravity="center"
+        style="@style/OToggleButton"
         android:textOff="@string/weekday_wen"
         android:textOn="@string/weekday_wen"/>
 
     <com.onandon.moca.view.customView.VIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_4"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
         android:layout_marginRight="20dp"
-        style="@style/AccentToggleButton"
-        android:layout_gravity="center"
+        style="@style/OToggleButton"
         android:textOff="@string/weekday_thu"
         android:textOn="@string/weekday_thu"/>
 
     <com.onandon.moca.view.customView.VIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_5"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
         android:layout_marginRight="20dp"
-        style="@style/AccentToggleButton"
-        android:layout_gravity="center"
+        style="@style/OToggleButton"
         android:textOff="@string/weekday_fri"
         android:textOn="@string/weekday_fri"/>
 
     <com.onandon.moca.view.customView.VIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_6"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        style="@style/AccentToggleButton"
-        android:layout_gravity="center"
+        style="@style/OToggleButton"
         android:textOff="@string/weekday_sat"
         android:textOn="@string/weekday_sat"/>
 

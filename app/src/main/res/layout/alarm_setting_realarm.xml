@@ -17,14 +17,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical"
-        style="@style/OnSurfaceClickSubTextView"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/alarm_setting_realarm_intervalunit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        style="@style/OnSurfaceSubTextView"
         android:layout_gravity="center_vertical"/>
 
     <TextView
@@ -33,15 +32,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical"
-        style="@style/OnSurfaceClickSubTextView"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/alarm_setting_realarm_countunit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_gravity="center_vertical"
-        style="@style/OnSurfaceSubTextView"/>
+        android:layout_gravity="center_vertical"/>
 
     <View
         android:layout_width="0dp"
@@ -52,7 +50,6 @@
         android:id="@+id/alarm_setting_realarm_on"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/AccentSwitch"
         android:layout_gravity="center_vertical"
         android:layout_alignParentRight="true" />
 </LinearLayout>

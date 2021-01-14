@@ -21,7 +21,7 @@ public class TRingtone {
 
     // Constructor
     public TRingtone(Activity activity) { this.activity=activity; }
-    public void init(int power) {this.power=power;}
+    public void onCreate(int power) {this.power=power;}
     public void updatePower(int power) { // for test power
         this.power=power;
         AudioManager mAudioManager = (AudioManager)this.activity.getSystemService(Context.AUDIO_SERVICE);
