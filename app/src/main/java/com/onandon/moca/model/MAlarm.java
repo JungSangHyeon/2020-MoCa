@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import com.onandon.moca.Constant;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 public class MAlarm implements Serializable, Cloneable {
 
@@ -125,6 +126,9 @@ public class MAlarm implements Serializable, Cloneable {
     }
 
     public long getAlarmTime() {
+//        Calendar c = Calendar.getInstance();
+//        c.add(Calendar.SECOND, 5);
+//        return c.getTimeInMillis();
         if(this.mSnooze.isSnoozing()){return this.mSnooze.getSnoozeAlarmTime();}
         else if(this.mReAlarm.isReAlarming()){ return this.mReAlarm.getReAlarmTime(); }
         else{return this.getTime().getTimeInMillis();}

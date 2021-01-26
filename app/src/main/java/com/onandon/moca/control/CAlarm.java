@@ -127,15 +127,7 @@ public class CAlarm implements Serializable {
     }
 
     public void scheduleAlarm() {
-        MAlarm nextCloneAlarm = null;
-        long minTime = Long.MAX_VALUE;
-        for(MAlarm mAlarm : this.mAlarms){
-            MAlarm cloneAlarm = mAlarm.schedulerNextAlarm();
-            if(cloneAlarm.getAlarmTime() < minTime){
-                nextCloneAlarm = cloneAlarm;
-                minTime = cloneAlarm.getAlarmTime();
-            }
-        }
+        MAlarm nextCloneAlarm = this.getNextCloneAlarm();
         if (nextCloneAlarm != null && nextCloneAlarm.isChecked()){
             AlarmManager alarmManager = (AlarmManager) this.mainActivity.getSystemService(Context.ALARM_SERVICE);
             Bundle bundle = new Bundle();
@@ -146,5 +138,18 @@ public class CAlarm implements Serializable {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this.mainActivity, 0, intentStartAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextCloneAlarm.getAlarmTime(), pendingIntent);
         }
+    }
+
+    public MAlarm getNextCloneAlarm() {
+        MAlarm nextCloneAlarm = null;
+        long minTime = Long.MAX_VALUE;
+        for(MAlarm mAlarm : this.mAlarms){
+            MAlarm cloneAlarm = mAlarm.schedulerNextAlarm();
+            if(cloneAlarm.getAlarmTime() < minTime && cloneAlarm.isChecked()){
+                nextCloneAlarm = cloneAlarm;
+                minTime = cloneAlarm.getAlarmTime();
+            }
+        }
+        return nextCloneAlarm;
     }
 }

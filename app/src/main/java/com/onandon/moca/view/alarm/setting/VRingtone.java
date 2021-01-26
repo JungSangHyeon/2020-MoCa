@@ -11,6 +11,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.kevalpatel.ringtonepicker.RingtonePickerDialog;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.view.customView.OToggleButton;
 
 public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeListener {
 
@@ -18,7 +19,7 @@ public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeLi
     private View view;
     private MAlarm mAlarm;
     private TextView ringtoneName;
-    private SwitchMaterial aSwitch;
+    private OToggleButton aSwitch;
 
     // Constructor
     public VRingtone(View view, MAlarm mAlarm) {

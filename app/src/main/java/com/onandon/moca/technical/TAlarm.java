@@ -114,7 +114,7 @@ public class TAlarm {
             }
             if (mAlarm.getVibration().isVibrationChecked()) {
                 Constant.EVibrationPattern selectedVibrationPattern = Constant.EVibrationPattern.values()[mAlarm.getVibration().getPattern()];
-                tVibrator.start(selectedVibrationPattern.getDuration(), selectedVibrationPattern.getAmplitude(), 0);
+                tVibrator.start(selectedVibrationPattern.getPattern(), 0);
             }
             if (mAlarm.isFlashChecked()) {
                 tFlash.start();

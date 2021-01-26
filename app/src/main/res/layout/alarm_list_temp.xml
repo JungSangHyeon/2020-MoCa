@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/alarm_list_next_alarm"
+        android:layout_width="272dp"
+        android:layout_height="210dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/alarm_list_next_alarm_time"
+            style="@style/STextView_Main"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="32dp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:text="@string/alarm_list_item_default_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/alarm_list_next_alarm_name"
+            style="@style/STextView_Main"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="40dp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:text="@string/alarm_list_item_default_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_list_next_alarm_time" />
+
+        <TextView
+            android:id="@+id/alarm_list_next_alarm_date"
+            style="@style/STextView_Main"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="56dp"
+            android:gravity="center"
+            android:text="@string/alarm_list_item_default_day"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_list_next_alarm_time" />
+
+        <TextView
+            android:id="@+id/alarm_list_next_alarm_dayofweek"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/alarm_list_item_default_dayofweek"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/alarm_list_next_alarm_date"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_list_next_alarm_time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/alarm_list_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_list_next_alarm"
+        tools:itemCount="4"
+        tools:listitem="@layout/alarm_list_item" />
+
+    <com.onandon.moca.view.customView.OMovableFloatingActionButton
+        android:id="@+id/alarm_list_create"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_24" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="37dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/alarm_list_create"
+        app:srcCompat="@drawable/test2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

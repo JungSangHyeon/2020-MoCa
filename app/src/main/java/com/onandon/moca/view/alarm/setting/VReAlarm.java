@@ -9,6 +9,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.view.customView.OToggleButton;
 
 public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeListener {
 
@@ -20,7 +21,7 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
     private View view;
     private MAlarm mAlarm;
     private TextView title, interval, intervalUnit, count, countUnit;
-    private SwitchMaterial aSwitch;
+    private OToggleButton aSwitch;
 
     // Constructor
     public VReAlarm(View view, MAlarm mAlarm) {

@@ -9,17 +9,15 @@
         android:layout_height="wrap_content"
         android:text="@string/alarm_setting_screen_title"
         android:layout_gravity="center_vertical"
-        style="@style/OnSurfaceTextView"/>
+        style="@style/STextView_Main"/>
 
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
+    <com.onandon.moca.view.customView.OIndexToggleButton
         android:id="@+id/alarm_setting_screen_on"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_alignParentRight="true" />
+        style="@style/OSToggleButton_Check"/>
+
 </LinearLayout>

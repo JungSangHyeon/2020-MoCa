@@ -5,52 +5,46 @@
     android:layout_gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.onandon.moca.view.customView.VIndexToggleButton
+    <com.onandon.moca.view.customView.OIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_0"
         android:layout_marginRight="20dp"
-        style="@style/OToggleButton"
-        android:textOff="@string/weekday_sun"
-        android:textOn="@string/weekday_sun"/>
+        style="@style/OSToggleButton_Week"
+        android:text="@string/weekday_sun"/>
 
-    <com.onandon.moca.view.customView.VIndexToggleButton
+    <com.onandon.moca.view.customView.OIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_1"
         android:layout_marginRight="20dp"
-        style="@style/OToggleButton"
-        android:textOff="@string/weekday_mon"
-        android:textOn="@string/weekday_mon"/>
+        style="@style/OSToggleButton_Week"
+        android:text="@string/weekday_mon"/>
 
-    <com.onandon.moca.view.customView.VIndexToggleButton
+    <com.onandon.moca.view.customView.OIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_2"
         android:layout_marginRight="20dp"
-        style="@style/OToggleButton"
-        android:textOff="@string/weekday_tus"
-        android:textOn="@string/weekday_tus"/>
+        style="@style/OSToggleButton_Week"
+        android:text="@string/weekday_tus"/>
 
-    <com.onandon.moca.view.customView.VIndexToggleButton
+    <com.onandon.moca.view.customView.OIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_3"
         android:layout_marginRight="20dp"
-        style="@style/OToggleButton"
-        android:textOff="@string/weekday_wen"
-        android:textOn="@string/weekday_wen"/>
+        style="@style/OSToggleButton_Week"
+        android:text="@string/weekday_wen"/>
 
-    <com.onandon.moca.view.customView.VIndexToggleButton
+    <com.onandon.moca.view.customView.OIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_4"
         android:layout_marginRight="20dp"
-        style="@style/OToggleButton"
-        android:textOff="@string/weekday_thu"
-        android:textOn="@string/weekday_thu"/>
+        style="@style/OSToggleButton_Week"
+        android:text="@string/weekday_thu"/>
 
-    <com.onandon.moca.view.customView.VIndexToggleButton
+    <com.onandon.moca.view.customView.OIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_5"
         android:layout_marginRight="20dp"
-        style="@style/OToggleButton"
-        android:textOff="@string/weekday_fri"
-        android:textOn="@string/weekday_fri"/>
+        style="@style/OSToggleButton_Week"
+        android:text="@string/weekday_fri"/>
 
-    <com.onandon.moca.view.customView.VIndexToggleButton
+    <com.onandon.moca.view.customView.OIndexToggleButton
         android:id="@+id/alarm_setting_weekdays_6"
-        style="@style/OToggleButton"
-        android:textOff="@string/weekday_sat"
-        android:textOn="@string/weekday_sat"/>
+        style="@style/OSToggleButton_Week"
+        android:text="@string/weekday_sat"/>
+
 
 </com.onandon.moca.view.customView.VDayOfWeekButtonGroup>

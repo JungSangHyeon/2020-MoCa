@@ -36,22 +36,30 @@ public class Constant {
         public static final int defaultVibrationPattern = 0;
         public static final long[] NoEffectVibrationPattern = {500, 2500, 500, 2500};
 
-        public enum EVibrationPattern{
-            pattern_1(R.string.alarm_setting_vibration_pattern1_name, new long[]{300, 50,200,100,300, 50,200,100}, new int[]{255,150,255,100,255,150,255,100}),
-            pattern_2(R.string.alarm_setting_vibration_pattern2_name, new long[]{100, 100, 100, 100, 100, 100, 100, 100}, new int[]{0, 255, 0, 255, 0, 255, 0, 255}),
-            pattern_3(R.string.alarm_setting_vibration_pattern3_name, new long[]{100,50,100,500,100,50,100,500}, new int[]{255,50,255,50,255,50,255,50}),
-            ;
+        public enum Example {
+            ex1(R.string.example1Name),
+            ex2(R.string.example2Name);
+
             private int nameId;
-            private long[] duration;
-            private int[] amplitude;
-            EVibrationPattern(int nameId, long[] duration, int[] amplitude) {
+            Example(int nameId) {
                 this.nameId=nameId;
-                this.duration=duration;
-                this.amplitude=amplitude;
             }
             public int getNameId() { return nameId; }
-            public long[] getDuration() { return duration; }
-            public int[] getAmplitude() { return amplitude; }
+        }
+
+
+        public enum EVibrationPattern {
+            pattern_1(R.string.alarm_setting_vibration_pattern1_name, new int[][] {{100,0}, {300,255}, {50,150}, {200,255}, {100,100}, {300,255}, {50,150}, {200,255}, {100,100},}),
+            pattern_2(R.string.alarm_setting_vibration_pattern2_name, new int[][] {{100,0}, {100,255}, {100,0}, {100,255}, {100,0}, {100,255}, {100,0}, {100,255},}),
+            ;
+            private final int nameId;
+            private final int[][] pattern;
+            EVibrationPattern(int nameId, int[][] pattern) {
+                this.nameId=nameId;
+                this.pattern=pattern;
+            }
+            public int getNameId() { return nameId; }
+            public int[][] getPattern() { return pattern; }
         }
 
         public static int waitTimePerCount = 100;

@@ -10,7 +10,7 @@
         android:id="@+id/alarm_setting_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/OnBackgroundTimePicker"
+        android:theme="@style/STimePicker_Alarm"
         android:timePickerMode="spinner"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -152,17 +152,17 @@
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
+        <com.onandon.moca.view.customView.OActionButton
             android:id="@+id/alarm_setting_cancel"
-            style="@style/OnBackgroundButton"
+            style="@style/OSActionButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
-        <Button
+        <com.onandon.moca.view.customView.OActionButton
             android:id="@+id/alarm_setting_save"
-            style="@style/OnBackgroundButton"
+            style="@style/OSActionButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

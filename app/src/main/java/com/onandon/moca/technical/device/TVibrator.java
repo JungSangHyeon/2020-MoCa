@@ -31,14 +31,16 @@ public class TVibrator {
     }
     public void onCreate(int power) {this.power=power; }
 
-    public void start(long[] timing, int[] amp, int repeat) {
+    public void start(int[][] pattern, int repeat) {
+        long[] duraion = this.getDuration(pattern);
+        int[] amplitude = this.getAmplitude(pattern);
         this.running = true;
         this.vibrateThread = new Thread(){
             @Override
             public void run(){
                 while (running){
                     try {
-                        vibrate(timing, amp, repeat);
+                        vibrate(duraion, amplitude, repeat);
                         if(repeat!=-1){synchronized(this){this.wait();}}
                         else{ running = false;}
                     } catch (InterruptedException e) { }
@@ -47,6 +49,7 @@ public class TVibrator {
         };
         this.vibrateThread.start();
     }
+
     public void vibrate(long[] timing, int[] amps, int repeat) {
         int[] ampsCopy = amps.clone();
         for (int i = 0; i < ampsCopy.length; i++) { ampsCopy[i] = ampsCopy[i] * this.power / 100; }
@@ -56,27 +59,18 @@ public class TVibrator {
     public void stop() {  this.running = false; this.vibrateThread.interrupt(); this.vibrator.cancel();}
     public void updatePower(int power) {this.power=power; this.vibrateThread.interrupt();}
 
-//    /**
-//     * need permission : <uses-permission android:name="android.permission.VIBRATE" />
-//     * */
-//
-//    // Association
-//    private Activity activity;
-//    // Component
-//    private Vibrator vibrator;
-//
-//    // Constructor
-//    public TVibrator(Activity activity) {
-//        this.activity=activity;
-//        this.vibrator = (Vibrator) this.activity.getSystemService(Context.VIBRATOR_SERVICE);
-//    }
-//
-//    public void start(long[] timing, int[] amp, int repeat) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            this.vibrator.vibrate(VibrationEffect.createWaveform(timing, amp, repeat));
-//        }else{
-//            this.vibrator.vibrate(Constant.NoEffectVibrationPattern, repeat);
-//        }
-//    }
-//    public void stop() { this.vibrator.cancel(); }
+    private long[] getDuration(int[][] pattern) {
+        long[] duration = new long[pattern.length];
+        for(int i=0; i< pattern.length; i++){
+            duration[i] = pattern[i][0];
+        }
+        return duration;
+    }
+    private int[] getAmplitude(int[][] pattern) {
+        int[] amplitude = new int[pattern.length];
+        for(int i=0; i< pattern.length; i++){
+            amplitude[i] = pattern[i][1];
+        }
+        return amplitude;
+    }
 }

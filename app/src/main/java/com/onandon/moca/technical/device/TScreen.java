@@ -1,6 +1,7 @@
 package com.onandon.moca.technical.device;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -9,7 +10,6 @@ import com.onandon.moca.Constant;
 public class TScreen {
 
     // Attribute
-    private float originalBrightness;
     private boolean isOn;
 
     // Associate
@@ -27,17 +27,16 @@ public class TScreen {
 
     public void start() {
         this.layoutParams = this.window.getAttributes();
-        this.originalBrightness = this.layoutParams.screenBrightness;
     }
     public void stop() {
-        this.layoutParams.screenBrightness = this.originalBrightness;
+        this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
         this.window.setAttributes(this.layoutParams);
     }
 
     public void on(){
         activity.runOnUiThread(
                 ()->{
-                    this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;;
+                    this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
                     this.window.setAttributes(this.layoutParams);
                     this.isOn = true;
                 }

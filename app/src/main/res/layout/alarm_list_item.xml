@@ -24,8 +24,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/alarm_list_item_time"
-            style="@style/OnSurfaceTextView"
+            android:id="@+id/alarm_list_next_alarm_time"
+            style="@style/STextView_Main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.6"
@@ -34,8 +34,8 @@
             android:text="@string/alarm_list_item_default_time" />
 
         <TextView
-            android:id="@+id/alarm_list_item_name"
-            style="@style/OnSurfaceTextView"
+            android:id="@+id/alarm_list_next_alarm_name"
+            style="@style/STextView_Main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_vertical"
@@ -57,8 +57,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/alarm_list_item_date"
-            style="@style/OnSurfaceTextView"
+            android:id="@+id/alarm_list_next_alarm_date"
+            style="@style/STextView_Main"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3.7"
@@ -66,7 +66,7 @@
             android:text="@string/alarm_list_item_default_day" />
 
         <TextView
-            android:id="@+id/alarm_list_item_dayofweek"
+            android:id="@+id/alarm_list_next_alarm_dayofweek"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"

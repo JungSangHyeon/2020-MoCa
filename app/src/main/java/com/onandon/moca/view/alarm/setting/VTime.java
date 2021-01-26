@@ -9,6 +9,7 @@ import android.widget.TimePicker;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.view.customView.OToggleButton;
 import com.onandon.moca.view.customView.VDayOfWeekButtonGroup;
 
 public class VTime implements
@@ -28,7 +29,7 @@ public class VTime implements
     private VDayOfWeekButtonGroup vDayOfWeekButtonGroup;
 
     // holidayOff
-    private SwitchMaterial switchHolidayOff;
+    private OToggleButton switchHolidayOff;
 
     // Association
     private MAlarm mAlarm;

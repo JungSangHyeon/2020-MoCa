@@ -24,14 +24,14 @@ public class VDayOfWeekButtonGroup extends LinearLayout implements CompoundButto
     private InterfaceSetAlarmDay interfaceSetAlarmDay;
 
     // Component
-    private VIndexToggleButton[] checkBoxes;
+    private OIndexToggleButton[] checkBoxes;
 
     // Constructor
     public VDayOfWeekButtonGroup(Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
 
     public void onCreate(InterfaceSetAlarmDay interfaceSetAlarmDay, MAlarm mAlarm){
         // Create Component
-        this.checkBoxes = new VIndexToggleButton[Calendar.DAY_OF_WEEK];
+        this.checkBoxes = new OIndexToggleButton[Calendar.DAY_OF_WEEK];
 
         // Associate
         this.interfaceSetAlarmDay=interfaceSetAlarmDay;
@@ -48,7 +48,7 @@ public class VDayOfWeekButtonGroup extends LinearLayout implements CompoundButto
     }
     private void onCreateButtons() {
         int index=0;
-        for (VIndexToggleButton checkBox: this.checkBoxes) { // init buttons
+        for (OIndexToggleButton checkBox: this.checkBoxes) { // init buttons
             checkBox.setChecked(this.mAlarm.getTime().isDayOfWeekChecked(index));
             if(checkBox.isChecked()){this.numberOfDaysChecked++;}
             checkBox.setOnCheckedChangeListener(this);
@@ -58,7 +58,7 @@ public class VDayOfWeekButtonGroup extends LinearLayout implements CompoundButto
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        VIndexToggleButton vIndexToggleButton = (VIndexToggleButton) compoundButton;
+        OIndexToggleButton vIndexToggleButton = (OIndexToggleButton) compoundButton;
         if (this.numberOfDaysChecked==1 && !isChecked) { // if no checkbox is checked
             vIndexToggleButton.setChecked(true); // recheck current checkbox
         } else { // at least one be checked

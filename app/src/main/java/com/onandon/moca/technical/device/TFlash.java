@@ -36,6 +36,7 @@ public class TFlash {
         this.cameraManager = (CameraManager) this.activity.getSystemService(Context.CAMERA_SERVICE);
     }
     public void stop() {
+        this.off();
     }
 
     public void on(){
@@ -45,7 +46,6 @@ public class TFlash {
         } catch (CameraAccessException e) { e.printStackTrace(); }
         catch (IllegalArgumentException e) {/*No Torch*/}
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public void off(){
         try {
             this.cameraManager.setTorchMode(this.cameraManager.getCameraIdList()[0], false);

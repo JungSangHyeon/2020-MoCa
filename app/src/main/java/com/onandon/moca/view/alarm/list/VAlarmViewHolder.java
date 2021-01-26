@@ -19,14 +19,17 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
     private TextView time, date, dayOfWeek, name;
     private Switch aSwitch;
     private CAlarm cAlarm; // for edit and remove on click
+    private VNextAlarmInfo vNextAlarmInfo;
 
     // Constructor
-    public VAlarmViewHolder(View.OnClickListener actionListener, View.OnLongClickListener removeListener, View adapterView) {
+    public VAlarmViewHolder(View.OnClickListener actionListener, View.OnLongClickListener removeListener, View adapterView, VNextAlarmInfo vNextAlarmInfo) {
         super(adapterView);
-        this.time =  this.itemView.findViewById(R.id.alarm_list_item_time);
-        this.name =  this.itemView.findViewById(R.id.alarm_list_item_name);
-        this.date =  this.itemView.findViewById(R.id.alarm_list_item_date);
-        this.dayOfWeek =  this.itemView.findViewById(R.id.alarm_list_item_dayofweek);
+        this.vNextAlarmInfo=vNextAlarmInfo;
+
+        this.time =  this.itemView.findViewById(R.id.alarm_list_next_alarm_time);
+        this.name =  this.itemView.findViewById(R.id.alarm_list_next_alarm_name);
+        this.date =  this.itemView.findViewById(R.id.alarm_list_next_alarm_date);
+        this.dayOfWeek =  this.itemView.findViewById(R.id.alarm_list_next_alarm_dayofweek);
         this.aSwitch = this.itemView.findViewById(R.id.alarm_list_item_on);
 
         this.itemView.setOnClickListener(actionListener);
@@ -53,5 +56,6 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
         this.cAlarm.saveAlarm();
         this.cAlarm.store();
         this.cAlarm.scheduleAlarm();
+        this.vNextAlarmInfo.update();
     }
 }

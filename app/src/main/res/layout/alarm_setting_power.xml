@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="@string/alarm_setting_power_title"
         android:layout_gravity="center_vertical"
-        style="@style/OnSurfaceTextView"/>
+        style="@style/STextView_Main"/>
 
     <SeekBar
         android:id="@+id/seekBar_power"

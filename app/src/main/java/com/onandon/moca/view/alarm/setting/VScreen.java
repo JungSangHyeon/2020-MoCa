@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.view.customView.OToggleButton;
 
 
 public class VScreen implements Switch.OnCheckedChangeListener {
@@ -19,7 +20,7 @@ public class VScreen implements Switch.OnCheckedChangeListener {
     public VScreen(View view, MAlarm currentAlarm) {
         this.currentAlarm = currentAlarm;
 
-        SwitchMaterial aSwitch = view.findViewById(R.id.alarm_setting_screen_on);
+        OToggleButton aSwitch = view.findViewById(R.id.alarm_setting_screen_on);
         aSwitch.setChecked(this.currentAlarm.isScreenChecked());
         aSwitch.setOnCheckedChangeListener(this);
 

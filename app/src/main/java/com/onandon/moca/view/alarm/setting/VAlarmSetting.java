@@ -16,6 +16,7 @@ import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.technical.TAlarm;
 import com.onandon.moca.view.alarm.VAlarm;
+import com.onandon.moca.view.customView.OActionButton;
 
 import java.io.Serializable;
 
@@ -46,9 +47,9 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
         new VScreen(view, mAlarm);
         new VReAlarm(view, mAlarm);
 
-        Button saveBtn = view.findViewById(R.id.alarm_setting_save);
+        OActionButton saveBtn = view.findViewById(R.id.alarm_setting_save);
         saveBtn.setOnClickListener(this);
-        Button cancelBtn = view.findViewById(R.id.alarm_setting_cancel);
+        OActionButton cancelBtn = view.findViewById(R.id.alarm_setting_cancel);
         cancelBtn.setOnClickListener(this);
         return view;
     }

@@ -73,6 +73,8 @@
     <string name="alarm_setting_vibration_pattern1_name">진동 패턴 1</string>
     <string name="alarm_setting_vibration_pattern2_name">진동 패턴 2</string>
     <string name="alarm_setting_vibration_pattern3_name">진동 패턴 3</string>
+    <string name="example1Name">삭제 요망</string>
+    <string name="example2Name">삭제요망</string>
 
 
 </resources>
