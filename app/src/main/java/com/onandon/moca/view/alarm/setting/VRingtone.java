@@ -11,6 +11,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.kevalpatel.ringtonepicker.RingtonePickerDialog;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.view.customView.AlarmSettingItem;
 import com.onandon.moca.view.customView.OToggleButton;
 
 public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeListener {
@@ -26,17 +27,14 @@ public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeLi
         this.view = view;
         this.mAlarm = mAlarm;
 
-        this.ringtoneName = view.findViewById(R.id.alarm_setting_ringtone_name);
+        AlarmSettingItem alarmSettingItem = view.findViewById(R.id.alarm_setting_ringtone);
+
+        this.ringtoneName = alarmSettingItem.getSettingLayout().findViewById(R.id.alarm_setting_item_name);
         this.ringtoneName.setOnClickListener(this);
 
-        this.aSwitch = view.findViewById(R.id.alarm_setting_ringtone_on);
+        this.aSwitch = alarmSettingItem.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);
         this.aSwitch.setChecked(this.mAlarm.getRingtone().isChecked());
-
-        TextView ringtoneTitle = view.findViewById(R.id.alarm_setting_ringtone_title);
-        ringtoneTitle.setOnClickListener((v)->{
-            this.aSwitch.setChecked(!this.aSwitch.isChecked());
-        });
     }
 
     @Override

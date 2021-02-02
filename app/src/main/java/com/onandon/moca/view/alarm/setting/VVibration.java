@@ -11,6 +11,7 @@ import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.technical.device.TVibrator;
+import com.onandon.moca.view.customView.AlarmSettingItem;
 import com.onandon.moca.view.customView.OToggleButton;
 
 public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickListener {
@@ -18,7 +19,7 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
     // Associate
     private View view;
     private MAlarm mAlarm;
-    private TextView title, name;
+    private TextView name;
     private OToggleButton aSwitch;
 
     // Working Variable
@@ -32,15 +33,14 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
 
         this.selectedPattern = this.mAlarm.getVibration().getPattern();
 
-        this.name = view.findViewById(R.id.alarm_setting_vibration_name);
+        AlarmSettingItem alarmSettingItem = view.findViewById(R.id.alarm_setting_vibration);
+
+        this.name = alarmSettingItem.getSettingLayout().findViewById(R.id.alarm_setting_item_name);
         this.name.setOnClickListener(this);
 
-        this.aSwitch = view.findViewById(R.id.alarm_setting_vibration_on);
+        this.aSwitch = alarmSettingItem.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);
         this.aSwitch.setChecked(this.mAlarm.getVibration().isVibrationChecked());
-
-        this.title = view.findViewById(R.id.alarm_setting_vibration_title);
-        this.title.setOnClickListener((v)-> this.aSwitch.setChecked(!this.aSwitch.isChecked()));
     }
 
     @Override

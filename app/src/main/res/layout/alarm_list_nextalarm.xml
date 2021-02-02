@@ -47,7 +47,7 @@
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_marginStart="56dp"
-            android:gravity="center"
+            android:gravity="right|center_vertical"
             android:text="@string/alarm_list_item_default_day"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alarm_list_next_alarm_time" />
@@ -56,7 +56,8 @@
             android:id="@+id/alarm_list_next_alarm_dayofweek"
             android:layout_width="60dp"
             android:layout_height="30dp"
-            android:gravity="center"
+            android:layout_marginStart="5dp"
+            android:gravity="left|center_vertical"
             android:singleLine="true"
             android:text="@string/alarm_list_item_default_dayofweek"
             app:layout_constraintEnd_toEndOf="parent"

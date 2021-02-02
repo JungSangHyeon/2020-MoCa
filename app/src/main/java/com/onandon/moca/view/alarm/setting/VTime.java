@@ -9,11 +9,15 @@ import android.widget.TimePicker;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.view.customView.AlarmSettingItem;
 import com.onandon.moca.view.customView.OToggleButton;
 import com.onandon.moca.view.customView.VDayOfWeekButtonGroup;
 
 public class VTime implements
         TimePicker.OnTimeChangedListener, CompoundButton.OnCheckedChangeListener, VDayOfWeekButtonGroup.InterfaceSetAlarmDay {
+
+    // left time
+    public static final String LEFT_TIME_PATTERN = "dd일 hh시 mm분 후";
 
     // time
     public static final String TIME_PATTERN = "hh:mm a";
@@ -54,11 +58,8 @@ public class VTime implements
         this.vDayOfWeekButtonGroup.onCreate(this, this.mAlarm);
 
         // holidayOff
-        TextView holidayTitle = view.findViewById(R.id.alarm_setting_holidayoff_title);
-        holidayTitle.setOnClickListener((v)->{
-            this.switchHolidayOff.setChecked(!this.switchHolidayOff.isChecked());
-        });
-        this.switchHolidayOff = view.findViewById(R.id.alarm_setting_holidayoff_on);
+        AlarmSettingItem alarmSettingItem = view.findViewById(R.id.alarm_setting_holiday);
+        this.switchHolidayOff = alarmSettingItem.getOnOffButton();
         this.switchHolidayOff.setChecked(this.mAlarm.getTime().isHolidayOffChecked());
         this.switchHolidayOff.setOnCheckedChangeListener(this);
     }

@@ -18,6 +18,7 @@ public class UWeek {
         targetTime.set(Calendar.HOUR_OF_DAY, tempTime.get(Calendar.HOUR_OF_DAY));
         targetTime.set(Calendar.MINUTE, tempTime.get(Calendar.MINUTE));
         targetTime.set(Calendar.SECOND, 0);
+        targetTime.set(Calendar.MILLISECOND, 0);
 
         if (Calendar.getInstance().get(Calendar.MILLISECONDS_IN_DAY) > targetTime.get(Calendar.MILLISECONDS_IN_DAY)) {
             targetTime.add(Calendar.DATE, 1);

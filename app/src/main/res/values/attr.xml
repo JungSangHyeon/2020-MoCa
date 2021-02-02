@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <declare-styleable name="AlarmSettingItem">
+        <attr name="alarm_setting_item_title" format="string"/>
+        <attr name="alarm_setting_item_info" format="reference"/>
+    </declare-styleable>
+
     <declare-styleable name="OToggleButton">
         <attr name="togglebutton_checked_state_background" format="reference"/>
         <attr name="togglebutton_default_state_background" format="reference"/>

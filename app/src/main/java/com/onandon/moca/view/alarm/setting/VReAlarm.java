@@ -9,6 +9,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.view.customView.AlarmSettingItem;
 import com.onandon.moca.view.customView.OToggleButton;
 
 public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeListener {
@@ -20,7 +21,7 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
     // Associations
     private View view;
     private MAlarm mAlarm;
-    private TextView title, interval, intervalUnit, count, countUnit;
+    private TextView interval, intervalUnit, count, countUnit;
     private OToggleButton aSwitch;
 
     // Constructor
@@ -34,26 +35,24 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         this.intervalUnitString = this.view.getResources().getString(R.string.alarm_setting_realarm_intervalunit);
         this.countUnitString = this.view.getResources().getString(R.string.alarm_setting_realarm_count_unit);
 
-        this.interval = view.findViewById(R.id.alarm_setting_realarm_interval);
+        AlarmSettingItem alarmSettingItem = view.findViewById(R.id.alarm_setting_realarm);
+        View reAlarmSettingLayout = alarmSettingItem.getSettingLayout();
+
+        this.interval = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_interval);
         this.interval.setOnClickListener(this);
 
-        this.intervalUnit = view.findViewById(R.id.alarm_setting_realarm_intervalunit);
+        this.intervalUnit = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_intervalunit);
         this.intervalUnit.setOnClickListener(this);
 
-        this.count = view.findViewById(R.id.alarm_setting_realarm_count);
+        this.count = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_count);
         this.count.setOnClickListener(this);
 
-        this.countUnit = view.findViewById(R.id.alarm_setting_realarm_countunit);
+        this.countUnit = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_countunit);
         this.countUnit.setOnClickListener(this);
 
-        this.aSwitch = view.findViewById(R.id.alarm_setting_realarm_on);
+        this.aSwitch = alarmSettingItem.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);
         this.aSwitch.setChecked(this.mAlarm.getReAlarm().isChecked());
-
-        this.title = view.findViewById(R.id.alarm_setting_realarm_title);
-        this.title.setOnClickListener((v)->{
-            this.aSwitch.setChecked(!this.aSwitch.isChecked());
-        });
     }
 
     private int findIndex(int[] intervals, int interval) {

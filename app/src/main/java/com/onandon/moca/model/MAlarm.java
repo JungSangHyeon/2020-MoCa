@@ -1,6 +1,7 @@
 package com.onandon.moca.model;
 
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -27,10 +28,8 @@ public class MAlarm implements Serializable, Cloneable {
             return new MAlarm();
         }
     }
-    public static final String KEY_PATTERN = "EEEHHmm";
-    public String getKey() {
-        return this.getTime().format(KEY_PATTERN);
-    }
+//    public static final String KEY_PATTERN = "EEEHHmm";
+    public String getKey() { return Long.toString(this.getTime().getTimeInMillis()); }
 
     private boolean bScheduled;
 
@@ -129,6 +128,7 @@ public class MAlarm implements Serializable, Cloneable {
 //        Calendar c = Calendar.getInstance();
 //        c.add(Calendar.SECOND, 5);
 //        return c.getTimeInMillis();
+        Log.d("Test", "not 5!");
         if(this.mSnooze.isSnoozing()){return this.mSnooze.getSnoozeAlarmTime();}
         else if(this.mReAlarm.isReAlarming()){ return this.mReAlarm.getReAlarmTime(); }
         else{return this.getTime().getTimeInMillis();}

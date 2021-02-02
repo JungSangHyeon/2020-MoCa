@@ -2,6 +2,7 @@ package com.onandon.moca.activity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +23,11 @@ public class AAlarmCallback extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarmcallback);
-
+        ShowOnLockScreenUtil.makeActivityAbleToShowOnLockedScreen(this);
         this.vCallBack = new VAlarmCallBack(this);
         Bundle bundle = this.getIntent().getBundleExtra("bundle");
         if (bundle != null) {
             MAlarm mAlarm = (MAlarm) bundle.getSerializable(MAlarm.class.getSimpleName());
-            ShowOnLockScreenUtil.makeActivityAbleToShowOnLockedScreen(this);
             this.vCallBack.onCreate(mAlarm);
         }
     }

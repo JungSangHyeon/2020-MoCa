@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.view.customView.AlarmSettingItem;
 import com.onandon.moca.view.customView.OToggleButton;
 
 public class VFlash implements CompoundButton.OnCheckedChangeListener {
@@ -18,14 +19,11 @@ public class VFlash implements CompoundButton.OnCheckedChangeListener {
     public VFlash(View view, MAlarm currentAlarm) {
         this.currentAlarm = currentAlarm;
 
-        OToggleButton aSwitch = view.findViewById(R.id.alarm_setting_flash_on);
+        AlarmSettingItem alarmSettingItem = view.findViewById(R.id.alarm_setting_flash);
+
+        OToggleButton aSwitch = alarmSettingItem.getOnOffButton();
         aSwitch.setChecked(this.currentAlarm.isFlashChecked());
         aSwitch.setOnCheckedChangeListener(this);
-
-        TextView flashTitle = view.findViewById(R.id.alarm_setting_flash_title);
-        flashTitle.setOnClickListener((v)->{
-            aSwitch.setChecked(!aSwitch.isChecked());
-        });
     }
 
     @Override

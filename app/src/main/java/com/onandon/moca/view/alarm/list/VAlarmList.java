@@ -1,21 +1,33 @@
 package com.onandon.moca.view.alarm.list;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.control.CAlarm;
+import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.technical.device.TVibrator;
 import com.onandon.moca.view.customView.OMovableFloatingActionButton;
+import com.onandon.moca.view.customView.OMoveAnimator;
+import com.onandon.moca.view.customView.OMoveByTouchManager;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Locale;
 
 public class VAlarmList extends Fragment implements View.OnLongClickListener {
@@ -48,6 +60,39 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener {
         this.recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         this.recyclerView.setAdapter(this.vAlarmAdapter);
 
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END,
+               0) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+                Collections.swap(cAlarm.getMAlarms(), fromPosition, toPosition);
+                cAlarm.store();
+                recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+                this.moved = true;
+                return false;
+            }
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            }
+            private boolean startAction = true, moved = false;
+            private RecyclerView.ViewHolder selectedViewHolder;
+            @Override
+            public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+                if(startAction){
+                    new TVibrator((Activity)getContext()).start(new int[][]{{100,255}}, -1);
+                    this.moved = false;
+                    this.selectedViewHolder=viewHolder;
+                }else if(!this.moved) {
+                    showRemoveConfirmDialog(this.selectedViewHolder.getAdapterPosition());
+                }
+                startAction=!startAction;
+            }
+        } ;
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(this.recyclerView);
+
         this.createAlarmBtn = view.findViewById(R.id.alarm_list_create);
         this.createAlarmBtn.setOnClickListener(this.actionListener);
 
@@ -56,8 +101,23 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener {
 
     @Override
     public boolean onLongClick(View view) {
-        this.removeAlarm(view);
+        // roll back 에 대비해 남겨 놓음
         return true;
+    }
+
+    private void showRemoveConfirmDialog(int targetPosition) {
+        MAlarm target = this.cAlarm.getAlarm(targetPosition);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
+        dialog.setTitle("알람 삭제");
+        dialog.setMessage(target.getName()+" 알람을 삭제하시겠습니까?");
+        dialog.setPositiveButton(this.getContext().getResources().getString(R.string.common_ok), (dialog1, which) -> {
+            this.cAlarm.removeAlarm(targetPosition);
+            this.vAlarmAdapter.notifyItemRemoved(targetPosition);
+            this.cAlarm.store();
+            this.vNextAlarmInfo.update();
+        });
+        dialog.setNegativeButton(this.getContext().getResources().getString(R.string.common_cancel), null);
+        dialog.create().show();
     }
 
     private class ActionListener implements View.OnClickListener, Serializable {
@@ -105,7 +165,6 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener {
     public void onResume() {
         super.onResume();
         this.createAlarmBtn.load();
-        this.createAlarmBtn.startAutoMove();
     }
 
     @Override

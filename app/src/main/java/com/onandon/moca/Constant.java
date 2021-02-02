@@ -36,18 +36,6 @@ public class Constant {
         public static final int defaultVibrationPattern = 0;
         public static final long[] NoEffectVibrationPattern = {500, 2500, 500, 2500};
 
-        public enum Example {
-            ex1(R.string.example1Name),
-            ex2(R.string.example2Name);
-
-            private int nameId;
-            Example(int nameId) {
-                this.nameId=nameId;
-            }
-            public int getNameId() { return nameId; }
-        }
-
-
         public enum EVibrationPattern {
             pattern_1(R.string.alarm_setting_vibration_pattern1_name, new int[][] {{100,0}, {300,255}, {50,150}, {200,255}, {100,100}, {300,255}, {50,150}, {200,255}, {100,100},}),
             pattern_2(R.string.alarm_setting_vibration_pattern2_name, new int[][] {{100,0}, {100,255}, {100,0}, {100,255}, {100,0}, {100,255}, {100,0}, {100,255},}),

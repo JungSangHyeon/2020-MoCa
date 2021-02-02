@@ -76,7 +76,7 @@ public class CAlarm implements Serializable {
     //////////////////////////////////////////////////////////////////
     public MAlarm findByKey(String key) {
         for (MAlarm mAlarm: this.mAlarms) {
-            if (key.equals(mAlarm.getKey())) {
+            if (key.equals(mAlarm.schedulerNextAlarm().getKey())) {
                 return mAlarm;
             }
         }
@@ -84,7 +84,8 @@ public class CAlarm implements Serializable {
     }
     public int getAlarmSize() { return this.mAlarms.size(); }
     public MAlarm getAlarm() { return this.currentAlarm; }
-    public MAlarm getAlarm(int postion) { return this.mAlarms.get(postion); }
+    public MAlarm getAlarm(int position) { return this.mAlarms.get(position); }
+    public Vector<MAlarm> getMAlarms() { return mAlarms; }
 
     public void createAlarm() {
         this.currentPosition = this.mAlarms.size();
@@ -98,25 +99,25 @@ public class CAlarm implements Serializable {
     }
     public void saveAlarm() {
         if (!this.bCreate) this.mAlarms.remove(this.currentPosition);
-        this.addWithTimeSort(this.currentAlarm);
-    }
-
-    private void addWithTimeSort(MAlarm currentAlarm) {
-        if(this.mAlarms.size()==0){this.mAlarms.add(currentAlarm); return;}
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(currentAlarm.getTime().getTimeInMillis());
-        int timeValue = calendar.get(Calendar.MINUTE) + calendar.get(Calendar.HOUR_OF_DAY)*60;
-        for(int i=0; i<this.mAlarms.size(); i++){
-            calendar.setTimeInMillis(this.mAlarms.get(i).getTime().getTimeInMillis());
-            int tempTimeValue = calendar.get(Calendar.MINUTE) + calendar.get(Calendar.HOUR_OF_DAY)*60;
-            if(timeValue < tempTimeValue){
-                if(i==0){this.mAlarms.add(0, currentAlarm);}
-                else{this.mAlarms.add(i-1, currentAlarm); }
-                return;
-            }
-        }
         this.mAlarms.add(currentAlarm);
     }
+
+//    private void addWithTimeSort(MAlarm currentAlarm) {
+//        if(this.mAlarms.size()==0){this.mAlarms.add(currentAlarm); return;}
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(currentAlarm.getTime().getTimeInMillis());
+//        int timeValue = calendar.get(Calendar.MINUTE) + calendar.get(Calendar.HOUR_OF_DAY)*60;
+//        for(int i=0; i<this.mAlarms.size(); i++){
+//            calendar.setTimeInMillis(this.mAlarms.get(i).getTime().getTimeInMillis());
+//            int tempTimeValue = calendar.get(Calendar.MINUTE) + calendar.get(Calendar.HOUR_OF_DAY)*60;
+//            if(timeValue < tempTimeValue){
+//                if(i==0){this.mAlarms.add(0, currentAlarm);}
+//                else{this.mAlarms.add(i, currentAlarm); }
+//                return;
+//            }
+//        }
+//        this.mAlarms.add(currentAlarm);
+//    }
 
     public void removeAlarm(int position) {
         this.mAlarms.remove(position);
@@ -136,7 +137,8 @@ public class CAlarm implements Serializable {
             intentStartAlarm.setAction("RAlarm.START");
             intentStartAlarm.putExtra("bundle", bundle);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this.mainActivity, 0, intentStartAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextCloneAlarm.getAlarmTime(), pendingIntent);
+//            alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextCloneAlarm.getAlarmTime(), pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextCloneAlarm.getAlarmTime(), pendingIntent);
         }
     }
 

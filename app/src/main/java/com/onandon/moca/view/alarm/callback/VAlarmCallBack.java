@@ -1,6 +1,7 @@
 package com.onandon.moca.view.alarm.callback;
 
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,7 +52,7 @@ public class VAlarmCallBack implements View.OnClickListener{
 
     public void onCreate(MAlarm scheduledAlarm) {
         this.cAlarm.onCreate(Locale.KOREA);
-        this.mAlarm = this.cAlarm.findByKey(scheduledAlarm.getKey());
+        this.mAlarm = this.cAlarm.findByKey(scheduledAlarm.schedulerNextAlarm().getKey());
         if (this.mAlarm != null) { // if not removed
             if (mAlarm.isChecked()) { // if enabled
                 this.tAlarm.onCreate(mAlarm);
@@ -100,6 +101,12 @@ public class VAlarmCallBack implements View.OnClickListener{
         this.tAlarm.onStopCommand();
         this.cAlarm.scheduleAlarm();
         this.cAlarm.store();
-        this.activity.finish();
+//        this.activity.finish();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.activity.finishAndRemoveTask();
+        } else {
+            this.activity.finish();
+            System.exit(0);
+        }
     }
 }
