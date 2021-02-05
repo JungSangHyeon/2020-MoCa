@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical"
-        android:textSize="30sp"/>
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/alarm_setting_realarm_intervalunit"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical"
-        android:textSize="30sp"/>
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/alarm_setting_realarm_countunit"

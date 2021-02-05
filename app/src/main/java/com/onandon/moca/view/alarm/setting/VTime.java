@@ -6,18 +6,14 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.view.customView.AlarmSettingItem;
-import com.onandon.moca.view.customView.OToggleButton;
-import com.onandon.moca.view.customView.VDayOfWeekButtonGroup;
+import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
+import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;
+import com.onandon.moca.onAndOn.compoundView.OWeekSelectView;
 
 public class VTime implements
-        TimePicker.OnTimeChangedListener, CompoundButton.OnCheckedChangeListener, VDayOfWeekButtonGroup.InterfaceSetAlarmDay {
-
-    // left time
-    public static final String LEFT_TIME_PATTERN = "dd일 hh시 mm분 후";
+        TimePicker.OnTimeChangedListener, CompoundButton.OnCheckedChangeListener, OWeekSelectView.InterfaceSetAlarmDay {
 
     // time
     public static final String TIME_PATTERN = "hh:mm a";
@@ -30,10 +26,10 @@ public class VTime implements
     private final TextView vDayOfWeek;
 
     // day of week
-    private VDayOfWeekButtonGroup vDayOfWeekButtonGroup;
+    private OWeekSelectView oWeekSelectView;
 
     // holidayOff
-    private OToggleButton switchHolidayOff;
+    private OVectorAnimationToggleButton switchHolidayOff;
 
     // Association
     private MAlarm mAlarm;
@@ -54,14 +50,14 @@ public class VTime implements
         this.setAlarmDay();
 
         // day of week
-        this.vDayOfWeekButtonGroup = view.findViewById(R.id.alarm_setting_weekday);
-        this.vDayOfWeekButtonGroup.onCreate(this, this.mAlarm);
+        this.oWeekSelectView = view.findViewById(R.id.alarm_setting_weekday);
+        this.oWeekSelectView.onCreate(this, this.mAlarm);
 
         // holidayOff
-        AlarmSettingItem alarmSettingItem = view.findViewById(R.id.alarm_setting_holiday);
-        this.switchHolidayOff = alarmSettingItem.getOnOffButton();
-        this.switchHolidayOff.setChecked(this.mAlarm.getTime().isHolidayOffChecked());
+        OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_holiday);
+        this.switchHolidayOff = itemTitleInfoSwitch.getOnOffButton();
         this.switchHolidayOff.setOnCheckedChangeListener(this);
+        this.switchHolidayOff.setChecked(this.mAlarm.getTime().isHolidayOffChecked());
     }
 
     @Override

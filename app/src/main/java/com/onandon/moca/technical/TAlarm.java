@@ -53,6 +53,7 @@ public class TAlarm {
     private class TDevices extends Thread {
         private final Semaphore semaphore = new Semaphore(1);
         private boolean bRunning;
+        private int power;
 
         private MAlarm mAlarm;
 
@@ -70,8 +71,9 @@ public class TAlarm {
             this.tFlash = new TFlash(activity);
             this.tScreen = new TScreen(activity);
 
-            this.tRingtone.onCreate(this.mAlarm.getPower());
-            this.tVibrator.onCreate(this.mAlarm.getPower());
+            this.power = this.mAlarm.getPower();
+            this.tRingtone.onCreate(this.power);
+            this.tVibrator.onCreate(this.power);
         }
         private synchronized boolean isRunning() {
             return this.bRunning;
@@ -84,7 +86,7 @@ public class TAlarm {
             try {
                 int flashWaitCount = 0, screenWaitCount = 0;
                 while (isRunning()) {
-                    Thread.sleep(Constant.waitTimePerCount);
+                    Thread.sleep(Constant.waitTimePerCount/this.power);
 
                     flashWaitCount++;
                     screenWaitCount++;
@@ -104,8 +106,9 @@ public class TAlarm {
         }
 
         public void update() {
-            if(mAlarm.getRingtone().isChecked()){ this.tRingtone.updatePower(this.mAlarm.getPower());}
-            if(mAlarm.getVibration().isVibrationChecked()){this.tVibrator.updatePower(this.mAlarm.getPower());}
+            int power = this.mAlarm.getPower();
+            if(mAlarm.getRingtone().isChecked()){ this.tRingtone.updatePower(power);}
+            if(mAlarm.getVibration().isVibrationChecked()){this.tVibrator.updatePower(power);}
         }
 
         public void onStart() {

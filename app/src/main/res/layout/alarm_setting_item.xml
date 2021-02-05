@@ -26,7 +26,7 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.onandon.moca.view.customView.OToggleButton
+    <com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton
         android:id="@+id/alarm_setting_item_on_off_button"
         style="@style/OSToggleButton_Check"/>
 

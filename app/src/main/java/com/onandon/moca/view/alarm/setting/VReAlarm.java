@@ -5,12 +5,11 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.view.customView.AlarmSettingItem;
-import com.onandon.moca.view.customView.OToggleButton;
+import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
+import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;
 
 public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeListener {
 
@@ -22,7 +21,7 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
     private View view;
     private MAlarm mAlarm;
     private TextView interval, intervalUnit, count, countUnit;
-    private OToggleButton aSwitch;
+    private OVectorAnimationToggleButton aSwitch;
 
     // Constructor
     public VReAlarm(View view, MAlarm mAlarm) {
@@ -35,8 +34,8 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         this.intervalUnitString = this.view.getResources().getString(R.string.alarm_setting_realarm_intervalunit);
         this.countUnitString = this.view.getResources().getString(R.string.alarm_setting_realarm_count_unit);
 
-        AlarmSettingItem alarmSettingItem = view.findViewById(R.id.alarm_setting_realarm);
-        View reAlarmSettingLayout = alarmSettingItem.getSettingLayout();
+        OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_realarm);
+        View reAlarmSettingLayout = itemTitleInfoSwitch.getSettingLayout();
 
         this.interval = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_interval);
         this.interval.setOnClickListener(this);
@@ -50,7 +49,7 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         this.countUnit = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_countunit);
         this.countUnit.setOnClickListener(this);
 
-        this.aSwitch = alarmSettingItem.getOnOffButton();
+        this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);
         this.aSwitch.setChecked(this.mAlarm.getReAlarm().isChecked());
     }

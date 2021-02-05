@@ -2,19 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/light_gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <EditText
+        android:background="@null"
         android:id="@+id/alarm_setting_name"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:hint="@string/alarm_setting_name_hint"
         android:inputType="text"
-        android:layout_marginTop="5dp"
-        android:layout_marginHorizontal="20dp"
+        android:paddingVertical="5dp"
+        android:layout_marginHorizontal="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,10 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/round"
-        android:paddingHorizontal="18dp"
+        android:background="?colorSurface"
+        android:paddingHorizontal="35dp"
         android:paddingVertical="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +34,8 @@
 
         <TimePicker
             android:id="@+id/alarm_setting_time"
-            android:layout_width="242dp"
-            android:layout_height="138dp"
+            android:layout_width="312dp"
+            android:layout_height="163dp"
             android:scaleX="0.90"
             android:scaleY="0.90"
             android:theme="@style/STimePicker_Alarm"
@@ -49,7 +48,7 @@
             android:id="@+id/alarm_setting_day"
             layout="@layout/alarm_setting_day"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,69 +65,70 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alarm_setting_day" />
 
-        <com.onandon.moca.view.customView.AlarmSettingItem
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toTopOf="@+id/alarm_setting_holiday"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_weekday"
+            tools:layout_editor_absoluteX="35dp" />
+
+        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
             android:id="@+id/alarm_setting_holiday"
             style="@style/SAlarmSettingItem"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
             app:alarm_setting_item_title="@string/alarm_setting_holidayoff_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alarm_setting_weekday" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/round"
-        android:paddingHorizontal="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_time_setting_layout">
-
-        <include
-            android:id="@+id/alarm_setting_power"
-            layout="@layout/alarm_setting_power"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.onandon.moca.view.customView.AlarmSettingItem
+        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
             android:id="@+id/alarm_setting_realarm"
             style="@style/SAlarmSettingItem"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="2dp"
             app:alarm_setting_item_info="@layout/alarm_setting_item_setting_layout_realarm"
             app:alarm_setting_item_title="@string/alarm_setting_realarm_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_power"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_holiday"
             app:layout_constraintVertical_bias="0.0" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="5dp"
-        android:background="@drawable/round"
-        android:paddingHorizontal="18dp"
+        android:background="?colorSurface"
+        android:paddingHorizontal="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_time_setting_layout">
 
-        <com.onandon.moca.view.customView.AlarmSettingItem
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="9dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toTopOf="@+id/alarm_setting_power"
+            tools:layout_editor_absoluteX="35dp" />
+
+        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
+            android:id="@+id/alarm_setting_power"
+            style="@style/SAlarmSettingItem"
+            android:layout_marginTop="10dp"
+            app:alarm_setting_item_info="@layout/alarm_setting_item_setting_layout_1textview"
+            app:alarm_setting_item_title="@string/alarm_setting_power_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
             android:id="@+id/alarm_setting_ringtone"
             style="@style/SAlarmSettingItem"
             android:layout_marginTop="10dp"
@@ -136,9 +136,9 @@
             app:alarm_setting_item_title="@string/alarm_setting_ringtone_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_power" />
 
-        <com.onandon.moca.view.customView.AlarmSettingItem
+        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
             android:id="@+id/alarm_setting_vibration"
             style="@style/SAlarmSettingItem"
             app:alarm_setting_item_info="@layout/alarm_setting_item_setting_layout_1textview"
@@ -147,7 +147,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alarm_setting_ringtone" />
 
-        <com.onandon.moca.view.customView.AlarmSettingItem
+        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
             android:id="@+id/alarm_setting_flash"
             style="@style/SAlarmSettingItem"
             app:alarm_setting_item_title="@string/alarm_setting_flash_title"
@@ -155,7 +155,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alarm_setting_vibration" />
 
-        <com.onandon.moca.view.customView.AlarmSettingItem
+        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
             android:id="@+id/alarm_setting_screen"
             style="@style/SAlarmSettingItem"
             android:layout_marginBottom="10dp"
@@ -179,7 +179,7 @@
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.onandon.moca.view.customView.OActionButton
+        <com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton
             android:id="@+id/alarm_setting_cancel"
             style="@style/OSActionButton"
             android:layout_width="0dp"
@@ -187,7 +187,7 @@
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
-        <com.onandon.moca.view.customView.OActionButton
+        <com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton
             android:id="@+id/alarm_setting_save"
             style="@style/OSActionButton"
             android:layout_width="0dp"

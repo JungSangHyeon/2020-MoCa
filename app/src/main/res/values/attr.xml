@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="OButton">
+        <attr name="obutton_normal_to_checked" format="reference"/>
+        <attr name="obutton_checked_to_normal" format="reference"/>
+    </declare-styleable>
+    
     <declare-styleable name="AlarmSettingItem">
         <attr name="alarm_setting_item_title" format="string"/>
         <attr name="alarm_setting_item_info" format="reference"/>
     </declare-styleable>
 
-    <declare-styleable name="OToggleButton">
-        <attr name="togglebutton_checked_state_background" format="reference"/>
-        <attr name="togglebutton_default_state_background" format="reference"/>
-        <attr name="togglebutton_checked_to_default_background" format="reference"/>
-        <attr name="togglebutton_default_to_checked_background" format="reference"/>
-        <attr name="togglebutton_checked_pressed_background" format="reference"/>
-        <attr name="togglebutton_default_pressed_background" format="reference"/>
-        <attr name="togglebutton_disabled_background" format="reference"/>
-    </declare-styleable>
-
-    <declare-styleable name="OActionButton">
-        <attr name="actionbutton_default_state_background" format="reference"/>
-        <attr name="actionbutton_default_pressed_background" format="reference"/>
-        <attr name="actionbutton_disabled_background" format="reference"/>
-    </declare-styleable>
 </resources>

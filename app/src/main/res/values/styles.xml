@@ -4,9 +4,8 @@
     <style name="OSActionButton" >
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
-        <item name="actionbutton_default_state_background">@drawable/actionbutton_default</item>
-        <item name="actionbutton_default_pressed_background">@drawable/actionbutton_pressed</item>
-        <item name="actionbutton_disabled_background">@drawable/actionbutton_disable</item>
+        <item name="obutton_normal_to_checked">@drawable/oround_square_normal_to_checked</item>
+        <item name="obutton_checked_to_normal">@drawable/oround_square_checked_to_normal</item>
     </style>
 
     <style name="OSToggleButton_Week" >
@@ -14,26 +13,18 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
-        <item name="togglebutton_checked_state_background">@drawable/circletogglebutton_checked</item>
-        <item name="togglebutton_default_state_background">@drawable/circletogglebutton_default</item>
-        <item name="togglebutton_checked_to_default_background">@drawable/circletogglebutton_checkedtodefault</item>
-        <item name="togglebutton_default_to_checked_background">@drawable/circletogglebutton_defaulttochecked</item>
-        <item name="togglebutton_checked_pressed_background">@drawable/circletogglebutton_checkedpressed</item>
-        <item name="togglebutton_default_pressed_background">@drawable/circletogglebutton_defaultpressed</item>
-        <item name="togglebutton_disabled_background">@drawable/circletogglebutton_disabled</item>
+        <item name="obutton_normal_to_checked">@drawable/othick_circle_normal_to_checked</item>
+        <item name="obutton_checked_to_normal">@drawable/othick_circle_checked_to_normal</item>
     </style>
 
     <style name="OSToggleButton_Check" >
         <item name="android:layout_width">36dp</item>
         <item name="android:layout_height">36dp</item>
+        <item name="android:textOn">@string/null_string</item>
+        <item name="android:textOff">@string/null_string</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="togglebutton_checked_state_background">@drawable/switch_checked</item>
-        <item name="togglebutton_default_state_background">@drawable/switch_normal</item>
-        <item name="togglebutton_checked_to_default_background">@drawable/switch_checked_to_normal</item>
-        <item name="togglebutton_default_to_checked_background">@drawable/switch_normal_to_checked</item>
-        <item name="togglebutton_checked_pressed_background">@drawable/switch_checked_pressed</item>
-        <item name="togglebutton_default_pressed_background">@drawable/switch_normal</item>
-        <item name="togglebutton_disabled_background">@drawable/switch_disabled</item>
+        <item name="obutton_normal_to_checked">@drawable/oline_switch_normal_to_checked</item>
+        <item name="obutton_checked_to_normal">@drawable/oline_switch_checked_to_normal</item>
     </style>
 
     <style name="OSButton_Navigation" parent="@style/Widget.AppCompat.Button.Borderless">
@@ -44,19 +35,20 @@
     <!--  TextView  -->
     <style name="STextView_Main" >
         <item name="android:textColor">?colorOnSurface</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <!--  TimePicker  --> <!--  Layout 에서 세팅 불가  -->
     <style name="STimePicker_Alarm"  >
         <item name="colorControlNormal">@color/invisible</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">45sp</item>
     </style>
 
     <!--  Alarm Setting Item  -->
     <style name="SAlarmSettingItem"  >
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginTop">3dp</item>
     </style>
+
 </resources>

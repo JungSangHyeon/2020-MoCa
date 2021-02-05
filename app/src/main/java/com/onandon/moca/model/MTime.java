@@ -47,7 +47,7 @@ public class MTime implements Serializable, Cloneable {
         this.setRecurringChecked(true);
 
         // holiday
-        this.setHolidayOffChecked(false);
+        this.setHolidayOffChecked(true);
     }
 
     // time

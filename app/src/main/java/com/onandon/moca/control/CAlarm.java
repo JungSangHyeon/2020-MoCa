@@ -83,7 +83,7 @@ public class CAlarm implements Serializable {
         return null;
     }
     public int getAlarmSize() { return this.mAlarms.size(); }
-    public MAlarm getAlarm() { return this.currentAlarm; }
+    public MAlarm getCurrentAlarm() { return this.currentAlarm; }
     public MAlarm getAlarm(int position) { return this.mAlarms.get(position); }
     public Vector<MAlarm> getMAlarms() { return mAlarms; }
 
@@ -98,8 +98,12 @@ public class CAlarm implements Serializable {
         this.bCreate = false;
     }
     public void saveAlarm() {
-        if (!this.bCreate) this.mAlarms.remove(this.currentPosition);
-        this.mAlarms.add(currentAlarm);
+        if (!this.bCreate) {
+            this.mAlarms.remove(this.currentPosition);
+            this.mAlarms.add(this.currentPosition, currentAlarm);
+        }else{
+            this.mAlarms.add(currentAlarm);
+        }
     }
 
 //    private void addWithTimeSort(MAlarm currentAlarm) {
@@ -153,5 +157,18 @@ public class CAlarm implements Serializable {
             }
         }
         return nextCloneAlarm;
+    }
+
+    public int getNextAlarmIndex() {
+        int index = -1;
+        long minTime = Long.MAX_VALUE;
+        for(int i=0; i<this.mAlarms.size(); i++){
+            MAlarm cloneAlarm = this.mAlarms.get(i).schedulerNextAlarm();
+            if(cloneAlarm.getAlarmTime() < minTime && cloneAlarm.isChecked()){
+                index=i;
+                minTime = cloneAlarm.getAlarmTime();
+            }
+        }
+        return index;
     }
 }

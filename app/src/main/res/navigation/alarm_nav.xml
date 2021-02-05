@@ -28,7 +28,7 @@
             app:argType="com.onandon.moca.model.MAlarm" />
         <argument
             android:name="SaveActionListener"
-            app:argType="com.onandon.moca.view.alarm.list.VAlarmList$ActionListener" />
+            app:argType="com.onandon.moca.view.alarm.list.VAlarmList$SaveListener" />
     </fragment>
 
 </navigation>

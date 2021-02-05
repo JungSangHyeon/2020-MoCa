@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.onandon.moca.R;
 import com.onandon.moca.view.VMain;
 
+import java.io.IOException;
+
 public class AMain extends AppCompatActivity {
 
     @Override
@@ -26,6 +28,13 @@ public class AMain extends AppCompatActivity {
             this.startManageOverlayPermissionActivity();
         }
     }
+
+    private void startManageOverlayPermissionActivity() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + this.getPackageName()));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        this.startActivityForResult(intent, 0);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -35,11 +44,5 @@ public class AMain extends AppCompatActivity {
         }else{
             this.finish();
         }
-    }
-
-    private void startManageOverlayPermissionActivity() {
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + this.getPackageName()));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        this.startActivityForResult(intent, 0);
     }
 }

@@ -31,6 +31,17 @@ public class Constant {
          */
         // Power
         public static int DefaultLevel = 75;
+        public enum EAlarmPower {
+            eLevel1("Level 1", 20),
+            eLevel2("Level 2", 60),
+            eLevel3("Level 3", 100);
+
+            private int power;
+            private String levelName;
+            EAlarmPower(String levelName, int power){ this.power=power; this.levelName=levelName;}
+            public int getPower() { return power; }
+            public String getLevelName() { return levelName; }
+        }
 
         // Vibration Manager
         public static final int defaultVibrationPattern = 0;
@@ -50,7 +61,7 @@ public class Constant {
             public int[][] getPattern() { return pattern; }
         }
 
-        public static int waitTimePerCount = 100;
+        public static int waitTimePerCount = 2000;
         // Flash Manager
         public static int FlashSwitchCount = 1;
         // Screen Brightness

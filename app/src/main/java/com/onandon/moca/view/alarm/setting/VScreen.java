@@ -3,13 +3,11 @@ package com.onandon.moca.view.alarm.setting;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.TextView;
 
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.view.customView.AlarmSettingItem;
-import com.onandon.moca.view.customView.OToggleButton;
+import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
+import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;
 
 
 public class VScreen implements Switch.OnCheckedChangeListener {
@@ -21,11 +19,11 @@ public class VScreen implements Switch.OnCheckedChangeListener {
     public VScreen(View view, MAlarm currentAlarm) {
         this.currentAlarm = currentAlarm;
 
-        AlarmSettingItem alarmSettingItem = view.findViewById(R.id.alarm_setting_screen);
+        OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_screen);
 
-        OToggleButton aSwitch = alarmSettingItem.getOnOffButton();
-        aSwitch.setChecked(this.currentAlarm.isScreenChecked());
+        OVectorAnimationToggleButton aSwitch = itemTitleInfoSwitch.getOnOffButton();
         aSwitch.setOnCheckedChangeListener(this);
+        aSwitch.setChecked(this.currentAlarm.isScreenChecked());
     }
 
     @Override

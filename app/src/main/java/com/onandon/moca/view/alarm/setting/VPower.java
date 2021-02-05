@@ -1,33 +1,71 @@
 package com.onandon.moca.view.alarm.setting;
 
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.SeekBar;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
 
+import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
 import com.onandon.moca.technical.TAlarm;
+import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;
 
-public class VPower implements SeekBar.OnSeekBarChangeListener {
+public class VPower  implements Switch.OnCheckedChangeListener, View.OnClickListener, View.OnTouchListener {
 
     // Associate
     private MAlarm mAlarm;
-    private SeekBar powerSeekBar;
+    private TextView name;
+    private OVectorAnimationToggleButton aSwitch;
+
+    // Working Variable
+    private int selectedPowerLevel;
+
     private TAlarm tAlarm;
 
     // Constructor
     public VPower(View view, MAlarm mAlarm, TAlarm tAlarm) {
         this.mAlarm = mAlarm;
         this.tAlarm = tAlarm;
-        View powerItem = view.findViewById(R.id.alarm_setting_power);
-        this.powerSeekBar = powerItem.findViewById(R.id.seekBar_power);
 
-        // init
-        this.powerSeekBar.setProgress(this.mAlarm.getPower());
-        this.powerSeekBar.setOnSeekBarChangeListener(this);
+        this.selectedPowerLevel = this.mAlarm.getPowerLevel();
+
+        OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_power);
+
+        this.name = itemTitleInfoSwitch.getSettingLayout().findViewById(R.id.alarm_setting_item_name);
+        this.name.setOnClickListener(this);
+        this.name.setOnTouchListener(this);
+
+        this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
+        this.aSwitch.setOnCheckedChangeListener(this);
+        this.aSwitch.setChecked(this.mAlarm.isbAlarmPowerChecked());
     }
 
-    @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        this.mAlarm.setPower(progress); this.tAlarm.updatePower();}
-    @Override public void onStartTrackingTouch(SeekBar seekBar) { this.tAlarm.onStartCommand(); }
-    @Override public void onStopTrackingTouch(SeekBar seekBar) { this.tAlarm.onStopCommand(); }
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                this.tAlarm.onStartCommand();break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                this.tAlarm.onStopCommand(); break;
+        }
+        return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        this.selectedPowerLevel = (this.selectedPowerLevel+1 == Constant.EAlarmPower.values().length)? 0:this.selectedPowerLevel+1;
+        this.mAlarm.setPowerLevel(this.selectedPowerLevel);
+        this.name.setText(Constant.EAlarmPower.values()[this.selectedPowerLevel].getLevelName());
+//        this.tAlarm.updatePower();
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        this.mAlarm.setbAlarmPowerChecked(isChecked);
+        this.name.setText(isChecked? Constant.EAlarmPower.values()[this.selectedPowerLevel].getLevelName():"");
+    }
 }

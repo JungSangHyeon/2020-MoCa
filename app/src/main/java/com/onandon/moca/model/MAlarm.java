@@ -9,7 +9,6 @@ import androidx.annotation.RequiresApi;
 import com.onandon.moca.Constant;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 public class MAlarm implements Serializable, Cloneable {
 
@@ -37,7 +36,8 @@ public class MAlarm implements Serializable, Cloneable {
     private boolean bChecked; // is On
 
     private MTime mTime; // Time
-    private int power;
+    private int powerLevel;
+    private boolean bAlarmPowerChecked;
     private MRingtone mRingtone; // Sound
     private MVibration mVibration;
     private boolean bFlashChecked; // Flash
@@ -53,7 +53,8 @@ public class MAlarm implements Serializable, Cloneable {
         // set current time as default time
         this.mTime = new MTime();
 
-        this.power = Constant.DefaultLevel;
+        this.bAlarmPowerChecked = true;
+        this.powerLevel = Constant.EAlarmPower.eLevel2.ordinal();
         this.mRingtone = new MRingtone();
         this.mVibration = new MVibration();
         this.setFlashChecked(false);
@@ -82,8 +83,10 @@ public class MAlarm implements Serializable, Cloneable {
     public void setTime(MTime mTime) {
         this.mTime = mTime;
     }
-    public int getPower() { return power; }
-    public void setPower(int power) { this.power = power; }
+    public boolean isbAlarmPowerChecked() { return bAlarmPowerChecked; }
+    public void setbAlarmPowerChecked(boolean bAlarmPowerChecked) { this.bAlarmPowerChecked = bAlarmPowerChecked; }
+    public int getPowerLevel() { return powerLevel; }
+    public void setPowerLevel(int powerLevel) { this.powerLevel = powerLevel; }
     public MRingtone getRingtone() {
         return mRingtone;
     }
@@ -132,5 +135,9 @@ public class MAlarm implements Serializable, Cloneable {
         if(this.mSnooze.isSnoozing()){return this.mSnooze.getSnoozeAlarmTime();}
         else if(this.mReAlarm.isReAlarming()){ return this.mReAlarm.getReAlarmTime(); }
         else{return this.getTime().getTimeInMillis();}
+    }
+
+    public int getPower() {
+        return this.bAlarmPowerChecked?  Constant.EAlarmPower.values()[this.getPowerLevel()].getPower():0;
     }
 }

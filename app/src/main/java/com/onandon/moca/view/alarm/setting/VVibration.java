@@ -6,13 +6,12 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
 import com.onandon.moca.technical.device.TVibrator;
-import com.onandon.moca.view.customView.AlarmSettingItem;
-import com.onandon.moca.view.customView.OToggleButton;
+import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;
 
 public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickListener {
 
@@ -20,7 +19,7 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
     private View view;
     private MAlarm mAlarm;
     private TextView name;
-    private OToggleButton aSwitch;
+    private OVectorAnimationToggleButton aSwitch;
 
     // Working Variable
     private int selectedPattern;
@@ -33,12 +32,12 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
 
         this.selectedPattern = this.mAlarm.getVibration().getPattern();
 
-        AlarmSettingItem alarmSettingItem = view.findViewById(R.id.alarm_setting_vibration);
+        OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_vibration);
 
-        this.name = alarmSettingItem.getSettingLayout().findViewById(R.id.alarm_setting_item_name);
+        this.name = itemTitleInfoSwitch.getSettingLayout().findViewById(R.id.alarm_setting_item_name);
         this.name.setOnClickListener(this);
 
-        this.aSwitch = alarmSettingItem.getOnOffButton();
+        this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);
         this.aSwitch.setChecked(this.mAlarm.getVibration().isVibrationChecked());
     }
