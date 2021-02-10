@@ -66,7 +66,7 @@ public abstract class OActionButton extends androidx.appcompat.widget.AppCompatB
     @Override
     public void setEnabled(boolean enable){
         super.setEnabled(enable);
-        OAnimator.animateEnableChange(this);
+        OAnimator.animateEnableChange(this, 300);
     }
 
     protected Drawable getBackgroundById(int id) { return this.getContext().getDrawable(this.attributeArray.getResourceId(id, -1)); }

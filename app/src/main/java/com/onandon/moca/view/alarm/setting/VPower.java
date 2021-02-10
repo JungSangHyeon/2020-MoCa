@@ -19,6 +19,7 @@ public class VPower  implements Switch.OnCheckedChangeListener, View.OnClickList
     private MAlarm mAlarm;
     private TextView name;
     private OVectorAnimationToggleButton aSwitch;
+    VFlash vFlash;
 
     // Working Variable
     private int selectedPowerLevel;
@@ -40,7 +41,7 @@ public class VPower  implements Switch.OnCheckedChangeListener, View.OnClickList
 
         this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);
-        this.aSwitch.setChecked(this.mAlarm.isbAlarmPowerChecked());
+        this.aSwitch.setCheckedWithoutAnimation(this.mAlarm.isbAlarmPowerChecked());
     }
 
     @Override

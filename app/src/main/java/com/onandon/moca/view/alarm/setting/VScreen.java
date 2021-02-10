@@ -23,7 +23,7 @@ public class VScreen implements Switch.OnCheckedChangeListener {
 
         OVectorAnimationToggleButton aSwitch = itemTitleInfoSwitch.getOnOffButton();
         aSwitch.setOnCheckedChangeListener(this);
-        aSwitch.setChecked(this.currentAlarm.isScreenChecked());
+        aSwitch.setCheckedWithoutAnimation(this.currentAlarm.isScreenChecked());
     }
 
     @Override

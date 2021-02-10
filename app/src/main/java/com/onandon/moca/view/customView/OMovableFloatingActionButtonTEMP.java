@@ -4,22 +4,19 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.onandon.moca.R;
 
-public class OMovableFloatingActionButton extends FloatingActionButton implements View.OnTouchListener, View.OnLongClickListener {
+public class OMovableFloatingActionButtonTEMP extends FloatingActionButton implements View.OnTouchListener, View.OnLongClickListener {
 
     private boolean userMoved = false, moving = false, longClicked = false;
     private float defaultX, defaultY;
 
-    public OMovableFloatingActionButton(Context context, AttributeSet attrs) {
+    public OMovableFloatingActionButtonTEMP(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnTouchListener(this);
         this.setOnLongClickListener(this);
@@ -33,8 +30,8 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
         editor.putBoolean("userMoved", this.userMoved);
         editor.commit();
     }
-    public void load(int limitHeight, int parentHeight, int width) {
-        defaultX = width - this.getWidth() - 30;
+    public void load(int limitHeight, int parentHeight) {
+        defaultX = this.getX();
         defaultY = (parentHeight-limitHeight<this.getHeight()+30)? parentHeight - this.getHeight() - 30:limitHeight+30;
 
         SharedPreferences prefs = this.getContext().getSharedPreferences("OMovableFloatingActionButton", Context.MODE_PRIVATE);
@@ -53,7 +50,6 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
             }else{
                 this.setY(limitHeight+30);
             }
-            this.setX(width - this.getWidth() - 30);
         }
     }
 
@@ -66,7 +62,7 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
 
     @Override
     public boolean onLongClick(View v) {
-        if(this.userMoved && !moving && pressed){
+        if(this.userMoved && !moving){
             this.userMoved = false;
             PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("x", this.defaultX);
             PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("y", this.defaultY);
@@ -79,32 +75,18 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
         return true;
     }
 
-    boolean pressed = false;
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent){
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)view.getLayoutParams();
         int action = motionEvent.getAction();
         if (action == MotionEvent.ACTION_DOWN) {
-            pressed=true;
-            longClicked=false;
-
             this.downRawX = motionEvent.getRawX();
             this.downRawY = motionEvent.getRawY();
             this.dX = view.getX() - this.downRawX;
             this.dY = view.getY() - this.downRawY;
             return false; // Consumed
-        } else if (action == MotionEvent.ACTION_MOVE && !longClicked) {
-
-            float moveRawX = motionEvent.getRawX();
-            float moveRawY = motionEvent.getRawY();
-
-            float moveDX = moveRawX - this.downRawX;
-            float moveDY = moveRawY - this.downRawY;
-
-            if (Math.abs(moveDX) > CLICK_DRAG_TOLERANCE || Math.abs(moveDY) > CLICK_DRAG_TOLERANCE) {
-                moving=true;
-            }
-
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            moving=true;
             int viewWidth = view.getWidth();
             int viewHeight = view.getHeight();
 
@@ -121,10 +103,9 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
             newY = Math.min(parentHeight - viewHeight - layoutParams.bottomMargin, newY); // Don't allow the FAB past the bottom of the parent
 
             view.animate().x(newX).y(newY).setDuration(0).start();
-            return true; // Consumed
+            return false; // Consumed
         } else if (action == MotionEvent.ACTION_UP) {
             moving=false;
-            pressed=false;
 
             float upRawX = motionEvent.getRawX();
             float upRawY = motionEvent.getRawY();
@@ -133,9 +114,10 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
             float upDY = upRawY - this.downRawY;
 
             if (Math.abs(upDX) < CLICK_DRAG_TOLERANCE && Math.abs(upDY) < CLICK_DRAG_TOLERANCE) { // A click
-                if(!longClicked){ // not long clicked - do click
+                if(!longClicked){
                     return view.performClick();
-                }else{ // long clicked - do nothing
+                }else{
+                    longClicked=false;
                     return true;
                 }
             } else { // A drag

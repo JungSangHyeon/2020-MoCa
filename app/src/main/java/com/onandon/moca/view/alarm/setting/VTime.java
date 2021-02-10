@@ -57,7 +57,7 @@ public class VTime implements
         OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_holiday);
         this.switchHolidayOff = itemTitleInfoSwitch.getOnOffButton();
         this.switchHolidayOff.setOnCheckedChangeListener(this);
-        this.switchHolidayOff.setChecked(this.mAlarm.getTime().isHolidayOffChecked());
+        this.switchHolidayOff.setCheckedWithoutAnimation(this.mAlarm.getTime().isHolidayOffChecked());
     }
 
     @Override

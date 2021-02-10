@@ -2,7 +2,9 @@ package com.onandon.moca.view.alarm.list;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.onandon.moca.R;
@@ -17,7 +20,6 @@ import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.technical.device.TVibrator;
 import com.onandon.moca.view.customView.OMovableFloatingActionButton;
-import com.onandon.moca.view.customView.OMoveByTouchManager;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -25,22 +27,13 @@ import java.util.Locale;
 
 public class VAlarmList extends Fragment implements View.OnLongClickListener, VNextAlarmInfo.VAlarmListUpdateCallback {
 
-    /**
-     *  View
-     */
     private VNextAlarmInfo vNextAlarmInfo;
     private RecyclerView recyclerView;
     private VAlarmAdapter vAlarmAdapter;
     private OMovableFloatingActionButton createAlarmBtn;
 
-    /**
-     *  Control
-     */
     private CAlarm cAlarm;
 
-    /**
-     * Constructor
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Create Components
@@ -50,10 +43,9 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
         // Associate View
         View view = inflater.inflate(R.layout.alarm_list, container, false);
 
-        this.vNextAlarmInfo = new VNextAlarmInfo(view, this.cAlarm, (v)->editNextAlarm(), this);
+        this.vNextAlarmInfo = new VNextAlarmInfo(view, this.cAlarm, (v)->editNextAlarm(), this::update, this::onLongClick);
 
-
-        this.vAlarmAdapter = new VAlarmAdapter((v)->editAlarm(v), this, this.cAlarm, this.vNextAlarmInfo, this);
+        this.vAlarmAdapter = new VAlarmAdapter((v)->editAlarm(v), this.cAlarm, this.vNextAlarmInfo, this);
         this.recyclerView = view.findViewById(R.id.alarm_list_recycleview);
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setAdapter(this.vAlarmAdapter);
@@ -61,21 +53,27 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
 
         this.createAlarmBtn = view.findViewById(R.id.alarm_list_create);
         this.createAlarmBtn.setOnClickListener((v)->createAlarm());
-        new OMoveByTouchManager(this.createAlarmBtn).registerMoveByTouch();
 
-        this.vNextAlarmInfo.update();
+//        this.vNextAlarmInfo.update();
 
+        view.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            LinearLayoutManager layoutManager = ((LinearLayoutManager)recyclerView.getLayoutManager());
+            int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+
+            View target = this.recyclerView.getChildAt(lastVisiblePosition);
+            createAlarmBtn.load((int) (recyclerView.getY()+target.getY()+target.getHeight()), view.getHeight(), target.getWidth()-30);
+        });
         return view;
     }
 
-
     @Override
     public void update() {
-        this.vNextAlarmInfo.update();
-        this.recyclerView.setAdapter(this.vAlarmAdapter);
+        this.vNextAlarmInfo.updateWithAnimation();
+        for(int i=0; i<this.recyclerView.getChildCount(); i++){
+            VAlarmViewHolder viewHolder = (VAlarmViewHolder) this.recyclerView.getChildViewHolder(this.recyclerView.getChildAt(i));
+            viewHolder.updateWithAnimation(300);
+        }
     }
-
-
 
     /**
      * callback methods for create, save, edit, remove alarm
@@ -101,17 +99,25 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
     private void removeAlarm(int targetPosition){
         this.showRemoveConfirmDialog(targetPosition);
     }
+    private void removeNextAlarm() {
+        this.showRemoveConfirmDialog(this.cAlarm.getNextAlarmIndex());
+    }
 
     /**
-     * on Pause & on Resume for save & load create alarm button location
+     * for save create alarm button location
      */
-    @Override public void onResume() { super.onResume(); this.createAlarmBtn.load(); }
-    @Override public void onPause() { super.onPause(); this.createAlarmBtn.save(); }
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.createAlarmBtn.save();
+    }
 
-
+    /**
+     * remove item by long click(press) dashboard
+     */
     @Override
     public boolean onLongClick(View view) {
-        // roll back 에 대비해 남겨 놓음
+        this.removeNextAlarm();
         return true;
     }
 
@@ -125,6 +131,7 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
         bundle.putInt("MAlarmCount", this.cAlarm.getMAlarms().size()+1); // for alarm name
         Navigation.findNavController(this.getView()).navigate(R.id.action_VAlarmList_to_VAlarmSetting, bundle);
     }
+
     private class SaveListener implements View.OnClickListener, Serializable { @Override public void onClick(View view) { saveAlarm(); }}
 
     /**
@@ -140,6 +147,7 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
             this.vAlarmAdapter.notifyItemRemoved(targetPosition);
             this.cAlarm.store();
             this.vNextAlarmInfo.update();
+            this.update();
         });
         dialog.setNegativeButton(this.getContext().getResources().getString(R.string.common_cancel), null);
         dialog.create().show();
@@ -152,8 +160,7 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
         /**
          * Working variable
          */
-        private boolean startAction = true, moved = false;
-        private RecyclerView.ViewHolder selectedViewHolder;
+        private boolean startAction = true;
 
         // Constructor
         public OSimpleCallback() {
@@ -165,25 +172,29 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
             int fromPosition = viewHolder.getAdapterPosition();
             int toPosition = target.getAdapterPosition();
             Collections.swap(cAlarm.getMAlarms(), fromPosition, toPosition);
-
             cAlarm.store();
             recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
-            this.moved = true;
             return false;
         }
 
+        private RecyclerView.ViewHolder selectedViewHolder;
+        float oldX, oldY;
         @Override
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
             if(startAction){
+                this.selectedViewHolder =viewHolder;
+                this.oldX = this.selectedViewHolder.itemView.getX();
+                this.oldY = this.selectedViewHolder.itemView.getY();
                 new TVibrator((Activity)getContext()).start(new int[][]{{100,255}}, -1);
-                this.moved = false;
-                this.selectedViewHolder=viewHolder;
-            }else if(!this.moved) {
-                removeAlarm(this.selectedViewHolder.getAdapterPosition());
+            }else{
+                float dX = Math.abs(this.oldX-this.selectedViewHolder.itemView.getX());
+                float dY = Math.abs(this.oldY-this.selectedViewHolder.itemView.getX());
+                if(dX<=10 && dY <=10){
+                    removeAlarm(recyclerView.getChildAdapterPosition(this.selectedViewHolder.itemView));
+                }
             }
             startAction=!startAction;
         }
-
         @Override public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) { }
     }
 }

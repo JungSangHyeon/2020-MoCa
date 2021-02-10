@@ -171,4 +171,20 @@ public class CAlarm implements Serializable {
         }
         return index;
     }
+
+    public MAlarm getListAlarm(int position) {
+        return this.createListAlarms().get(position);
+    }
+
+    private Vector<MAlarm> createListAlarms() {
+        Vector<MAlarm> listAlarms = new Vector<>();
+        listAlarms.addAll(this.mAlarms);
+        int nextAlarmIndex = this.getNextAlarmIndex();
+        if(nextAlarmIndex!=-1){
+            MAlarm nextAlarm = listAlarms.get(nextAlarmIndex);
+            listAlarms.remove(nextAlarmIndex);
+            listAlarms.add(0, nextAlarm);
+        }
+        return listAlarms;
+    }
 }

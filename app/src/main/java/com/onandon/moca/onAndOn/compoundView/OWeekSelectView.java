@@ -50,7 +50,7 @@ public class OWeekSelectView extends LinearLayout implements CompoundButton.OnCh
     private void onCreateButtons() {
         int index=0;
         for (OIndexToggleButton checkBox: this.checkBoxes) { // init buttons
-            checkBox.setChecked(this.mAlarm.getTime().isDayOfWeekChecked(index));
+            checkBox.setCheckedWithoutAnimation(this.mAlarm.getTime().isDayOfWeekChecked(index));
             if(checkBox.isChecked()){this.numberOfDaysChecked++;}
             checkBox.setOnCheckedChangeListener(this);
             checkBox.setIndex(index++);

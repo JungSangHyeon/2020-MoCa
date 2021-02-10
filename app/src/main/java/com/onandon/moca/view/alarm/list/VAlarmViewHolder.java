@@ -1,6 +1,10 @@
 package com.onandon.moca.view.alarm.list;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -22,8 +26,9 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
     private CAlarm cAlarm; // for edit and remove on click
     private VNextAlarmInfo vNextAlarmInfo;
     VNextAlarmInfo.VAlarmListUpdateCallback updateCallback;
+    MAlarm mAlarm;
     // Constructor
-    public VAlarmViewHolder(View.OnClickListener actionListener, View.OnLongClickListener removeListener,
+    public VAlarmViewHolder(View.OnClickListener actionListener,
                             View adapterView, VNextAlarmInfo vNextAlarmInfo, VNextAlarmInfo.VAlarmListUpdateCallback updateCallback) {
         super(adapterView);
         this.vNextAlarmInfo=vNextAlarmInfo;
@@ -36,49 +41,100 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
         this.aSwitch = this.itemView.findViewById(R.id.alarm_list_item_on);
 
         this.itemView.setOnClickListener(actionListener);
-        this.itemView.setOnLongClickListener(removeListener);
     }
 
     // load alarm data
     public void setView(CAlarm cAlarm, int position) {
         this.itemView.setTag(position);
         this.cAlarm = cAlarm;
-        if(position==this.cAlarm.getNextAlarmIndex()){
-            itemView.setVisibility(View.GONE);
-            itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-        }
-        MAlarm mAlarm = this.cAlarm.getAlarm(position).schedulerNextAlarm();
+
+        MAlarm mAlarm = this.cAlarm.getAlarm(this.getAdapterPosition()).schedulerNextAlarm();
+        float alpha = (mAlarm.isChecked())? 1:0.3f;
+        this.animateEnableChange(mAlarm.isChecked(), 0, alpha);
+        this.updateWithAnimation(0);
+    }
+
+    private boolean folded = false;
+    public void updateWithAnimation(int duration) {
+        if(this.getAdapterPosition()==-1){return;}
+        MAlarm mAlarm = this.cAlarm.getAlarm(this.getAdapterPosition()).schedulerNextAlarm();
         this.name.setText(mAlarm.getName());
         this.time.setText(mAlarm.getTime().format(VTime.TIME_PATTERN));
         this.date.setText(mAlarm.getTime().format(VTime.DAY_PATTERN));
         this.dayOfWeek.setText(mAlarm.getTime().format(VTime.DAYOFWEEK_PATTERN));
-        this.aSwitch.setChecked(mAlarm.isChecked());
+        this.aSwitch.setOnCheckedChangeListener(null);
+        this.aSwitch.setCheckedWithoutAnimation(mAlarm.isChecked());
         this.aSwitch.setOnCheckedChangeListener(this);
-        this.animateEnableChange(mAlarm.isChecked());
+
+        if(this.getAdapterPosition()==this.cAlarm.getNextAlarmIndex() && !this.folded){ // this mAlarm is next alarm && not folded
+            // fold
+            folded=true;
+            OAnimator.animateAlphaChange(this.time, duration, 0);
+            OAnimator.animateAlphaChange(this.name, duration, 0);
+            OAnimator.animateAlphaChange(this.date, duration, 0);
+            OAnimator.animateAlphaChange(this.dayOfWeek, duration, 0);
+            OAnimator.animateAlphaChange(this.aSwitch, duration, 0);
+
+            ValueAnimator anim = ValueAnimator.ofInt(itemView.getMinimumHeight(), 0);
+            anim.addUpdateListener(valueAnimator -> {
+                int val = (Integer) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+                layoutParams.height = val;
+                itemView.setLayoutParams(layoutParams);
+            });
+            anim.setDuration(duration);
+            anim.start();
+        }else if(this.getAdapterPosition()!=this.cAlarm.getNextAlarmIndex() && this.folded){ // this mAlarm is not next alarm && folded
+            // un fold
+            float alpha = (mAlarm.isChecked())? 1:0.3f;
+            OAnimator.animateAlphaChange(this.time, duration, alpha);
+            OAnimator.animateAlphaChange(this.name, duration, alpha);
+            OAnimator.animateAlphaChange(this.date, duration, alpha);
+            OAnimator.animateAlphaChange(this.dayOfWeek, duration, alpha);
+            OAnimator.animateAlphaChange(this.aSwitch, duration, alpha);
+
+            folded=false;
+            Log.d("asdasd", "un fold  "+itemView.getMinimumHeight());
+            ValueAnimator anim = ValueAnimator.ofInt(0, itemView.getMinimumHeight());
+            anim.addUpdateListener(valueAnimator -> {
+                int val = (Integer) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+                layoutParams.height = val;
+                itemView.setLayoutParams(layoutParams);
+            });
+            anim.setDuration(duration);
+            anim.start();
+        }
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        this.animateEnableChange(isChecked);
-//        this.cAlarm.editAlarm(this.getAdapterPosition());
-//        this.cAlarm.getCurrentAlarm().setChecked(isChecked);
-//        this.cAlarm.saveAlarm(); // 여기서 원래거 삭제하고 맨 뒤에 넣게 됨. 그리고 리스트 업데이트 안 하니 에러 나던 것.
-        this.cAlarm.getAlarm(this.getAdapterPosition()).setChecked(isChecked);
+        float alpha = (isChecked)? 1:0.3f;
+        this.animateEnableChange(isChecked, 300, alpha);
+
+        this.cAlarm.editAlarm(this.getAdapterPosition());
+        this.cAlarm.getCurrentAlarm().setChecked(isChecked);
+        this.cAlarm.saveAlarm(); // 여기서 원래거 삭제하고 맨 뒤에 넣게 됨. 그리고 리스트 업데이트 안 하니 에러 나던 것.
+//        this.cAlarm.getAlarm(this.getAdapterPosition()).setChecked(isChecked);
         this.cAlarm.store();
         this.cAlarm.scheduleAlarm();
         this.updateCallback.update();
-//        this.vNextAlarmInfo.update();
+//        this.vNextAlarmInfo.updateWithAnimation();
     }
 
-    private void animateEnableChange(boolean checked) {
+    private void animateEnableChange(boolean checked, int duration, float alpha) {
         this.time.setEnabled(checked);
         this.name.setEnabled(checked);
         this.date.setEnabled(checked);
         this.dayOfWeek.setEnabled(checked);
-        OAnimator.animateEnableChange(this.time);
-        OAnimator.animateEnableChange(this.name);
-        OAnimator.animateEnableChange(this.date);
-        OAnimator.animateEnableChange(this.dayOfWeek);
-        OAnimator.animateEnableChange(this.aSwitch);
+        OAnimator.animateAlphaChange(this.time, duration, alpha);
+        OAnimator.animateAlphaChange(this.name, duration, alpha);
+        OAnimator.animateAlphaChange(this.date, duration, alpha);
+        OAnimator.animateAlphaChange(this.dayOfWeek, duration, alpha);
+        OAnimator.animateAlphaChange(this.aSwitch, duration, alpha);
+    }
+
+    public MAlarm getMAlarm() {
+        return this.mAlarm;
     }
 }

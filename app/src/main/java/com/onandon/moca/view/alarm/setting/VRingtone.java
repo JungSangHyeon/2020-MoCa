@@ -33,7 +33,7 @@ public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeLi
 
         this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);
-        this.aSwitch.setChecked(this.mAlarm.getRingtone().isChecked());
+        this.aSwitch.setCheckedWithoutAnimation(this.mAlarm.getRingtone().isChecked());
     }
 
     @Override

@@ -17,32 +17,32 @@
         app:navGraph="@navigation/main_nav">
     </fragment>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#dddddd"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/main_alarmbutton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/OSButton_Navigation"
-            android:text="알람"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/main_worldtimebutton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/OSButton_Navigation"
-            android:text="타이머"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/main_stopwatchbutton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/OSButton_Navigation"
-            android:text="스톱워치"
-            android:layout_weight="1"/>
-    </LinearLayout>
+<!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="?colorPrimaryVariant"-->
+<!--        android:orientation="horizontal">-->
+<!--        <Button-->
+<!--            android:id="@+id/main_alarmbutton"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            style="@style/OSButton_Navigation"-->
+<!--            android:text="알람"-->
+<!--            android:layout_weight="1"/>-->
+<!--        <Button-->
+<!--            android:id="@+id/main_worldtimebutton"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            style="@style/OSButton_Navigation"-->
+<!--            android:text="타이머"-->
+<!--            android:layout_weight="1"/>-->
+<!--        <Button-->
+<!--            android:id="@+id/main_stopwatchbutton"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            style="@style/OSButton_Navigation"-->
+<!--            android:text="스톱워치"-->
+<!--            android:layout_weight="1"/>-->
+<!--    </LinearLayout>-->
 
 </LinearLayout>

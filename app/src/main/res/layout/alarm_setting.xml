@@ -35,7 +35,7 @@
         <TimePicker
             android:id="@+id/alarm_setting_time"
             android:layout_width="312dp"
-            android:layout_height="163dp"
+            android:layout_height="183dp"
             android:scaleX="0.90"
             android:scaleY="0.90"
             android:theme="@style/STimePicker_Alarm"
@@ -103,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
+        android:paddingBottom="10dp"
         android:layout_gravity="center_horizontal"
         android:background="?colorSurface"
         android:paddingHorizontal="35dp"
@@ -174,16 +175,18 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:background="#ffffff"
+        android:paddingLeft="30dp"
+        android:paddingRight="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton
             android:id="@+id/alarm_setting_cancel"
             style="@style/OSActionButton"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
@@ -191,7 +194,8 @@
             android:id="@+id/alarm_setting_save"
             style="@style/OSActionButton"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="@string/common_save" />
     </LinearLayout>

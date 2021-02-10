@@ -27,7 +27,7 @@
     <path
         android:name="thumb_1"
         android:pathData="M 6 12 L 6 12"
-        android:strokeColor="#00ff00"
+        android:strokeColor="?colorSecondary"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
 </vector>

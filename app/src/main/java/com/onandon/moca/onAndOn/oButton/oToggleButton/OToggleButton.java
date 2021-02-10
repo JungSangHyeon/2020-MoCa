@@ -42,8 +42,8 @@ public abstract class OToggleButton extends androidx.appcompat.widget.AppCompatT
         super.setOnCheckedChangeListener(this);
 
         // set default background
-//        this.setBackground(this.normalToCheckedBackground);
         this.changeBackground(this.checkedToNormalBackground);
+        this.stopNowAnimation();
     }
 
     @Override
@@ -51,16 +51,22 @@ public abstract class OToggleButton extends androidx.appcompat.widget.AppCompatT
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(this.onCheckedChangeListener !=null){ this.onCheckedChangeListener.onCheckedChanged(buttonView, isChecked); }
-        if (this.isChecked()) { Log.d("TEST", "to checked"); this.changeBackground(this.normalToCheckedBackground); }
-        else {Log.d("TEST", "to normal");   this.changeBackground(this.checkedToNormalBackground); }
+        if (this.isChecked()) { this.changeBackground(this.normalToCheckedBackground); }
+        else {this.changeBackground(this.checkedToNormalBackground); }
     }
 
     @Override
     public void setEnabled(boolean enable){
         super.setEnabled(enable);
-        OAnimator.animateEnableChange(this);
+        OAnimator.animateEnableChange(this, 300);
+    }
+    public void setCheckedWithoutAnimation(boolean checked){
+        this.setChecked(checked);
+        // On Checked Change()
+        this.stopNowAnimation();
     }
 
     protected Drawable getBackgroundById(int id) { return this.getContext().getDrawable(this.attributeArray.getResourceId(id, -1)); }
     protected abstract void changeBackground(Drawable background);
+    protected abstract void stopNowAnimation();
 }

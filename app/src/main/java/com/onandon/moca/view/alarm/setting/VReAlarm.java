@@ -51,7 +51,7 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
 
         this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);
-        this.aSwitch.setChecked(this.mAlarm.getReAlarm().isChecked());
+        this.aSwitch.setCheckedWithoutAnimation(this.mAlarm.getReAlarm().isChecked());
     }
 
     private int findIndex(int[] intervals, int interval) {

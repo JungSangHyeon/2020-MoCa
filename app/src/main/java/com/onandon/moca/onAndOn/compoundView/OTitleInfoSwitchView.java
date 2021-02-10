@@ -51,7 +51,9 @@ public class OTitleInfoSwitchView extends LinearLayout implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        this.onOffButton.setChecked(!this.onOffButton.isChecked());
+        if(this.onOffButton.isEnabled()){
+            this.onOffButton.setChecked(!this.onOffButton.isChecked());
+        }
     }
 
     // Getter

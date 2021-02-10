@@ -2,8 +2,8 @@
 <resources>
     <!--  Button  -->
     <style name="OSActionButton" >
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">15sp</item>
         <item name="obutton_normal_to_checked">@drawable/oround_square_normal_to_checked</item>
         <item name="obutton_checked_to_normal">@drawable/oround_square_checked_to_normal</item>
     </style>
@@ -13,8 +13,8 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
-        <item name="obutton_normal_to_checked">@drawable/othick_circle_normal_to_checked</item>
-        <item name="obutton_checked_to_normal">@drawable/othick_circle_checked_to_normal</item>
+        <item name="obutton_normal_to_checked">@drawable/two_line_circle_normal_to_checked</item>
+        <item name="obutton_checked_to_normal">@drawable/two_line_circle_checked_to_normal</item>
     </style>
 
     <style name="OSToggleButton_Check" >
@@ -28,7 +28,7 @@
     </style>
 
     <style name="OSButton_Navigation" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:textColor">?colorOnBackground</item>
+        <item name="android:textColor">?colorOnPrimary</item>
         <item name="android:textSize">15sp</item>
     </style>
 

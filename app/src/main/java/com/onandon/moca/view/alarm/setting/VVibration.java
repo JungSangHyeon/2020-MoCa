@@ -39,7 +39,7 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
 
         this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);
-        this.aSwitch.setChecked(this.mAlarm.getVibration().isVibrationChecked());
+        this.aSwitch.setCheckedWithoutAnimation(this.mAlarm.getVibration().isVibrationChecked());
     }
 
     @Override

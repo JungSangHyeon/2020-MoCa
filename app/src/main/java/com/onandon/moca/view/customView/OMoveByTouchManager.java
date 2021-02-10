@@ -25,7 +25,6 @@ public class OMoveByTouchManager implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent){
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)view.getLayoutParams();
-
         int action = motionEvent.getAction();
         if (action == MotionEvent.ACTION_DOWN) {
             this.downRawX = motionEvent.getRawX();

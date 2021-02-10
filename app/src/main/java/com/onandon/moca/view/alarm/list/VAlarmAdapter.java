@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.onandon.moca.R;
@@ -16,25 +17,25 @@ public class VAlarmAdapter extends RecyclerView.Adapter<VAlarmViewHolder> {
 
     // Associate
     private View.OnClickListener actionListener;
-    private View.OnLongClickListener removeListener;
     private CAlarm cAlarm;
     private VNextAlarmInfo vNextAlarmInfo;
     VNextAlarmInfo.VAlarmListUpdateCallback updateCallback;
+    View.OnTouchListener removeListener;
 
     // Constructor
-    public VAlarmAdapter(View.OnClickListener editListener, View.OnLongClickListener removeListener,
-                         CAlarm cAlarm, VNextAlarmInfo vNextAlarmInfo, VNextAlarmInfo.VAlarmListUpdateCallback updateCallback) {
+    public VAlarmAdapter(View.OnClickListener editListener,
+                         CAlarm cAlarm, VNextAlarmInfo vNextAlarmInfo, VNextAlarmInfo.VAlarmListUpdateCallback updateCallback){
         this.updateCallback = updateCallback;
         this.actionListener = editListener;
-        this.removeListener = removeListener;
         this.cAlarm = cAlarm;
         this.vNextAlarmInfo = vNextAlarmInfo;
+//        ((LinearLayoutManager)this.recyclerView.getLayoutManager()).scrollToPositionWithOffset(1, 0);
     }
 
     @Override // Create new views (invoked by the layout manager)
     public VAlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_list_item, parent, false);
-        return new VAlarmViewHolder(this.actionListener,this.removeListener, view, this.vNextAlarmInfo, this.updateCallback);
+        return new VAlarmViewHolder(this.actionListener, view, this.vNextAlarmInfo, this.updateCallback);
     }
 
     @Override // Replace the contents of a view (invoked by the layout manager)
