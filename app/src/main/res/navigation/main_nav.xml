@@ -21,7 +21,7 @@
         android:id="@+id/main_worldtime"
         android:name="com.onandon.moca.view.worldtime.VWorldTime"
         android:label="worldtime"
-        tools:layout="@layout/worldtime" >
+        tools:layout="@layout/globalclock" >
     </fragment>
 
     <action
@@ -30,6 +30,7 @@
     <action
         android:id="@+id/action_global_main_worldtime"
         app:destination="@id/main_worldtime" />
-    <action android:id="@+id/action_global_main_stopwatch"
+    <action
+        android:id="@+id/action_global_main_stopwatch"
         app:destination="@id/main_stopwatch"/>
 </navigation>

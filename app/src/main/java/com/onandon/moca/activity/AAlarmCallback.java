@@ -24,6 +24,7 @@ public class AAlarmCallback extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarmcallback);
         ShowOnLockScreenUtil.makeActivityAbleToShowOnLockedScreen(this);
+
         this.vCallBack = new VAlarmCallBack(this);
         Bundle bundle = this.getIntent().getBundleExtra("bundle");
         if (bundle != null) {
@@ -32,7 +33,11 @@ public class AAlarmCallback extends AppCompatActivity {
         }
     }
 
-    @Override protected void onDestroy() { super.onDestroy();this.vCallBack.onDestroy(); }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.vCallBack.onDestroy();
+    }
 }
 
 

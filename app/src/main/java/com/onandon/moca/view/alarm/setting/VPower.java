@@ -35,7 +35,7 @@ public class VPower  implements Switch.OnCheckedChangeListener, View.OnClickList
 
         OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_power);
 
-        this.name = itemTitleInfoSwitch.getSettingLayout().findViewById(R.id.alarm_setting_item_name);
+        this.name = itemTitleInfoSwitch.getSettingLayout().findViewById(R.id.info);
         this.name.setOnClickListener(this);
         this.name.setOnTouchListener(this);
 

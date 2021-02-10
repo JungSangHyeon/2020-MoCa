@@ -1,4 +1,4 @@
-package com.onandon.moca.view.customView;
+package com.onandon.moca.onAndOn.customView;
 
 import android.view.MotionEvent;
 import android.view.View;

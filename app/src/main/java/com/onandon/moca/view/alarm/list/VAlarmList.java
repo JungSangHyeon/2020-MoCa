@@ -19,13 +19,14 @@ import com.onandon.moca.R;
 import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.technical.device.TVibrator;
-import com.onandon.moca.view.customView.OMovableFloatingActionButton;
+import com.onandon.moca.onAndOn.customView.OMovableFloatingActionButton;
 
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Locale;
 
-public class VAlarmList extends Fragment implements View.OnLongClickListener, VNextAlarmInfo.VAlarmListUpdateCallback {
+public class VAlarmList extends Fragment
+        implements View.OnLongClickListener, VNextAlarmInfo.VAlarmListUpdateCallback, View.OnClickListener, View.OnTouchListener {
 
     private VNextAlarmInfo vNextAlarmInfo;
     private RecyclerView recyclerView;
@@ -43,10 +44,10 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
         // Associate View
         View view = inflater.inflate(R.layout.alarm_list, container, false);
 
-        this.vNextAlarmInfo = new VNextAlarmInfo(view, this.cAlarm, (v)->editNextAlarm(), this::update, this::onLongClick);
+        this.vNextAlarmInfo = new VNextAlarmInfo(view, this.cAlarm, (v)->editNextAlarm(), this, this);
 
-        this.vAlarmAdapter = new VAlarmAdapter((v)->editAlarm(v), this.cAlarm, this.vNextAlarmInfo, this);
-        this.recyclerView = view.findViewById(R.id.alarm_list_recycleview);
+        this.vAlarmAdapter = new VAlarmAdapter(this, this.cAlarm, this.vNextAlarmInfo, this, this);
+        this.recyclerView = view.findViewById(R.id.alarm_list_items);
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setAdapter(this.vAlarmAdapter);
         new ItemTouchHelper(new OSimpleCallback()).attachToRecyclerView(this.recyclerView);
@@ -122,6 +123,24 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
     }
 
     /**
+     * edit alarm by click
+     */
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if(event.getAction()==MotionEvent.ACTION_DOWN){
+            alarmDeleteAction = false;
+        }
+        return false;
+    }
+    @Override
+    public void onClick(View v) {
+        Log.d("TETETE", "onClick "+alarmDeleteAction);
+        if(!alarmDeleteAction){
+            this.editAlarm(v);
+        }
+    }
+
+    /**
      * Navigate to alarm setting fragment
      */
     private void goToAlarmSetting() {
@@ -131,7 +150,6 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
         bundle.putInt("MAlarmCount", this.cAlarm.getMAlarms().size()+1); // for alarm name
         Navigation.findNavController(this.getView()).navigate(R.id.action_VAlarmList_to_VAlarmSetting, bundle);
     }
-
     private class SaveListener implements View.OnClickListener, Serializable { @Override public void onClick(View view) { saveAlarm(); }}
 
     /**
@@ -182,14 +200,18 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
         @Override
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
             if(startAction){
+                Log.d("TETETE", "onSelectedChanged START "+alarmDeleteAction);
                 this.selectedViewHolder =viewHolder;
                 this.oldX = this.selectedViewHolder.itemView.getX();
                 this.oldY = this.selectedViewHolder.itemView.getY();
                 new TVibrator((Activity)getContext()).start(new int[][]{{100,255}}, -1);
             }else{
                 float dX = Math.abs(this.oldX-this.selectedViewHolder.itemView.getX());
-                float dY = Math.abs(this.oldY-this.selectedViewHolder.itemView.getX());
+                float dY = Math.abs(this.oldY-this.selectedViewHolder.itemView.getY());
+                Log.d("TETETE", "onSelectedChanged END "+alarmDeleteAction+" "+dX+", "+dY);
                 if(dX<=10 && dY <=10){
+                    alarmDeleteAction = true;
+                    Log.d("TETETE", "onSelectedChanged Remove "+alarmDeleteAction);
                     removeAlarm(recyclerView.getChildAdapterPosition(this.selectedViewHolder.itemView));
                 }
             }
@@ -197,4 +219,5 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, VN
         }
         @Override public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) { }
     }
+    private boolean alarmDeleteAction = false;
 }

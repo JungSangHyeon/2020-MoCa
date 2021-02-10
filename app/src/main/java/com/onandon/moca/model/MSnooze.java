@@ -9,14 +9,11 @@ public class MSnooze implements Serializable, Cloneable {
 
     @Override
     public MSnooze clone() {
-        try {
-            return (MSnooze) super.clone();
-        } catch (CloneNotSupportedException e) {
-            return null;
-        }
+        try { return (MSnooze) super.clone(); }
+        catch (CloneNotSupportedException e) { return null; }
     }
 
-    // Repeat
+    // Attribute
     private Calendar snoozeAlarmTime;
     private boolean isSnoozing;
     private int snoozeInterval;

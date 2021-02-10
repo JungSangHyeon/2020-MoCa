@@ -1,7 +1,7 @@
 <animated-vector
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:drawable="@drawable/oround_square_path">
+    android:drawable="@drawable/oround_square">
 
     <target android:name="round_square">
         <aapt:attr name="android:animation">

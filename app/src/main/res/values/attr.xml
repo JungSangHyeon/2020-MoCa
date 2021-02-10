@@ -6,9 +6,9 @@
         <attr name="obutton_checked_to_normal" format="reference"/>
     </declare-styleable>
     
-    <declare-styleable name="AlarmSettingItem">
-        <attr name="alarm_setting_item_title" format="string"/>
-        <attr name="alarm_setting_item_info" format="reference"/>
+    <declare-styleable name="OTitleInfoSwitchView">
+        <attr name="tis_title" format="string"/>
+        <attr name="tis_info" format="reference"/>
     </declare-styleable>
 
 </resources>

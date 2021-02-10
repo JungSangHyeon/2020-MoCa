@@ -34,7 +34,7 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
 
         OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_vibration);
 
-        this.name = itemTitleInfoSwitch.getSettingLayout().findViewById(R.id.alarm_setting_item_name);
+        this.name = itemTitleInfoSwitch.getSettingLayout().findViewById(R.id.info);
         this.name.setOnClickListener(this);
 
         this.aSwitch = itemTitleInfoSwitch.getOnOffButton();

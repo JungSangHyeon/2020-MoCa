@@ -8,11 +8,10 @@ import android.os.Vibrator;
 
 import com.onandon.moca.Constant;
 
+/**
+ * need permission : <uses-permission android:name="android.permission.VIBRATE" />
+ * */
 public class TVibrator {
-
-    /**
-     * need permission : <uses-permission android:name="android.permission.VIBRATE" />
-     * */
 
     // Association
     private Activity activity;
@@ -27,12 +26,11 @@ public class TVibrator {
     public TVibrator(Activity activity) {
         this.activity=activity;
         this.vibrator = (Vibrator) this.activity.getSystemService(Context.VIBRATOR_SERVICE);
-        this.power=100;
     }
     public void onCreate(int power) {this.power=power; }
 
     public void start(int[][] pattern, int repeat) {
-        long[] duraion = this.getDuration(pattern);
+        long[] duration = this.getDuration(pattern);
         int[] amplitude = this.getAmplitude(pattern);
         this.running = true;
         this.vibrateThread = new Thread(){
@@ -40,10 +38,10 @@ public class TVibrator {
             public void run(){
                 while (running){
                     try {
-                        vibrate(duraion, amplitude, repeat);
+                        vibrate(duration, amplitude, repeat);
                         if(repeat!=-1){synchronized(this){this.wait();}}
                         else{ running = false;}
-                    } catch (InterruptedException e) { }
+                    } catch (InterruptedException ignored) { }
                 }
             }
         };
@@ -51,26 +49,22 @@ public class TVibrator {
     }
 
     public void vibrate(long[] timing, int[] amps, int repeat) {
-        int[] ampsCopy = amps.clone();
-        for (int i = 0; i < ampsCopy.length; i++) { ampsCopy[i] = ampsCopy[i] * this.power / 100; }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) this.vibrator.vibrate(VibrationEffect.createWaveform(timing, ampsCopy, repeat));
+        int[] powerApplyAmps = amps.clone();
+        for (int i = 0; i < powerApplyAmps.length; i++) { powerApplyAmps[i] = powerApplyAmps[i] * this.power / 100; }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) this.vibrator.vibrate(VibrationEffect.createWaveform(timing, powerApplyAmps, repeat));
         else this.vibrator.vibrate(Constant.NoEffectVibrationPattern, repeat);
     }
     public void stop() {  this.running = false; this.vibrateThread.interrupt(); this.vibrator.cancel();}
-    public void updatePower(int power) {this.power=power; this.vibrateThread.interrupt();}
+    public void updatePower(int power) {this.power=power; this.vibrateThread.interrupt();} // stop -> update power -> play
 
     private long[] getDuration(int[][] pattern) {
         long[] duration = new long[pattern.length];
-        for(int i=0; i< pattern.length; i++){
-            duration[i] = pattern[i][0];
-        }
+        for(int i=0; i< pattern.length; i++) duration[i] = pattern[i][0];
         return duration;
     }
     private int[] getAmplitude(int[][] pattern) {
         int[] amplitude = new int[pattern.length];
-        for(int i=0; i< pattern.length; i++){
-            amplitude[i] = pattern[i][1];
-        }
+        for(int i=0; i< pattern.length; i++) amplitude[i] = pattern[i][1];
         return amplitude;
     }
 }

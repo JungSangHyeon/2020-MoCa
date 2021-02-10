@@ -28,7 +28,7 @@ public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeLi
 
         OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_ringtone);
 
-        this.ringtoneName = itemTitleInfoSwitch.getSettingLayout().findViewById(R.id.alarm_setting_item_name);
+        this.ringtoneName = itemTitleInfoSwitch.getSettingLayout().findViewById(R.id.info);
         this.ringtoneName.setOnClickListener(this);
 
         this.aSwitch = itemTitleInfoSwitch.getOnOffButton();

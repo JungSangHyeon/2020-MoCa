@@ -1,12 +1,9 @@
 package com.onandon.moca.view.alarm.callback;
 
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.annotation.RequiresApi;
 
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
@@ -19,13 +16,13 @@ import com.onandon.moca.technical.TAlarm;
 
 import java.util.Locale;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
 public class VAlarmCallBack implements View.OnClickListener{
 
     // Associate
-    private TextView textviewName;
-    private Button alarmOffBtn, snoozeBtn;
     private AAlarmCallback activity;
+    // Associate View
+    private TextView name;
+    private Button alarmOffButton, snoozeButton;
     private MAlarm mAlarm;
 
     // Component
@@ -35,55 +32,48 @@ public class VAlarmCallBack implements View.OnClickListener{
 
     // Constructor
     public VAlarmCallBack(AAlarmCallback activity) {
+        // Associate
         this.activity = activity;
+        this.name = activity.findViewById(R.id.alarmcallback_name);
+        this.alarmOffButton = activity.findViewById(R.id.alarmcallback_off);
+        this.snoozeButton = activity.findViewById(R.id.alarmcallback_snooze);
 
+        // Create Component
         this.cAlarm = new CAlarm(activity);
+        this.tAlarm = new TAlarm(activity);
 
-        this.textviewName = this.activity.findViewById(R.id.alarmcallback_name);
-
-        this.alarmOffBtn = this.activity.findViewById(R.id.alarmcallback_off);
-        this.alarmOffBtn.setOnClickListener(this);
-
-        this.snoozeBtn = this.activity.findViewById(R.id.alarmcallback_snooze);
-        this.snoozeBtn.setOnClickListener(this);
-
-        this.tAlarm = new TAlarm(this.activity);
+        // Init Associate
+        this.alarmOffButton.setOnClickListener(this::onClick);
+        this.snoozeButton.setOnClickListener(this::onClick);
     }
 
     public void onCreate(MAlarm scheduledAlarm) {
         this.cAlarm.onCreate(Locale.KOREA);
         this.mAlarm = this.cAlarm.findByKey(scheduledAlarm.schedulerNextAlarm().getKey());
-        if (this.mAlarm != null) { // if not removed
-            if (mAlarm.isChecked()) { // if enabled
-                this.tAlarm.onCreate(mAlarm);
-                this.tAlarm.onStartCommand();
-                this.textviewName.setText(mAlarm.getName());
-                MSnooze mSnooze = this.mAlarm.getmAlarmSnooze();
-                if(mSnooze.isSnoozing()){ mSnooze.resetSnooze(); }
-                this.alarmDismissThread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try { Thread.sleep(Constant.AlarmRingMinute *1000*60); alarmMissed(); } catch (InterruptedException e) {}
-                    }
-                });
-                this.alarmDismissThread.start();
-            } else { // if disabled
-                this.activity.finish();
-            }
-        } else { // if removed
+        if (this.mAlarm != null && this.mAlarm.isChecked()) { // if not removed && checked
+            this.tAlarm.onCreate(this.mAlarm);
+            this.tAlarm.onStartCommand();
+            this.name.setText(this.mAlarm.getName());
+            MSnooze mSnooze = this.mAlarm.getmAlarmSnooze();
+            if(mSnooze.isSnoozing()){ mSnooze.resetSnooze(); }
+            this.alarmDismissThread = new Thread(() -> {
+                try { Thread.sleep(Constant.AlarmRingMinute *1000*60); this.alarmMissed(); }
+                catch (InterruptedException e) {}
+            });
+            this.alarmDismissThread.start();
+        } else { // if removed || not checked
             this.activity.finish();
         }
     }
-
     public void onDestroy() { this.cAlarm.onDestroy(); }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view) { // for alarm off button & snooze button
         this.alarmDismissThread.interrupt();
-        if (view == this.alarmOffBtn) { // alarm checked
+        if (view == this.alarmOffButton) { // alarm checked
             MReAlarm mAlarmReAlarm = this.mAlarm.getReAlarm();
             if(mAlarmReAlarm.isChecked()){ mAlarmReAlarm.resetReAlarm(); }
-        }else if(view == this.snoozeBtn){ // snooze checked
+        }else if(view == this.snoozeButton){ // snooze checked
             this.mAlarm.getmAlarmSnooze().startSnooze();
         }
         this.alarmOff();
@@ -101,7 +91,6 @@ public class VAlarmCallBack implements View.OnClickListener{
         this.tAlarm.onStopCommand();
         this.cAlarm.scheduleAlarm();
         this.cAlarm.store();
-//        this.activity.finish();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.activity.finishAndRemoveTask();
         } else {

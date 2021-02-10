@@ -1,4 +1,4 @@
-package com.onandon.moca.view.customView;
+package com.onandon.moca.onAndOn.customView;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

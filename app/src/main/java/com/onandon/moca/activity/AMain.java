@@ -4,15 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.onandon.moca.R;
-import com.onandon.moca.view.VMain;
-
-import java.io.IOException;
 
 public class AMain extends AppCompatActivity {
 
@@ -22,8 +17,8 @@ public class AMain extends AppCompatActivity {
         setContentView(R.layout.main);
 
         if(Settings.canDrawOverlays(this)){
-            VMain vMain = new VMain(this);
-            vMain.onCreate();
+//            VMain vMain = new VMain(this);
+//            vMain.onCreate();
         }else{
             this.startManageOverlayPermissionActivity();
         }
@@ -39,8 +34,8 @@ public class AMain extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(Settings.canDrawOverlays(this)){
-            VMain vMain = new VMain(this);
-            vMain.onCreate();
+//            VMain vMain = new VMain(this);
+//            vMain.onCreate();
         }else{
             this.finish();
         }

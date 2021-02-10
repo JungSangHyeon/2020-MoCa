@@ -17,10 +17,12 @@ import java.util.concurrent.Semaphore;
 
 public class TAlarm {
 
-    private TDevices tDevices;
     // Association
-    private Activity activity;
     private MAlarm mAlarm;
+    private Activity activity;
+
+    // Component
+    private TDevices tDevices;
 
     // Constructor
     public TAlarm(Activity activity) {
@@ -29,49 +31,52 @@ public class TAlarm {
     public void onCreate(MAlarm mAlarm) {
         this.mAlarm = mAlarm;
     }
-    public void onDestroy() { }
 
     public void onStartCommand() {
         this.tDevices = new TDevices(this.activity, this.mAlarm);
         this.tDevices.onStart();
         this.tDevices.start();
     }
-
     public void onStopCommand() {
         try {
             this.tDevices.setRunning(false);
             this.tDevices.join();
             this.tDevices.onStop();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-    public void updatePower(){
-        this.tDevices.update();
+        } catch (InterruptedException e) { e.printStackTrace(); }
     }
 
     private class TDevices extends Thread {
-        private final Semaphore semaphore = new Semaphore(1);
+
+        // Working Variable
         private boolean bRunning;
         private int power;
 
+        // Associate
         private MAlarm mAlarm;
 
+        // Component
         private TRingtone tRingtone;
         private TVibrator tVibrator;
         private TFlash tFlash;
         private TScreen tScreen;
 
+        // Constructor
         public TDevices(Activity activity, MAlarm mAlarm) {
+            // Set Attribute
             this.bRunning = true;
-            this.mAlarm = mAlarm;
 
+            // Associate
+            this.mAlarm = mAlarm;
+            // Associate Attribute
+            this.power = this.mAlarm.getPower();
+
+            // Create Component
             this.tRingtone = new TRingtone(activity);
             this.tVibrator = new TVibrator(activity);
             this.tFlash = new TFlash(activity);
             this.tScreen = new TScreen(activity);
 
-            this.power = this.mAlarm.getPower();
+            // Initialize Component
             this.tRingtone.onCreate(this.power);
             this.tVibrator.onCreate(this.power);
         }
@@ -85,12 +90,10 @@ public class TAlarm {
         public void run() {
             try {
                 int flashWaitCount = 0, screenWaitCount = 0;
-                while (isRunning()) {
+                while (this.isRunning()) {
                     Thread.sleep(Constant.waitTimePerCount/this.power);
-
                     flashWaitCount++;
                     screenWaitCount++;
-
                     if (mAlarm.isFlashChecked() && flashWaitCount > Constant.FlashSwitchCount) {
                         flashWaitCount = 0;
                         tFlash.switchFlash();
@@ -100,46 +103,20 @@ public class TAlarm {
                         tScreen.switchBrightness();
                     }
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void update() {
-            int power = this.mAlarm.getPower();
-            if(mAlarm.getRingtone().isChecked()){ this.tRingtone.updatePower(power);}
-            if(mAlarm.getVibration().isVibrationChecked()){this.tVibrator.updatePower(power);}
+            } catch (InterruptedException e) { e.printStackTrace(); }
         }
 
         public void onStart() {
-            if (mAlarm.getRingtone().isChecked()) {
-                tRingtone.start(mAlarm.getRingtone().getUri().toString());
-            }
-            if (mAlarm.getVibration().isVibrationChecked()) {
-                Constant.EVibrationPattern selectedVibrationPattern = Constant.EVibrationPattern.values()[mAlarm.getVibration().getPattern()];
-                tVibrator.start(selectedVibrationPattern.getPattern(), 0);
-            }
-            if (mAlarm.isFlashChecked()) {
-                tFlash.start();
-            }
-            if (mAlarm.isScreenChecked()) {
-                tScreen.start();
-            }
+            if (this.mAlarm.getRingtone().isChecked()) { this.tRingtone.start(this.mAlarm.getRingtone().getUri().toString()); }
+            if (this.mAlarm.getVibration().isVibrationChecked()) { this.tVibrator.start(Constant.EVibrationPattern.values()[this.mAlarm.getVibration().getPattern()].getPattern(), 0); }
+            if (this.mAlarm.isFlashChecked()) { this.tFlash.start(); }
+            if (this.mAlarm.isScreenChecked()) { this.tScreen.start(); }
         }
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public void onStop() {
-            if (this.mAlarm.getRingtone().isChecked()) {
-                this.tRingtone.stop();
-            }
-            if (this.mAlarm.getVibration().isVibrationChecked()) {
-                this.tVibrator.stop();
-            }
-            if (this.mAlarm.isFlashChecked()) {
-                this.tFlash.stop();
-            }
-            if (this.mAlarm.isScreenChecked()) {
-                this.tScreen.stop();
-            }
+            if (this.mAlarm.getRingtone().isChecked()) { this.tRingtone.stop(); }
+            if (this.mAlarm.getVibration().isVibrationChecked()) { this.tVibrator.stop(); }
+            if (this.mAlarm.isFlashChecked()) { this.tFlash.stop(); }
+            if (this.mAlarm.isScreenChecked()) { this.tScreen.stop(); }
         }
     }
 }

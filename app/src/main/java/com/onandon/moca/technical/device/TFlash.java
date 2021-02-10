@@ -10,15 +10,13 @@ import androidx.annotation.RequiresApi;
 
 import com.onandon.moca.Constant;
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+/**
+ *  need permission & feature
+ *      <uses-permission android:name="android.permission.CAMERA" />
+ *      <uses-permission android:name="android.permission.FLASHLIGHT" />
+ *      <uses-feature android:name="android.hardware.camera.flash" />
+ * */
 public class TFlash {
-
-    /**
-     *  need permission & feature
-     *      <uses-permission android:name="android.permission.CAMERA" />
-     *      <uses-permission android:name="android.permission.FLASHLIGHT" />
-     *      <uses-feature android:name="android.hardware.camera.flash" />
-     * */
 
     // Attribute
     private boolean isOn;
@@ -28,34 +26,28 @@ public class TFlash {
     private Activity activity;
 
     // Constructor
-    public TFlash(Activity activity) {
-        this.activity = activity;
-    }
-
-    public void start() {
-        this.cameraManager = (CameraManager) this.activity.getSystemService(Context.CAMERA_SERVICE);
-    }
+    public TFlash(Activity activity) { this.activity = activity; }
+    public void start() { this.cameraManager = (CameraManager) this.activity.getSystemService(Context.CAMERA_SERVICE); }
     public void stop() {
         this.off();
     }
 
+    public void switchFlash() {
+        if(this.isOn) this.off();
+        else this.on();
+    }
     public void on(){
         try {
             this.cameraManager.setTorchMode(this.cameraManager.getCameraIdList()[0], true);
             this.isOn = true;
         } catch (CameraAccessException e) { e.printStackTrace(); }
-        catch (IllegalArgumentException e) {/*No Torch*/}
+        catch (IllegalArgumentException ignoreNoTorch) {}
     }
     public void off(){
         try {
             this.cameraManager.setTorchMode(this.cameraManager.getCameraIdList()[0], false);
             this.isOn = false;
         } catch (CameraAccessException e) { e.printStackTrace(); }
-        catch (IllegalArgumentException e) {/*No Torch*/}
-    }
-
-    public void switchFlash() {
-        if(this.isOn) this.off();
-        else this.on();
+        catch (IllegalArgumentException ignoreNoTorch) {}
     }
 }

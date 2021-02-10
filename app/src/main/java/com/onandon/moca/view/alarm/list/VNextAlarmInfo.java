@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.opengl.Visibility;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -52,19 +50,19 @@ public class VNextAlarmInfo implements View.OnClickListener, CompoundButton.OnCh
         this.editListener=editListener;
         this.removeListener=removeListener;
         this.cAlarm=cAlarm;
-        this.container = view.findViewById(R.id.alarm_list_next_alarm);
-        this.time = view.findViewById(R.id.alarm_list_next_alarm_time);
-        this.date = view.findViewById(R.id.alarm_list_next_alarm_date);
-        this.dayOfWeek = view.findViewById(R.id.alarm_list_next_alarm_dayofweek);
-        this.name = view.findViewById(R.id.alarm_list_next_alarm_name);
-        this.onOffButton = view.findViewById(R.id.alarm_list_item_on);
-
-        this.update();
+        this.container = view.findViewById(R.id.alarm_list_dashboard);
+        this.time = view.findViewById(R.id.alarm_list_dashboard_time);
+        this.date = view.findViewById(R.id.alarm_list_dashboard_date);
+        this.dayOfWeek = view.findViewById(R.id.alarm_list_dashboard_dayofweek);
+        this.name = view.findViewById(R.id.alarm_list_dashboard_name);
+        this.onOffButton = view.findViewById(R.id.alarm_list_dashboard_switch);
 
         this.container.setOnClickListener(editListener);
         this.container.setOnLongClickListener(removeListener);
         this.time.setOnClickListener(this);
         this.onOffButton.setOnCheckedChangeListener(this);
+
+        this.update();
 
         this.loadMode();
     }

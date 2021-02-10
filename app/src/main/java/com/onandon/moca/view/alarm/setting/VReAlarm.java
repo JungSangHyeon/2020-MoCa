@@ -37,16 +37,16 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_realarm);
         View reAlarmSettingLayout = itemTitleInfoSwitch.getSettingLayout();
 
-        this.interval = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_interval);
+        this.interval = reAlarmSettingLayout.findViewById(R.id.interval);
         this.interval.setOnClickListener(this);
 
-        this.intervalUnit = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_intervalunit);
+        this.intervalUnit = reAlarmSettingLayout.findViewById(R.id.interval_unit);
         this.intervalUnit.setOnClickListener(this);
 
-        this.count = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_count);
+        this.count = reAlarmSettingLayout.findViewById(R.id.count);
         this.count.setOnClickListener(this);
 
-        this.countUnit = reAlarmSettingLayout.findViewById(R.id.alarm_setting_realarm_countunit);
+        this.countUnit = reAlarmSettingLayout.findViewById(R.id.count_unit);
         this.countUnit.setOnClickListener(this);
 
         this.aSwitch = itemTitleInfoSwitch.getOnOffButton();

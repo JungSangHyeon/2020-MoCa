@@ -3,33 +3,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:id="@+id/alarm_list_item"
-
-    style="@style/OSSecondarySurface"
+    style="@style/OSPrimarySurface"
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="80dp">
+    android:minHeight="160dp"
+    >
 
     <TextView
-        android:id="@+id/alarm_list_item_time"
+        android:id="@+id/alarm_list_dashboard_time"
 
         style="@style/OSTextView"
-        android:textSize="25sp"
+        android:textSize="45dp"
+        android:gravity="center"
 
         android:text="@string/alarm_list_item_default_time"
+        android:autoSizeTextType="uniform"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_list_dashboard_name"
         />
 
     <TextView
-        android:id="@+id/alarm_list_item_name"
+        android:id="@+id/alarm_list_dashboard_name"
 
         style="@style/OSTextView"
         android:textSize="20sp"
@@ -38,24 +38,26 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintVertical_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_marginRight="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/alarm_list_item_switch"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/alarm_list_dashboard_switch"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_list_dashboard_time"
+        app:layout_constraintVertical_bias="0.273"
         >
 
         <TextView
-            android:id="@+id/alarm_list_item_date"
+            android:id="@+id/alarm_list_dashboard_date"
 
             style="@style/OSTextView"
             android:gravity="left|center_vertical"
@@ -63,14 +65,14 @@
             android:text="@string/alarm_list_item_default_day"
 
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
 
         <TextView
-            android:id="@+id/alarm_list_item_dayofweek"
+            android:id="@+id/alarm_list_dashboard_dayofweek"
 
             style="@style/OSTextView"
             android:gravity="left|center_vertical"
@@ -82,27 +84,20 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/alarm_list_item_date"
+            app:layout_constraintStart_toEndOf="@+id/alarm_list_dashboard_date"
             app:layout_constraintTop_toTopOf="parent"
             />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton
-        android:id="@+id/alarm_list_item_switch"
+        android:id="@+id/alarm_list_dashboard_switch"
 
         style="@style/OSCheckToggleButton"
 
-        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <View
-        style="@style/OSLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/alarm_list_dashboard_time"
+        app:layout_constraintVertical_bias="0.273" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

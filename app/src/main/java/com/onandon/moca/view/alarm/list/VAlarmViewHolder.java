@@ -1,6 +1,5 @@
 package com.onandon.moca.view.alarm.list;
 
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.util.Log;
 import android.view.View;
@@ -29,17 +28,19 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
     MAlarm mAlarm;
     // Constructor
     public VAlarmViewHolder(View.OnClickListener actionListener,
-                            View adapterView, VNextAlarmInfo vNextAlarmInfo, VNextAlarmInfo.VAlarmListUpdateCallback updateCallback) {
+                            View adapterView, VNextAlarmInfo vNextAlarmInfo,
+                            VNextAlarmInfo.VAlarmListUpdateCallback updateCallback, View.OnTouchListener onTouchListener) {
         super(adapterView);
         this.vNextAlarmInfo=vNextAlarmInfo;
         this.updateCallback=updateCallback;
 
-        this.time =  this.itemView.findViewById(R.id.alarm_list_next_alarm_time);
-        this.name =  this.itemView.findViewById(R.id.alarm_list_next_alarm_name);
-        this.date =  this.itemView.findViewById(R.id.alarm_list_next_alarm_date);
-        this.dayOfWeek =  this.itemView.findViewById(R.id.alarm_list_next_alarm_dayofweek);
-        this.aSwitch = this.itemView.findViewById(R.id.alarm_list_item_on);
+        this.time =  this.itemView.findViewById(R.id.alarm_list_item_time);
+        this.name =  this.itemView.findViewById(R.id.alarm_list_item_name);
+        this.date =  this.itemView.findViewById(R.id.alarm_list_item_date);
+        this.dayOfWeek =  this.itemView.findViewById(R.id.alarm_list_item_dayofweek);
+        this.aSwitch = this.itemView.findViewById(R.id.alarm_list_item_switch);
 
+        this.itemView.setOnTouchListener(onTouchListener);
         this.itemView.setOnClickListener(actionListener);
     }
 

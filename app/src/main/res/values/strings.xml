@@ -1,10 +1,12 @@
 <resources>
+    <!--  system  -->
+    <string name="null_string"></string>
+
     <!--  main  -->
     <string name="app_name">MoCa</string>
-    <string name="hint">Default</string>
 
     <!--  tabs  -->
-    <string name="mainitem_alarm_title">알람</string>
+    <string name="tab_alarm">알람</string>
     <string name="tab_globalclock">세계시간</string>
     <string name="tab_stopwatch">스톱워치</string>
 
@@ -24,6 +26,7 @@
 
     <!--  alarm_setting  -->
     <string name="alarm_setting_day_pattern">yyyy/MM/dd (EEE)</string>
+
     <!--  alarm_setting_weekdays  -->
     <string name="weekday_sun">일</string>
     <string name="weekday_mon">월</string>
@@ -39,6 +42,16 @@
     <!--  alarm_setting_holidayoff  -->
     <string name="alarm_setting_holidayoff_title">공휴일 알람 끄기</string>
 
+    <!--  alarm_setting_re_alarm  -->
+    <string name="alarm_setting_realarm_title">다시 울림</string>
+    <string name="alarm_setting_realarm_default_interval">5</string>
+    <string name="alarm_setting_realarm_intervalunit">분후 </string>
+    <string name="alarm_setting_re_alarm_default_count">3</string>
+    <string name="alarm_setting_realarm_count_unit">회</string>
+
+    <!--  alarm_power  -->
+    <string name="alarm_setting_power_title">알람 세기</string>
+
     <!--  alarm_setting_ringtone  -->
     <string name="alarm_setting_ringtone_title">알림음</string>
     <string name="alarm_setting_ringtone_slectiondialog">알람음 설정</string>
@@ -46,6 +59,8 @@
     <!--  alarm_setting_vibration  -->
     <string name="alarm_setting_vibration_title">진동</string>
     <string name="alarm_setting_vibration_pattern">진동 패턴 선택</string>
+    <string name="alarm_setting_vibration_pattern1_name">진동 패턴 1</string>
+    <string name="alarm_setting_vibration_pattern2_name">진동 패턴 2</string>
 
     <!--  alarm_setting_flash  -->
     <string name="alarm_setting_flash_title">플래시</string>
@@ -53,29 +68,14 @@
     <!--  alarm_setting_screen  -->
     <string name="alarm_setting_screen_title">화면 깜빡임</string>
 
-    <!--  alarm_settingre_alarm  -->
-    <string name="alarm_setting_realarm_title">다시 울림</string>
-    <string name="alarm_setting_realarm_default_interval">5</string>
-    <string name="alarm_setting_realarm_intervalunit">분후 </string>
-    <string name="alarm_setting_re_alarm_default_count">3</string>
-    <string name="alarm_setting_realarm_count_unit">회</string>
-
-    <!-- alarmcallback_off  -->
+    <!-- alarmcallback  -->
     <string name="alarmcallback_off">Alarm Off</string>
-
-    <!--  사용 예정?  -->
     <string name="alarmcallback_snooze">Snooze</string>
-    <string name="alarm_setting_power_title">알람 세기</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  permission util  -->
     <string name="overlayPermissionDialogTitle">알람을 앱 위에 띄우기 위해 권한이 필요합니다.</string>
     <string name="overlayPermissionDialogMessage">다음 목록에서 MoCa를 선택하여 권한을 부여해 주세요.</string>
-    <string name="alarm_setting_vibration_pattern1_name">진동 패턴 1</string>
-    <string name="alarm_setting_vibration_pattern2_name">진동 패턴 2</string>
-    <string name="alarm_setting_vibration_pattern3_name">진동 패턴 3</string>
-    <string name="example1Name">삭제 요망</string>
-    <string name="example2Name">삭제요망</string>
-    <string name="null_string"></string>
 
+    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

@@ -14,11 +14,8 @@ public class MReAlarm implements Serializable, Cloneable {
 
     @Override
     public MReAlarm clone() {
-        try {
-            return (MReAlarm) super.clone();
-        } catch (CloneNotSupportedException e) {
-            return null;
-        }
+        try { return (MReAlarm) super.clone(); }
+        catch (CloneNotSupportedException e) { return null; }
     }
 
     // Constructor

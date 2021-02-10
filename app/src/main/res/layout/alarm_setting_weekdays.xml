@@ -1,87 +1,111 @@
-<com.onandon.moca.onAndOn.compoundView.OWeekSelectView xmlns:tools="http://schemas.android.com/tools"
+<com.onandon.moca.onAndOn.compoundView.OWeekSelectView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="horizontal"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:layout_gravity="center"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_0"
-            style="@style/OSToggleButton_Week"
+
+            style="@style/OSWeekToggleButton"
+
             android:textOn="@string/weekday_sun"
             android:textOff="@string/weekday_sun"
+
             app:layout_constraintEnd_toStartOf="@+id/alarm_setting_weekdays_1"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_1"
-            style="@style/OSToggleButton_Week"
+
+            style="@style/OSWeekToggleButton"
+
             android:textOn="@string/weekday_mon"
             android:textOff="@string/weekday_mon"
+
             app:layout_constraintEnd_toStartOf="@+id/alarm_setting_weekdays_2"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/alarm_setting_weekdays_0"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_2"
-            style="@style/OSToggleButton_Week"
+
+            style="@style/OSWeekToggleButton"
+
             android:textOn="@string/weekday_tus"
             android:textOff="@string/weekday_tus"
+
             app:layout_constraintEnd_toStartOf="@+id/alarm_setting_weekdays_3"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/alarm_setting_weekdays_1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_3"
-            style="@style/OSToggleButton_Week"
+
+            style="@style/OSWeekToggleButton"
+
             android:textOn="@string/weekday_wen"
             android:textOff="@string/weekday_wen"
+
             app:layout_constraintEnd_toStartOf="@+id/alarm_setting_weekdays_4"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/alarm_setting_weekdays_2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_4"
-            style="@style/OSToggleButton_Week"
+
+            style="@style/OSWeekToggleButton"
+
             android:textOn="@string/weekday_thu"
             android:textOff="@string/weekday_thu"
+
             app:layout_constraintEnd_toStartOf="@+id/alarm_setting_weekdays_5"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/alarm_setting_weekdays_3"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_5"
-            style="@style/OSToggleButton_Week"
+
+            style="@style/OSWeekToggleButton"
+
             android:textOn="@string/weekday_fri"
             android:textOff="@string/weekday_fri"
+
             app:layout_constraintEnd_toStartOf="@+id/alarm_setting_weekdays_6"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/alarm_setting_weekdays_4"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_6"
-            style="@style/OSToggleButton_Week"
+
+            style="@style/OSWeekToggleButton"
+
             android:textOn="@string/weekday_sat"
             android:textOff="@string/weekday_sat"
+
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/alarm_setting_weekdays_5"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </com.onandon.moca.onAndOn.compoundView.OWeekSelectView>

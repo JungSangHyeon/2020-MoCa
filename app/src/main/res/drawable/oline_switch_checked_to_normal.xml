@@ -1,7 +1,7 @@
 <animated-vector
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:drawable="@drawable/oline_switch_path">
+    android:drawable="@drawable/oline_switch">
 
     <target android:name="thumb_3">
         <aapt:attr name="android:animation">

@@ -15,7 +15,6 @@ import com.onandon.moca.control.CAlarm;
 
 import java.util.Locale;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
 public class RAlarm extends BroadcastReceiver {
 
     @Override

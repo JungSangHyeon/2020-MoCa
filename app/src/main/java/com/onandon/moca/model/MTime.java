@@ -1,11 +1,7 @@
 package com.onandon.moca.model;
 
-import android.os.Build;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
-import com.onandon.moca.Constant;
 import com.onandon.moca.utility.UWeek;
 
 import java.io.Serializable;
@@ -15,22 +11,20 @@ import java.util.Date;
 
 public class MTime implements Serializable, Cloneable {
 
-    private long timeInMillis;
+    @NonNull
+    @Override
+    public MTime clone() {
+        try { return (MTime) super.clone(); }
+        catch (CloneNotSupportedException e) { return new MTime(); }
+    }
 
+    // Attribute
+    private long timeInMillis;
     private boolean bRecurring;
     private boolean bHolidayOff; // Holiday Alarm Off
     private final boolean[] bDayOfWeeks;
 
-    @NonNull
-    @Override
-    public MTime clone() {
-        try {
-            return (MTime) super.clone();
-        } catch (CloneNotSupportedException e) {
-            return new MTime();
-        }
-    }
-
+    // Constructor
     public MTime() {
         // time
         Calendar calendar = Calendar.getInstance();
@@ -38,8 +32,7 @@ public class MTime implements Serializable, Cloneable {
 
         // day of week
         this.bDayOfWeeks = new boolean[Calendar.DAY_OF_WEEK];
-        // mon = 0 .. sun = 6
-        for (int i = 0; i< Calendar.DAY_OF_WEEK; i++) {
+        for (int i = 0; i< Calendar.DAY_OF_WEEK; i++) {// mon = 0 .. sun = 6
             this.bDayOfWeeks[i] = false;
         }
         int todayOfWeek = this.getDayOfWeek();
@@ -54,7 +47,6 @@ public class MTime implements Serializable, Cloneable {
     public long getTimeInMillis() {
         return this.timeInMillis;
     }
-
     public int getHourOfDay() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(this.timeInMillis);
@@ -97,7 +89,6 @@ public class MTime implements Serializable, Cloneable {
     public void setDayOfWeekChecked(int dayOfWeek, boolean bChecked) {
             this.bDayOfWeeks[dayOfWeek] = bChecked;
     }
-
     public boolean isRecurringChecked() { return bRecurring; }
     public void setRecurringChecked(boolean bRecurringChecked) { this.bRecurring = bRecurringChecked; }
 
@@ -112,7 +103,6 @@ public class MTime implements Serializable, Cloneable {
         return simpleDateFormat.format(new Date(this.timeInMillis));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void scheduleNextAlarmDay() {
         this.timeInMillis = UWeek.computeDateFromToday(
                 // compute earlaist day from today

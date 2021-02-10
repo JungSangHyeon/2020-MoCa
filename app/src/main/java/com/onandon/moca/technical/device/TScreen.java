@@ -17,9 +17,7 @@ public class TScreen {
     private Window window;
     private WindowManager.LayoutParams layoutParams;
 
-    // Component
-    private Thread flashThread;
-
+    // Constructor
     public TScreen(Activity activity) {
         this.activity=activity;
         this.window = activity.getWindow();
@@ -33,27 +31,22 @@ public class TScreen {
         this.window.setAttributes(this.layoutParams);
     }
 
-    public void on(){
-        activity.runOnUiThread(
-                ()->{
-                    this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
-                    this.window.setAttributes(this.layoutParams);
-                    this.isOn = true;
-                }
-        );
-    }
-    public void off(){
-        activity.runOnUiThread(
-                ()->{
-                    this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_OFF;
-                    this.window.setAttributes(this.layoutParams);
-                    this.isOn = false;
-                }
-        );
-    }
-
     public void switchBrightness() {
         if(this.isOn) this.off();
         else this.on();
+    }
+    public void on(){
+        this.activity.runOnUiThread(()->{
+            this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
+            this.window.setAttributes(this.layoutParams);
+            this.isOn = true;
+        });
+    }
+    public void off(){
+        this.activity.runOnUiThread(()->{
+            this.layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_OFF;
+            this.window.setAttributes(this.layoutParams);
+            this.isOn = false;
+        });
     }
 }

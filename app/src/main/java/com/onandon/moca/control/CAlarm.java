@@ -22,19 +22,25 @@ import java.util.Vector;
 
 public class CAlarm implements Serializable {
 
+    // Attribute ?
     private Locale locale;
+
+    // Associate
     private Vector<MAlarm> mAlarms;
+    private final Context mainActivity;
+
+    // Component
+    private DataAccessObject dataAccessObject;
+
+    // Working Variable
     private MAlarm currentAlarm;
     private int currentPosition;
     private boolean bCreate;
 
-    private final Context mainActivity;
-    private DataAccessObject dataAccessObject;
-
+    // Constructor
     public CAlarm(Context mainActivity) {
         this.mainActivity = mainActivity;
     }
-
     public void onCreate(Locale locale) {
         this.locale = locale;
         this.open();
@@ -45,6 +51,7 @@ public class CAlarm implements Serializable {
     }
 
     //////////////////////////////////////////////////////////////////
+
     // file read & write
     private void open() {
         this.dataAccessObject = new DataAccessObject(this.mainActivity);
@@ -64,28 +71,14 @@ public class CAlarm implements Serializable {
     }
     private void close() {
         this.dataAccessObject.close();
-
         this.dataAccessObject = null;
         this.mAlarms = null;
-
         this.currentAlarm = null;
         this.currentPosition = Constant.NotDefined;
         this.bCreate = false;
     }
 
     //////////////////////////////////////////////////////////////////
-    public MAlarm findByKey(String key) {
-        for (MAlarm mAlarm: this.mAlarms) {
-            if (key.equals(mAlarm.schedulerNextAlarm().getKey())) {
-                return mAlarm;
-            }
-        }
-        return null;
-    }
-    public int getAlarmSize() { return this.mAlarms.size(); }
-    public MAlarm getCurrentAlarm() { return this.currentAlarm; }
-    public MAlarm getAlarm(int position) { return this.mAlarms.get(position); }
-    public Vector<MAlarm> getMAlarms() { return mAlarms; }
 
     public void createAlarm() {
         this.currentPosition = this.mAlarms.size();
@@ -105,35 +98,18 @@ public class CAlarm implements Serializable {
             this.mAlarms.add(currentAlarm);
         }
     }
-
-//    private void addWithTimeSort(MAlarm currentAlarm) {
-//        if(this.mAlarms.size()==0){this.mAlarms.add(currentAlarm); return;}
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(currentAlarm.getTime().getTimeInMillis());
-//        int timeValue = calendar.get(Calendar.MINUTE) + calendar.get(Calendar.HOUR_OF_DAY)*60;
-//        for(int i=0; i<this.mAlarms.size(); i++){
-//            calendar.setTimeInMillis(this.mAlarms.get(i).getTime().getTimeInMillis());
-//            int tempTimeValue = calendar.get(Calendar.MINUTE) + calendar.get(Calendar.HOUR_OF_DAY)*60;
-//            if(timeValue < tempTimeValue){
-//                if(i==0){this.mAlarms.add(0, currentAlarm);}
-//                else{this.mAlarms.add(i, currentAlarm); }
-//                return;
-//            }
-//        }
-//        this.mAlarms.add(currentAlarm);
-//    }
-
     public void removeAlarm(int position) {
         this.mAlarms.remove(position);
         this.currentPosition = Constant.NotDefined;
         this.currentAlarm = null;
         this.store();
-        // remove earlier scheduler
     }
+
+    //////////////////////////////////////////////////////////////////
 
     public void scheduleAlarm() {
         MAlarm nextCloneAlarm = this.getNextCloneAlarm();
-        if (nextCloneAlarm != null && nextCloneAlarm.isChecked()){
+        if (nextCloneAlarm != null){
             AlarmManager alarmManager = (AlarmManager) this.mainActivity.getSystemService(Context.ALARM_SERVICE);
             Bundle bundle = new Bundle();
             bundle.putSerializable(MAlarm.class.getSimpleName(), nextCloneAlarm);
@@ -141,50 +117,35 @@ public class CAlarm implements Serializable {
             intentStartAlarm.setAction("RAlarm.START");
             intentStartAlarm.putExtra("bundle", bundle);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this.mainActivity, 0, intentStartAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
-//            alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextCloneAlarm.getAlarmTime(), pendingIntent);
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextCloneAlarm.getAlarmTime(), pendingIntent);
         }
     }
 
-    public MAlarm getNextCloneAlarm() {
-        MAlarm nextCloneAlarm = null;
-        long minTime = Long.MAX_VALUE;
-        for(MAlarm mAlarm : this.mAlarms){
-            MAlarm cloneAlarm = mAlarm.schedulerNextAlarm();
-            if(cloneAlarm.getAlarmTime() < minTime && cloneAlarm.isChecked()){
-                nextCloneAlarm = cloneAlarm;
-                minTime = cloneAlarm.getAlarmTime();
-            }
+    public MAlarm findByKey(String key) {
+        for (MAlarm mAlarm: this.mAlarms) {
+            if (key.equals(mAlarm.schedulerNextAlarm().getKey())) { return mAlarm; }
         }
-        return nextCloneAlarm;
+        return null;
     }
-
+    public int getAlarmSize() { return this.mAlarms.size(); }
+    public MAlarm getCurrentAlarm() { return this.currentAlarm; }
+    public MAlarm getAlarm(int position) { return this.mAlarms.get(position); }
+    public Vector<MAlarm> getMAlarms() { return mAlarms; }
+    public MAlarm getNextCloneAlarm() {
+        int nextAlarmIndex = this.getNextAlarmIndex();
+        if (nextAlarmIndex != -1) { return this.mAlarms.get(nextAlarmIndex).schedulerNextAlarm(); }
+        else{ return null; }
+    }
     public int getNextAlarmIndex() {
         int index = -1;
         long minTime = Long.MAX_VALUE;
-        for(int i=0; i<this.mAlarms.size(); i++){
+        for (int i = 0; i < this.mAlarms.size(); i++) {
             MAlarm cloneAlarm = this.mAlarms.get(i).schedulerNextAlarm();
-            if(cloneAlarm.getAlarmTime() < minTime && cloneAlarm.isChecked()){
-                index=i;
+            if (cloneAlarm.getAlarmTime() < minTime && cloneAlarm.isChecked()) {
+                index = i;
                 minTime = cloneAlarm.getAlarmTime();
             }
         }
         return index;
-    }
-
-    public MAlarm getListAlarm(int position) {
-        return this.createListAlarms().get(position);
-    }
-
-    private Vector<MAlarm> createListAlarms() {
-        Vector<MAlarm> listAlarms = new Vector<>();
-        listAlarms.addAll(this.mAlarms);
-        int nextAlarmIndex = this.getNextAlarmIndex();
-        if(nextAlarmIndex!=-1){
-            MAlarm nextAlarm = listAlarms.get(nextAlarmIndex);
-            listAlarms.remove(nextAlarmIndex);
-            listAlarms.add(0, nextAlarm);
-        }
-        return listAlarms;
     }
 }
