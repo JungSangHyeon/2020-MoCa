@@ -4,13 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.onandon.moca.R;
 import com.onandon.moca.control.CAlarm;
-
-import java.util.Vector;
 
 // handling one list item at a time
 public class VAlarmAdapter extends RecyclerView.Adapter<VAlarmViewHolder> {
@@ -18,25 +15,21 @@ public class VAlarmAdapter extends RecyclerView.Adapter<VAlarmViewHolder> {
     // Associate
     private View.OnClickListener actionListener;
     private CAlarm cAlarm;
-    private VNextAlarmInfo vNextAlarmInfo;
-    VNextAlarmInfo.VAlarmListUpdateCallback updateCallback;
-    View.OnTouchListener onTouchListener;
+    private UpdateCallback updateCallback;
+    private View.OnTouchListener onTouchListener;
 
     // Constructor
-    public VAlarmAdapter(View.OnClickListener editListener,
-                         CAlarm cAlarm, VNextAlarmInfo vNextAlarmInfo, VNextAlarmInfo.VAlarmListUpdateCallback updateCallback,
-                         View.OnTouchListener onTouchListener){
-        this.updateCallback = updateCallback;
-        this.actionListener = editListener;
+    public VAlarmAdapter(CAlarm cAlarm, View.OnClickListener editListener,UpdateCallback updateCallback, View.OnTouchListener onTouchListener){
         this.cAlarm = cAlarm;
-        this.vNextAlarmInfo = vNextAlarmInfo;
+        this.actionListener = editListener;
+        this.updateCallback = updateCallback;
         this.onTouchListener = onTouchListener;
     }
 
     @Override // Create new views (invoked by the layout manager)
     public VAlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_list_item, parent, false);
-        return new VAlarmViewHolder(this.actionListener, view, this.vNextAlarmInfo, this.updateCallback, onTouchListener);
+        return new VAlarmViewHolder(view, this.actionListener, this.updateCallback, this.onTouchListener);
     }
 
     @Override // Replace the contents of a view (invoked by the layout manager)

@@ -13,9 +13,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class OMovableFloatingActionButton extends FloatingActionButton implements View.OnTouchListener, View.OnLongClickListener {
 
-    private boolean userMoved = false, moving = false, longClicked = false;
-    private float defaultX, defaultY;
+    // Often, there will be a slight, unintentional, drag when the user taps the FAB, so we need to account for this.
+    private final static float CLICK_DRAG_TOLERANCE = 10;
 
+    // Working Variable
+    private float defaultX, defaultY;
+    private float downRawX, downRawY;
+    private float dX, dY;
+    private boolean userMoved = false, moved = false, reseted = false, pressed = false;
+
+    // Constructor
     public OMovableFloatingActionButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnTouchListener(this);
@@ -30,67 +37,50 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
         editor.putBoolean("userMoved", this.userMoved);
         editor.commit();
     }
-    public void load(int limitHeight, int parentHeight, int width) {
-        defaultX = width - this.getWidth() - 30;
-        defaultY = (parentHeight-limitHeight<this.getHeight()+30)? parentHeight - this.getHeight() - 30:limitHeight+30;
+    public void load(int limitTop, int parentHeight, int width) {
+        this.defaultX = width - this.getWidth() - 60;
+        this.defaultY = (parentHeight-limitTop<this.getHeight()+30)? parentHeight - this.getHeight() - 30:limitTop+30;
 
         SharedPreferences prefs = this.getContext().getSharedPreferences("OMovableFloatingActionButton", Context.MODE_PRIVATE);
         float x = prefs.getFloat("x", -1);
         float y = prefs.getFloat("y", -1);
         boolean userMoved = prefs.getBoolean("userMoved", false);
         this.userMoved=userMoved;
-        if(this.userMoved){
-            if(x!=-1 && y!=-1){
-                this.setX(x);
-                this.setY(y);
-            }
-        }else{
-            if(parentHeight-limitHeight<this.getHeight()+30){
-                this.setY(parentHeight - this.getHeight() - 30);
-            }else{
-                this.setY(limitHeight+30);
-            }
-            this.setX(width - this.getWidth() - 30);
-        }
+
+        this.setX((this.userMoved && x!=-1)? x:this.defaultX);
+        this.setY((this.userMoved && y!=-1)? x:this.defaultY);
     }
-
-    // Often, there will be a slight, unintentional, drag when the user taps the FAB, so we need to account for this.
-    private final static float CLICK_DRAG_TOLERANCE = 10;
-
-    // Working Variable
-    private float downRawX, downRawY;
-    private float dX, dY;
 
     @Override
     public boolean onLongClick(View v) {
-        if(this.userMoved && !moving && pressed){
+        // 버튼이 사용자 성정 되어 있고, 버튼이 눌리고 움직이지 않은 경우에 롱 클릭이 발생하면, 사용자 설정 초기화
+        if(this.userMoved && this.pressed && !this.moved ){
             this.userMoved = false;
+            this.reseted = true;
             PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("x", this.defaultX);
             PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("y", this.defaultY);
             ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(this, pvhX, pvhY);
             animator.setDuration(300);
             animator.start();
-            longClicked = true;
             this.save();
         }
         return true;
     }
 
-    boolean pressed = false;
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent){
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)view.getLayoutParams();
         int action = motionEvent.getAction();
         if (action == MotionEvent.ACTION_DOWN) {
-            pressed=true;
-            longClicked=false;
+            this.reseted =false;
+            this.pressed=true;
 
             this.downRawX = motionEvent.getRawX();
             this.downRawY = motionEvent.getRawY();
             this.dX = view.getX() - this.downRawX;
             this.dY = view.getY() - this.downRawY;
             return false; // Consumed
-        } else if (action == MotionEvent.ACTION_MOVE && !longClicked) {
+        } else if (action == MotionEvent.ACTION_MOVE && ! this.reseted) { // 초기화가 안 된 경우에 움직일 수 있다
 
             float moveRawX = motionEvent.getRawX();
             float moveRawY = motionEvent.getRawY();
@@ -99,7 +89,7 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
             float moveDY = moveRawY - this.downRawY;
 
             if (Math.abs(moveDX) > CLICK_DRAG_TOLERANCE || Math.abs(moveDY) > CLICK_DRAG_TOLERANCE) {
-                moving=true;
+                this.moved =true; // 일정 거리 이상 움직이면 움직인 것으로 판단
             }
 
             int viewWidth = view.getWidth();
@@ -120,8 +110,8 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
             view.animate().x(newX).y(newY).setDuration(0).start();
             return true; // Consumed
         } else if (action == MotionEvent.ACTION_UP) {
-            moving=false;
-            pressed=false;
+            this.moved =false;
+            this.pressed=false;
 
             float upRawX = motionEvent.getRawX();
             float upRawY = motionEvent.getRawY();
@@ -130,9 +120,9 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
             float upDY = upRawY - this.downRawY;
 
             if (Math.abs(upDX) < CLICK_DRAG_TOLERANCE && Math.abs(upDY) < CLICK_DRAG_TOLERANCE) { // A click
-                if(!longClicked){ // not long clicked - do click
+                if(!this.reseted){
                     return view.performClick();
-                }else{ // long clicked - do nothing
+                }else{
                     return true;
                 }
             } else { // A drag

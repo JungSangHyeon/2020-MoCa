@@ -4,7 +4,6 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.fragment.app.Fragment;
 
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.onAndOn.oButton.oActionButton.OVectorActionButton;
 import com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton;
 import com.onandon.moca.technical.TAlarm;
 

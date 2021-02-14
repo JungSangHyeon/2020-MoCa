@@ -1,34 +1,29 @@
 package com.onandon.moca.onAndOn;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
 
+import java.util.Vector;
+
 public class OAnimator {
-    public static ObjectAnimator animateEnableChange(View target, int duration){
-        ObjectAnimator animation;
-        if(target.isEnabled()) { animation = ObjectAnimator.ofFloat(target, "alpha", 1); }
-        else { animation = ObjectAnimator.ofFloat(target, "alpha", 0.3f); }
-        animation.setDuration(duration);
-        animation.start();
-        return animation;
-    }
-    public static ObjectAnimator animateAlphaChange(View target, int duration, float alpha){
-        ObjectAnimator animation = ObjectAnimator.ofFloat(target, "alpha", alpha);
-        animation.setDuration(duration);
-        animation.start();
-        return animation;
+
+    public static void animateAlphaChange(int duration, float alpha, Animator.AnimatorListener listener, View...targets){
+        OAnimator.animate(duration, "alpha", alpha, listener, targets);
     }
 
-    public static ObjectAnimator animateVisibleToGone(View target){
-        ObjectAnimator animation = ObjectAnimator.ofFloat(target, "alpha", 0f);
-        animation.setDuration(300);
-        animation.start();
-        return animation;
-    }
-    public static ObjectAnimator animateGoneToVisible(View target){
-        ObjectAnimator animation = ObjectAnimator.ofFloat(target, "alpha", 1f);
-        animation.setDuration(300);
-        animation.start();
-        return animation;
+    private static void animate(int duration, String animationTarget, float toValue, Animator.AnimatorListener listener, View...targets){
+        Vector<Animator> animatorVector = new Vector<>();
+        for(View target : targets){
+            ObjectAnimator animator = ObjectAnimator.ofFloat(target, animationTarget, toValue);
+            animator.setDuration(duration);
+            animatorVector.add(animator);
+        }
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(animatorVector);
+        animatorSet.setDuration(duration);
+        if(listener!=null){ animatorSet.addListener(listener); }
+        animatorSet.start();
     }
 }

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -17,13 +18,11 @@ import com.onandon.moca.onAndOn.OAnimator;
 import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
 import com.onandon.moca.view.alarm.setting.VTime;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
-public class VNextAlarmInfo implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-
-    public interface VAlarmListUpdateCallback {
-        void update();
-    }
+public class VDashboard implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     // Working Variable
     private enum EMode{eAlarmTime, eLeftTime}
@@ -37,19 +36,19 @@ public class VNextAlarmInfo implements View.OnClickListener, CompoundButton.OnCh
     private TextView time, date, dayOfWeek, name;
     private OVectorAnimationToggleButton onOffButton;
     private View.OnClickListener editListener;
-    private VAlarmListUpdateCallback updateCallback;
+    private UpdateCallback updateCallback;
     View.OnLongClickListener removeListener;
 
     // Constructor
-    public VNextAlarmInfo(View view, CAlarm cAlarm, View.OnClickListener editListener, VAlarmListUpdateCallback updateCallback,
-                          View.OnLongClickListener removeListener) {
-        this.mode = EMode.eAlarmTime;
-
+    public VDashboard(View view, CAlarm cAlarm,
+                      View.OnClickListener editListener, UpdateCallback updateCallback, View.OnLongClickListener removeListener) {
         this.view=view;
-        this.updateCallback=updateCallback;
-        this.editListener=editListener;
-        this.removeListener=removeListener;
+        this.loadMode();
+
         this.cAlarm=cAlarm;
+        this.editListener=editListener;
+        this.updateCallback=updateCallback;
+        this.removeListener=removeListener;
         this.container = view.findViewById(R.id.alarm_list_dashboard);
         this.time = view.findViewById(R.id.alarm_list_dashboard_time);
         this.date = view.findViewById(R.id.alarm_list_dashboard_date);
@@ -63,8 +62,6 @@ public class VNextAlarmInfo implements View.OnClickListener, CompoundButton.OnCh
         this.onOffButton.setOnCheckedChangeListener(this);
 
         this.update();
-
-        this.loadMode();
     }
 
     @Override
@@ -83,31 +80,19 @@ public class VNextAlarmInfo implements View.OnClickListener, CompoundButton.OnCh
         }
     }
 
-    static int i=0;
     public void updateWithAnimation() {
         MAlarm nextAlarm = this.cAlarm.getNextCloneAlarm();
         if((nextAlarm!=null && !nextAlarm.getKey().equals(this.nowAlarmKey)) || nextAlarm==null){
-            OAnimator.animateVisibleToGone(this.time);
-            OAnimator.animateVisibleToGone(this.date);
-            OAnimator.animateVisibleToGone(this.dayOfWeek);
-            OAnimator.animateVisibleToGone(this.name);
-            ObjectAnimator animation = ObjectAnimator.ofFloat(this.onOffButton, "alpha", 0f);
-            animation.setDuration(300);
-            animation.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
+            Animator.AnimatorListener animatorListener = new Animator.AnimatorListener() {
+                @Override public void onAnimationEnd(Animator animation) {
                     update();
-                    OAnimator.animateGoneToVisible(time);
-                    OAnimator.animateGoneToVisible(date);
-                    OAnimator.animateGoneToVisible(dayOfWeek);
-                    OAnimator.animateGoneToVisible(name);
-                    OAnimator.animateGoneToVisible(onOffButton);
+                    OAnimator.animateAlphaChange(300, 1, null, time, date, dayOfWeek, name, onOffButton);
                 }
                 @Override public void onAnimationStart(Animator animation) { }
                 @Override public void onAnimationCancel(Animator animation) { }
                 @Override public void onAnimationRepeat(Animator animation) { }
-            });
-            animation.start();
+            };
+            OAnimator.animateAlphaChange(300, 0, animatorListener, this.time, this.date, this.dayOfWeek, this.name, this.onOffButton);
         }
     }
 
@@ -122,11 +107,17 @@ public class VNextAlarmInfo implements View.OnClickListener, CompoundButton.OnCh
             this.onOffButton.setOnCheckedChangeListener(null);
             this.onOffButton.setCheckedWithoutAnimation(nextAlarm.isChecked());
             this.onOffButton.setOnCheckedChangeListener(this);
+
+            long alarmTime = nextAlarm.getAlarmTime();
+
+            Log.d("TEST4", "UPDATE "+nextAlarm.getAlarmTime()+", "+nextAlarm.getmAlarmSnooze().isSnoozing());
+
             if(this.mode == EMode.eAlarmTime){
-                this.time.setText(nextAlarm.getTime().format(VTime.TIME_PATTERN));
+                SimpleDateFormat simpleDateFormat = (SimpleDateFormat) SimpleDateFormat.getInstance();
+                simpleDateFormat.applyPattern(VTime.TIME_PATTERN);
+                this.time.setText(simpleDateFormat.format(new Date(alarmTime)));
             }else if(this.mode == EMode.eLeftTime){
                 long nowTime = Calendar.getInstance().getTimeInMillis();
-                long alarmTime = nextAlarm.getTime().getTimeInMillis();
                 long leftTime = alarmTime - nowTime + 60*1000;
                 long hour = leftTime / (60*60*1000);
                 leftTime = leftTime%(60*60*1000);
@@ -152,6 +143,9 @@ public class VNextAlarmInfo implements View.OnClickListener, CompoundButton.OnCh
         }
     }
 
+    /**
+     * Save & Load Mode
+     */
     public void saveMode() {
         SharedPreferences prefs = this.view.getContext().getSharedPreferences("VNextAlarmInfoMode", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -161,8 +155,6 @@ public class VNextAlarmInfo implements View.OnClickListener, CompoundButton.OnCh
     public void loadMode() {
         SharedPreferences prefs = this.view.getContext().getSharedPreferences("VNextAlarmInfoMode", Context.MODE_PRIVATE);
         int modeEnumIndex = prefs.getInt("modeEnumIndex", -1);
-        if(modeEnumIndex!=-1){
-            this.mode = EMode.values()[modeEnumIndex];
-        }
+        this.mode = (modeEnumIndex!=-1)? EMode.values()[modeEnumIndex]:EMode.eAlarmTime;
     }
 }

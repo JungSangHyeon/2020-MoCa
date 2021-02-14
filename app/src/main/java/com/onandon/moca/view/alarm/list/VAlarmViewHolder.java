@@ -20,18 +20,18 @@ import com.onandon.moca.view.alarm.setting.VTime;
 public class VAlarmViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener {
 
     // Associate
+    private CAlarm cAlarm; // for edit and remove on click
+    private UpdateCallback updateCallback;
     private TextView time, date, dayOfWeek, name;
     private OVectorAnimationToggleButton aSwitch;
-    private CAlarm cAlarm; // for edit and remove on click
-    private VNextAlarmInfo vNextAlarmInfo;
-    VNextAlarmInfo.VAlarmListUpdateCallback updateCallback;
-    MAlarm mAlarm;
+
+    // Working Variable
+    private boolean folded = false;
+
     // Constructor
-    public VAlarmViewHolder(View.OnClickListener actionListener,
-                            View adapterView, VNextAlarmInfo vNextAlarmInfo,
-                            VNextAlarmInfo.VAlarmListUpdateCallback updateCallback, View.OnTouchListener onTouchListener) {
+    public VAlarmViewHolder(View adapterView,
+                            View.OnClickListener actionListener, UpdateCallback updateCallback, View.OnTouchListener onTouchListener) {
         super(adapterView);
-        this.vNextAlarmInfo=vNextAlarmInfo;
         this.updateCallback=updateCallback;
 
         this.time =  this.itemView.findViewById(R.id.alarm_list_item_time);
@@ -55,9 +55,21 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
         this.updateWithAnimation(0);
     }
 
-    private boolean folded = false;
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        float alpha = (isChecked)? 1:0.3f;
+        this.animateEnableChange(isChecked, 300, alpha);
+
+        this.cAlarm.editAlarm(this.getAdapterPosition());
+        this.cAlarm.getCurrentAlarm().setChecked(isChecked);
+        this.cAlarm.saveAlarm(); // 여기서 원래거 삭제하고 맨 뒤에 넣게 됨. 그리고 리스트 업데이트 안 하니 에러 나던 것.
+        this.cAlarm.store();
+        this.cAlarm.scheduleAlarm();
+        this.updateCallback.update();
+    }
+
     public void updateWithAnimation(int duration) {
-        if(this.getAdapterPosition()==-1){return;}
+        if(this.getAdapterPosition()==-1){return;} // not visible
         MAlarm mAlarm = this.cAlarm.getAlarm(this.getAdapterPosition()).schedulerNextAlarm();
         this.name.setText(mAlarm.getName());
         this.time.setText(mAlarm.getTime().format(VTime.TIME_PATTERN));
@@ -67,60 +79,28 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
         this.aSwitch.setCheckedWithoutAnimation(mAlarm.isChecked());
         this.aSwitch.setOnCheckedChangeListener(this);
 
+        float alpha = 0;
+        ValueAnimator heightAnimator = null;
         if(this.getAdapterPosition()==this.cAlarm.getNextAlarmIndex() && !this.folded){ // this mAlarm is next alarm && not folded
-            // fold
-            folded=true;
-            OAnimator.animateAlphaChange(this.time, duration, 0);
-            OAnimator.animateAlphaChange(this.name, duration, 0);
-            OAnimator.animateAlphaChange(this.date, duration, 0);
-            OAnimator.animateAlphaChange(this.dayOfWeek, duration, 0);
-            OAnimator.animateAlphaChange(this.aSwitch, duration, 0);
-
-            ValueAnimator anim = ValueAnimator.ofInt(itemView.getMinimumHeight(), 0);
-            anim.addUpdateListener(valueAnimator -> {
-                int val = (Integer) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
-                layoutParams.height = val;
-                itemView.setLayoutParams(layoutParams);
-            });
-            anim.setDuration(duration);
-            anim.start();
+            this.folded=true;
+            alpha=0;
+            heightAnimator = ValueAnimator.ofInt(itemView.getMinimumHeight(), 0);
         }else if(this.getAdapterPosition()!=this.cAlarm.getNextAlarmIndex() && this.folded){ // this mAlarm is not next alarm && folded
-            // un fold
-            float alpha = (mAlarm.isChecked())? 1:0.3f;
-            OAnimator.animateAlphaChange(this.time, duration, alpha);
-            OAnimator.animateAlphaChange(this.name, duration, alpha);
-            OAnimator.animateAlphaChange(this.date, duration, alpha);
-            OAnimator.animateAlphaChange(this.dayOfWeek, duration, alpha);
-            OAnimator.animateAlphaChange(this.aSwitch, duration, alpha);
-
-            folded=false;
-            Log.d("asdasd", "un fold  "+itemView.getMinimumHeight());
-            ValueAnimator anim = ValueAnimator.ofInt(0, itemView.getMinimumHeight());
-            anim.addUpdateListener(valueAnimator -> {
-                int val = (Integer) valueAnimator.getAnimatedValue();
+            this.folded=false;
+            alpha = (mAlarm.isChecked())? 1:0.3f;
+            heightAnimator = ValueAnimator.ofInt(0, itemView.getMinimumHeight());
+        }
+        if(heightAnimator != null){
+            OAnimator.animateAlphaChange(duration, alpha, null, this.time, this.name, this.date, this.dayOfWeek, this.aSwitch);
+            heightAnimator.addUpdateListener(animator -> {
+                int val = (Integer) animator.getAnimatedValue();
                 ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
                 layoutParams.height = val;
                 itemView.setLayoutParams(layoutParams);
             });
-            anim.setDuration(duration);
-            anim.start();
+            heightAnimator.setDuration(duration);
+            heightAnimator.start();
         }
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        float alpha = (isChecked)? 1:0.3f;
-        this.animateEnableChange(isChecked, 300, alpha);
-
-        this.cAlarm.editAlarm(this.getAdapterPosition());
-        this.cAlarm.getCurrentAlarm().setChecked(isChecked);
-        this.cAlarm.saveAlarm(); // 여기서 원래거 삭제하고 맨 뒤에 넣게 됨. 그리고 리스트 업데이트 안 하니 에러 나던 것.
-//        this.cAlarm.getAlarm(this.getAdapterPosition()).setChecked(isChecked);
-        this.cAlarm.store();
-        this.cAlarm.scheduleAlarm();
-        this.updateCallback.update();
-//        this.vNextAlarmInfo.updateWithAnimation();
     }
 
     private void animateEnableChange(boolean checked, int duration, float alpha) {
@@ -128,14 +108,6 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
         this.name.setEnabled(checked);
         this.date.setEnabled(checked);
         this.dayOfWeek.setEnabled(checked);
-        OAnimator.animateAlphaChange(this.time, duration, alpha);
-        OAnimator.animateAlphaChange(this.name, duration, alpha);
-        OAnimator.animateAlphaChange(this.date, duration, alpha);
-        OAnimator.animateAlphaChange(this.dayOfWeek, duration, alpha);
-        OAnimator.animateAlphaChange(this.aSwitch, duration, alpha);
-    }
-
-    public MAlarm getMAlarm() {
-        return this.mAlarm;
+        OAnimator.animateAlphaChange(duration, alpha, null, this.time, this.name, this.date, this.dayOfWeek, this.aSwitch);
     }
 }

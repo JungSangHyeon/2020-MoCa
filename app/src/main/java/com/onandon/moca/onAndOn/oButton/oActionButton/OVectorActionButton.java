@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 
 import androidx.annotation.RequiresApi;
 
-@RequiresApi(api = Build.VERSION_CODES.M)
 public class OVectorActionButton extends OActionButton {
 
     // Constructor

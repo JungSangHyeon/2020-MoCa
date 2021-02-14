@@ -67,7 +67,8 @@ public class MAlarm implements Serializable, Cloneable {
         else if(this.mReAlarm.isReAlarming()){ return this.mReAlarm.getReAlarmTime(); }
         else{return this.getTime().getTimeInMillis();}
     }
-    public String getKey() { return Long.toString(this.getTime().getTimeInMillis()); }
+    public String getKey() { return Long.toString(this.getAlarmTime()); }
+//    public String getKey() { return Long.toString(this.getTime().getTimeInMillis()); }
     public String getName() {
         return name;
     }

@@ -14,6 +14,7 @@ import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButt
 
 public class OTitleInfoSwitchView extends LinearLayout implements View.OnClickListener {
 
+    // Constant
     private final int NoAttribute = -1;
 
     // Associate

@@ -13,12 +13,6 @@ import androidx.annotation.RequiresApi;
 import com.onandon.moca.R;
 import com.onandon.moca.onAndOn.OAnimator;
 
-/**
- * <p>
- * </p>
- * @version 1.0.0
- */
-@RequiresApi(api = Build.VERSION_CODES.M)
 public abstract class OToggleButton extends androidx.appcompat.widget.AppCompatToggleButton implements CompoundButton.OnCheckedChangeListener {
 
     // Attribute
@@ -58,7 +52,7 @@ public abstract class OToggleButton extends androidx.appcompat.widget.AppCompatT
     @Override
     public void setEnabled(boolean enable){
         super.setEnabled(enable);
-        OAnimator.animateEnableChange(this, 300);
+        OAnimator.animateAlphaChange(300, (this.isEnabled())? 1:0.3f, null, this);
     }
     public void setCheckedWithoutAnimation(boolean checked){
         this.setChecked(checked);

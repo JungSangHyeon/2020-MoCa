@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi;
 
 import com.onandon.moca.onAndOn.oBackgroundSetter.OAnimatedVectorDrawableBackgroundChanger;
 
-@RequiresApi(api = Build.VERSION_CODES.M)
 public class OVectorAnimationToggleButton extends OToggleButton {
 
     // Constructor

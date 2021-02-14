@@ -11,7 +11,6 @@ import androidx.annotation.RequiresApi;
 
 import com.onandon.moca.onAndOn.oBackgroundSetter.OAnimationDrawableBackgroundChanger;
 
-@RequiresApi(api = Build.VERSION_CODES.M)
 public class OFrameAnimationToggleButton extends OToggleButton {
 
     // Constructor

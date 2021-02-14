@@ -20,7 +20,7 @@ public class Constant {
         // Alarm
         public static final int AlarmRingMinute = 5;
         // Snooze
-        public static int SnoozeInterval = 5; // min
+        public static int SnoozeInterval = 1; // min
         // Repeat
         public static class ReAlarm {
             public static final int[] interval = {1, 3, 5, 8, 10};
