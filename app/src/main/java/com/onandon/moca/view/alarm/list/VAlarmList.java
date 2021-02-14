@@ -134,7 +134,6 @@ public class VAlarmList extends Fragment
     }
     @Override
     public void onClick(View v) {
-        Log.d("TETETE", "onClick "+alarmDeleteAction);
         if(!alarmDeleteAction){
             this.editAlarm(v);
         }
@@ -200,18 +199,18 @@ public class VAlarmList extends Fragment
         @Override
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
             if(startAction){
-                Log.d("TETETE", "onSelectedChanged START "+alarmDeleteAction);
                 this.selectedViewHolder =viewHolder;
                 this.oldX = this.selectedViewHolder.itemView.getX();
                 this.oldY = this.selectedViewHolder.itemView.getY();
-                new TVibrator((Activity)getContext()).start(new int[][]{{100,255}}, -1);
+                Log.d("TEST4", "Vibrate");
+                TVibrator tVibrator = new TVibrator((Activity)getContext());
+                tVibrator.onCreate(100);
+                tVibrator.start(new int[][]{{100,255}}, -1);
             }else{
                 float dX = Math.abs(this.oldX-this.selectedViewHolder.itemView.getX());
                 float dY = Math.abs(this.oldY-this.selectedViewHolder.itemView.getY());
-                Log.d("TETETE", "onSelectedChanged END "+alarmDeleteAction+" "+dX+", "+dY);
                 if(dX<=10 && dY <=10){
                     alarmDeleteAction = true;
-                    Log.d("TETETE", "onSelectedChanged Remove "+alarmDeleteAction);
                     removeAlarm(recyclerView.getChildAdapterPosition(this.selectedViewHolder.itemView));
                 }
             }

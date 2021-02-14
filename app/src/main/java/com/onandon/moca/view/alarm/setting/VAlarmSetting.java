@@ -39,14 +39,14 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
         TAlarm tAlarm = new TAlarm(this.getActivity());
         tAlarm.onCreate(this.mAlarm);
 
-        this.vName = new VName(view, mAlarm);
-        new VTime(view, mAlarm);
-        new VReAlarm(view, mAlarm);
-        new VRingtone(view, mAlarm);
-        new VVibration(view, mAlarm);
-        new VFlash(view, mAlarm);
-        new VScreen(view, mAlarm);
-        new VPower(view, mAlarm, tAlarm);
+        this.vName = new VName(view, this.mAlarm);
+        new VTime(view, this.mAlarm);
+        new VReAlarm(view, this.mAlarm);
+        new VRingtone(view, this.mAlarm);
+        new VVibration(view, this.mAlarm);
+        new VFlash(view, this.mAlarm);
+        new VScreen(view, this.mAlarm);
+        new VPower(view, this.mAlarm, tAlarm);
 
         OVectorAnimationActionButton saveBtn = view.findViewById(R.id.alarm_setting_save);
         saveBtn.setOnClickListener(this);

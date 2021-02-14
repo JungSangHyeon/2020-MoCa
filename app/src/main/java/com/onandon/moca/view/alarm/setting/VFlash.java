@@ -20,24 +20,13 @@ public class VFlash implements CompoundButton.OnCheckedChangeListener {
 
         OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_flash);
 
-        aSwitch = itemTitleInfoSwitch.getOnOffButton();
-        aSwitch.setOnCheckedChangeListener(this);
-//        aSwitch.setChecked(this.currentAlarm.isFlashChecked());
-
-        aSwitch.setCheckedWithoutAnimation(this.currentAlarm.isFlashChecked());
+        this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
+        this.aSwitch.setOnCheckedChangeListener(this);
+        this.aSwitch.setCheckedWithoutAnimation(this.currentAlarm.isFlashChecked());
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         this.currentAlarm.setFlashChecked(isChecked);
-    }
-
-    public void setOnOffAndEnableDisable(boolean isChecked){
-        if(isChecked){
-            aSwitch.setChecked(this.currentAlarm.isFlashChecked());
-        }else{
-            aSwitch.setChecked(false);
-        }
-        aSwitch.setEnabled(isChecked);
     }
 }

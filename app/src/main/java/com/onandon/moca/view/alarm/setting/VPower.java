@@ -19,7 +19,6 @@ public class VPower  implements Switch.OnCheckedChangeListener, View.OnClickList
     private MAlarm mAlarm;
     private TextView name;
     private OVectorAnimationToggleButton aSwitch;
-    VFlash vFlash;
 
     // Working Variable
     private int selectedPowerLevel;

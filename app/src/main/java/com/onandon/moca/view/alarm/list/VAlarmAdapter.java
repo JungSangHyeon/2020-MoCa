@@ -31,7 +31,6 @@ public class VAlarmAdapter extends RecyclerView.Adapter<VAlarmViewHolder> {
         this.cAlarm = cAlarm;
         this.vNextAlarmInfo = vNextAlarmInfo;
         this.onTouchListener = onTouchListener;
-//        ((LinearLayoutManager)this.recyclerView.getLayoutManager()).scrollToPositionWithOffset(1, 0);
     }
 
     @Override // Create new views (invoked by the layout manager)
