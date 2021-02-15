@@ -28,6 +28,7 @@ public class MTime implements Serializable, Cloneable {
     public MTime() {
         // time
         Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, 5);
         this.timeInMillis = calendar.getTimeInMillis();
 
         // day of week

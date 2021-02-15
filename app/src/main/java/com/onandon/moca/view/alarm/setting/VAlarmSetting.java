@@ -39,12 +39,14 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
 
         this.vName = new VName(view, this.mAlarm);
         new VTime(view, this.mAlarm);
+        new VMode(view, this.mAlarm, tAlarm);
         new VReAlarm(view, this.mAlarm);
-        new VRingtone(view, this.mAlarm);
-        new VVibration(view, this.mAlarm);
-        new VFlash(view, this.mAlarm);
-        new VScreen(view, this.mAlarm);
-        new VPower(view, this.mAlarm, tAlarm);
+//        new VRingtone(view, this.mAlarm);
+//        new VVibration(view, this.mAlarm);
+//        new VFlash(view, this.mAlarm);
+//        new VScreen(view, this.mAlarm);
+//        new VPower(view, this.mAlarm, tAlarm);
+        new VEarphone(view);
 
         OVectorAnimationActionButton saveBtn = view.findViewById(R.id.alarm_setting_save);
         saveBtn.setOnClickListener(this);
@@ -54,6 +56,9 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
     }
 
     private void setDefaultValues() {
+        if(this.mAlarm.getName()==null){
+            this.mAlarm.setName("Alarm "+this.mAlarmCount);
+        }
         if (this.mAlarm.getRingtone().getUri()==null) {
             Uri defaultRingtoneUri = RingtoneManager
                     .getActualDefaultRingtoneUri(this.getActivity().getApplicationContext(), RingtoneManager.TYPE_RINGTONE);

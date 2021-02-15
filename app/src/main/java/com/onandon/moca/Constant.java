@@ -42,6 +42,17 @@ public class Constant {
             public int getPower() { return power; }
             public String getLevelName() { return levelName; }
         }
+        public enum EAlarmMode {
+            eNoSound("무음"),
+            eSound("표준"),
+            eCrazy("광란"),
+            eUserDefined("사용자 설정");
+
+            private String levelName;
+            EAlarmMode(String levelName){ this.levelName=levelName;}
+            public String getModeName() { return levelName; }
+        }
+
 
         // Vibration Manager
         public static final int defaultVibrationPattern = 0;

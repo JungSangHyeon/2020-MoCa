@@ -84,14 +84,16 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
         if(this.getAdapterPosition()==this.cAlarm.getNextAlarmIndex() && !this.folded){ // this mAlarm is next alarm && not folded
             this.folded=true;
             alpha=0;
+            OAnimator.animateAlphaChange(duration, 0, null, this.aSwitch);
             heightAnimator = ValueAnimator.ofInt(itemView.getMinimumHeight(), 0);
         }else if(this.getAdapterPosition()!=this.cAlarm.getNextAlarmIndex() && this.folded){ // this mAlarm is not next alarm && folded
             this.folded=false;
             alpha = (mAlarm.isChecked())? 1:0.3f;
+            OAnimator.animateAlphaChange(duration, 1, null, this.aSwitch);
             heightAnimator = ValueAnimator.ofInt(0, itemView.getMinimumHeight());
         }
         if(heightAnimator != null){
-            OAnimator.animateAlphaChange(duration, alpha, null, this.time, this.name, this.date, this.dayOfWeek, this.aSwitch);
+            OAnimator.animateAlphaChange(duration, alpha, null, this.time, this.name, this.date, this.dayOfWeek);
             heightAnimator.addUpdateListener(animator -> {
                 int val = (Integer) animator.getAnimatedValue();
                 ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
@@ -108,6 +110,6 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
         this.name.setEnabled(checked);
         this.date.setEnabled(checked);
         this.dayOfWeek.setEnabled(checked);
-        OAnimator.animateAlphaChange(duration, alpha, null, this.time, this.name, this.date, this.dayOfWeek, this.aSwitch);
+        OAnimator.animateAlphaChange(duration, alpha, null, this.time, this.name, this.date, this.dayOfWeek);
     }
 }

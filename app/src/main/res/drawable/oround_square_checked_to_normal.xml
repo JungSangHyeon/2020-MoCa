@@ -10,14 +10,14 @@
                     android:propertyName="fillColor"
                     android:duration="300"
                     android:valueTo="@color/light_gray"
-                    android:valueFrom="@color/gray"
+                    android:valueFrom="@color/middle_gray"
                     android:valueType="colorType"
                     android:interpolator="@android:interpolator/fast_out_slow_in"/>
                 <objectAnimator
                     android:propertyName="strokeColor"
                     android:duration="300"
                     android:valueTo="@color/light_gray"
-                    android:valueFrom="@color/gray"
+                    android:valueFrom="@color/middle_gray"
                     android:valueType="colorType"
                     android:interpolator="@android:interpolator/fast_out_slow_in"/>
             </set>

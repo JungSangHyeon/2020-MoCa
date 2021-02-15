@@ -48,7 +48,7 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
         this.userMoved=userMoved;
 
         this.setX((this.userMoved && x!=-1)? x:this.defaultX);
-        this.setY((this.userMoved && y!=-1)? x:this.defaultY);
+        this.setY((this.userMoved && y!=-1)? y:this.defaultY);
     }
 
     @Override

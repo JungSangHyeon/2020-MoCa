@@ -31,6 +31,7 @@ public class MAlarm implements Serializable, Cloneable {
     private MSnooze mSnooze;
     private int powerLevel;
     private boolean bAlarmPowerChecked;
+    private int mode;
     private MRingtone mRingtone; // Sound
     private MVibration mVibration;
     private boolean bFlashChecked; // Flash
@@ -45,6 +46,7 @@ public class MAlarm implements Serializable, Cloneable {
         this.bFlashChecked = false;
         this.bScreenChecked = false;
         this.powerLevel = Constant.EAlarmPower.eLevel2.ordinal();
+        this.mode = Constant.EAlarmMode.eSound.ordinal();
 
         // Create Component
         this.mTime = new MTime();  // set current time as default time
@@ -92,6 +94,8 @@ public class MAlarm implements Serializable, Cloneable {
     public int getPowerLevel() { return powerLevel; }
     public void setPowerLevel(int powerLevel) { this.powerLevel = powerLevel; }
     public int getPower() { return this.bAlarmPowerChecked?  Constant.EAlarmPower.values()[this.getPowerLevel()].getPower():0; }
+    public int getMode() { return mode; }
+    public void setMode(int mode) { this.mode = mode; }
     public MRingtone getRingtone() {
         return mRingtone;
     }

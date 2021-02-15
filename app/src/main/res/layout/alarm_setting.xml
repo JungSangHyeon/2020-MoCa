@@ -170,18 +170,17 @@
             style="@style/OSLine"
 
             android:layout_marginBottom="9dp"
-            app:layout_constraintBottom_toTopOf="@+id/alarm_setting_power"
+            app:layout_constraintBottom_toTopOf="@+id/alarm_setting_mode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
 
-        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
-            android:id="@+id/alarm_setting_power"
+        <com.onandon.moca.onAndOn.compoundView.OTitleInfoButtonView
+            android:id="@+id/alarm_setting_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-            style="@style/SAlarmSettingItem"
-
-            app:tis_title="@string/alarm_setting_power_title"
-            app:tis_info="@layout/titleinfoswitch_info_1textview"
+            app:tib_title="@string/alarm_setting_mode_title"
 
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -189,60 +188,94 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
-            android:id="@+id/alarm_setting_ringtone"
+<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoView-->
+<!--            android:id="@+id/alarm_setting_power"-->
 
-            style="@style/SAlarmSettingItem"
+<!--            style="@style/SAlarmSettingItem"-->
 
-            app:tis_title="@string/alarm_setting_ringtone_title"
-            app:tis_info="@layout/titleinfoswitch_info_1textview"
+<!--            app:ti_title="@string/alarm_setting_power_title"-->
 
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_power"
-            />
+<!--            android:layout_marginTop="10dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_mode"-->
+<!--            />-->
 
-        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
-            android:id="@+id/alarm_setting_vibration"
+<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView-->
+<!--            android:id="@+id/alarm_setting_ringtone"-->
 
-            style="@style/SAlarmSettingItem"
+<!--            style="@style/SAlarmSettingItem"-->
 
-            app:tis_title="@string/alarm_setting_vibration_title"
-            app:tis_info="@layout/titleinfoswitch_info_1textview"
+<!--            app:tis_title="@string/alarm_setting_ringtone_title"-->
+<!--            app:tis_info="@layout/titleinfoswitch_info_1textview"-->
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_ringtone"
-            />
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_power"-->
+<!--            />-->
 
-        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
-            android:id="@+id/alarm_setting_flash"
+<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView-->
+<!--            android:id="@+id/alarm_setting_vibration"-->
 
-            style="@style/SAlarmSettingItem"
+<!--            style="@style/SAlarmSettingItem"-->
 
-            app:tis_title="@string/alarm_setting_flash_title"
+<!--            app:tis_title="@string/alarm_setting_vibration_title"-->
+<!--            app:tis_info="@layout/titleinfoswitch_info_1textview"-->
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_vibration"
-            />
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_ringtone"-->
+<!--            />-->
 
-        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
-            android:id="@+id/alarm_setting_screen"
+<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView-->
+<!--            android:id="@+id/alarm_setting_flash"-->
 
-            style="@style/SAlarmSettingItem"
+<!--            style="@style/SAlarmSettingItem"-->
 
-            app:tis_title="@string/alarm_setting_screen_title"
+<!--            app:tis_title="@string/alarm_setting_flash_title"-->
 
-            android:layout_marginBottom="10dp"
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_vibration"-->
+<!--            />-->
+
+<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView-->
+<!--            android:id="@+id/alarm_setting_screen"-->
+
+<!--            style="@style/SAlarmSettingItem"-->
+
+<!--            app:tis_title="@string/alarm_setting_screen_title"-->
+
+<!--            android:layout_marginBottom="10dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_flash"-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/alarm_setting_earphone"-->
+
+<!--            android:text="알림이 이어폰으로 울립니다"-->
+
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="3dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_screen" />-->
+        <TextView
+            android:id="@+id/alarm_setting_earphone"
+
+            android:text="알림이 이어폰으로 울립니다"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_flash"
-            />
-
+            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_mode" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout

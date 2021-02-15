@@ -44,7 +44,6 @@ public abstract class OActionButton extends androidx.appcompat.widget.AppCompatB
     public void setOnTouchListener(@Nullable OnTouchListener listener) { this.onTouchListener = listener; }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(this.onTouchListener !=null){ return this.onTouchListener.onTouch(v, event); }
         if(this.isEnabled()){
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN: // Press
@@ -54,6 +53,7 @@ public abstract class OActionButton extends androidx.appcompat.widget.AppCompatB
                     this.changeBackground(this.pressedToNormalBackground); break;
             }
         }
+        if(this.onTouchListener !=null){ return this.onTouchListener.onTouch(v, event); }
         return false;
     }
 

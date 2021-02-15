@@ -49,6 +49,9 @@
     <string name="alarm_setting_re_alarm_default_count">3</string>
     <string name="alarm_setting_realarm_count_unit">회</string>
 
+    <!--  alarm_mode  -->
+    <string name="alarm_setting_mode_title">알람 모드</string>
+
     <!--  alarm_power  -->
     <string name="alarm_setting_power_title">알람 세기</string>
 

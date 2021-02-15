@@ -11,4 +11,12 @@
         <attr name="tis_info" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="OTitleInfoView">
+        <attr name="ti_title" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="OTitleInfoButtonView">
+        <attr name="tib_title" format="string"/>
+    </declare-styleable>
+
 </resources>

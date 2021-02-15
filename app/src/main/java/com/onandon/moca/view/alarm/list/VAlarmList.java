@@ -182,6 +182,7 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
             LinearLayoutManager layoutManager = ((LinearLayoutManager)recyclerView.getLayoutManager());
             int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
             View alignmentTarget = recyclerView.getChildAt(lastVisiblePosition);
+            Log.d("TEST5", ""+(alignmentTarget==null));
             if(alignmentTarget==null){
                 createAlarmBtn.load((int) (recyclerView.getY()), view.getHeight(), recyclerView.getWidth());
             }else{
