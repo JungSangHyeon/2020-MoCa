@@ -19,4 +19,8 @@ public class OVectorActionButton extends OActionButton {
     protected void changeBackground(Drawable background) {
         this.setBackground(background);
     }
+
+    @Override
+    protected void stopNowAnimation() {
+    }
 }

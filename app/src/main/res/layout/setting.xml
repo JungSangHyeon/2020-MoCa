@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/OSPrimarySurface"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/setting_modebuttons"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/setting_soundbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/setting_userdefinedbutton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/setting_nosoundbutton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/setting_nosoundbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/setting_crazybutton"
+            app:layout_constraintEnd_toStartOf="@+id/setting_soundbutton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/setting_userdefinedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/setting_crazybutton"
+            app:layout_constraintTop_toBottomOf="@+id/setting_soundbutton" />
+
+        <Button
+            android:id="@+id/setting_crazybutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/setting_userdefinedbutton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setting_nosoundbutton" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        style="@style/OSLine"
+
+        app:layout_constraintTop_toBottomOf="@+id/setting_modebuttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <com.onandon.moca.onAndOn.compoundView.OTitleInfoView
+        android:id="@+id/alarm_setting_power"
+
+        style="@style/SAlarmSettingItem"
+
+        app:ti_title="@string/alarm_setting_power_title"
+
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setting_modebuttons"
+        />
+
+    <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
+        android:id="@+id/alarm_setting_ringtone"
+
+        style="@style/SAlarmSettingItem"
+
+        app:tis_title="@string/alarm_setting_ringtone_title"
+        app:tis_info="@layout/titleinfoswitch_info_1textview"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_power"
+        />
+
+    <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
+        android:id="@+id/alarm_setting_vibration"
+
+        style="@style/SAlarmSettingItem"
+
+        app:tis_title="@string/alarm_setting_vibration_title"
+        app:tis_info="@layout/titleinfoswitch_info_1textview"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_ringtone"
+        />
+
+    <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
+        android:id="@+id/alarm_setting_flash"
+
+        style="@style/SAlarmSettingItem"
+
+        app:tis_title="@string/alarm_setting_flash_title"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_vibration"
+        />
+
+    <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
+        android:id="@+id/alarm_setting_screen"
+
+        style="@style/SAlarmSettingItem"
+
+        app:tis_title="@string/alarm_setting_screen_title"
+
+        android:layout_marginBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_flash"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

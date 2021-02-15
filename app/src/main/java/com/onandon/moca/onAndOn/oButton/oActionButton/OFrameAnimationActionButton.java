@@ -23,4 +23,8 @@ public class OFrameAnimationActionButton extends OActionButton {
     protected void changeBackground(Drawable background) {
         OAnimationDrawableBackgroundChanger.changeBackground(this, background);
     }
+    @Override
+    protected void stopNowAnimation() {
+        ((AnimationDrawable) (this.isPressed()? this.normalToPressedBackground:this.pressedToNormalBackground)).stop();
+    }
 }

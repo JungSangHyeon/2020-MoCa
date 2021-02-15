@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.model.ModeManager;
 import com.onandon.moca.onAndOn.compoundView.OTitleInfoButtonView;
 import com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton;
 import com.onandon.moca.technical.TAlarm;
@@ -42,6 +43,7 @@ public class VMode implements View.OnClickListener, View.OnTouchListener {
     public void onClick(View v) {
         this.selectedMode = (this.selectedMode+1 == Constant.EAlarmMode.values().length)? 0:this.selectedMode+1;
         this.mAlarm.setMode(this.selectedMode);
+        this.tAlarm.onCreate( new ModeManager(this.info.getContext()).getMAlarmMode(this.selectedMode));
         this.info.setText(Constant.EAlarmMode.values()[this.selectedMode].getModeName());
     }
     @Override

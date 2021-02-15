@@ -37,7 +37,8 @@ public abstract class OActionButton extends androidx.appcompat.widget.AppCompatB
         super.setOnTouchListener(this);
 
         // set default background
-        this.setBackground(this.normalToPressedBackground);
+        this.changeBackground(this.pressedToNormalBackground);
+        this.stopNowAnimation();
     }
 
     @Override
@@ -65,4 +66,5 @@ public abstract class OActionButton extends androidx.appcompat.widget.AppCompatB
 
     protected Drawable getBackgroundById(int id) { return this.getContext().getDrawable(this.attributeArray.getResourceId(id, -1)); }
     protected abstract void changeBackground(Drawable background);
+    protected abstract void stopNowAnimation();
 }

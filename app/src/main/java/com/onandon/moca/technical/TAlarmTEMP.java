@@ -1,39 +1,28 @@
 package com.onandon.moca.technical;
 
 import android.app.Activity;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.onandon.moca.Constant;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.MAlarmMode;
-import com.onandon.moca.model.ModeManager;
-import com.onandon.moca.technical.device.TScreen;
 import com.onandon.moca.technical.device.TFlash;
 import com.onandon.moca.technical.device.TRingtone;
+import com.onandon.moca.technical.device.TScreen;
 import com.onandon.moca.technical.device.TVibrator;
 
-import java.util.concurrent.Semaphore;
-
-public class TAlarm {
+public class TAlarmTEMP {
 
     // Association
-    private MAlarmMode mAlarm;
+    private MAlarm mAlarm;
     private Activity activity;
 
     // Component
     private TDevices tDevices;
 
     // Constructor
-    public TAlarm(Activity activity) {
+    public TAlarmTEMP(Activity activity) {
         this.activity = activity;
     }
-    public void onCreate(MAlarmMode mAlarm) {
+    public void onCreate(MAlarm mAlarm) {
         this.mAlarm = mAlarm;
     }
 
@@ -57,7 +46,7 @@ public class TAlarm {
         private int power;
 
         // Associate
-        private MAlarmMode mAlarmMode;
+        private MAlarm mAlarm;
 
         // Component
         private TRingtone tRingtone;
@@ -66,15 +55,14 @@ public class TAlarm {
         private TScreen tScreen;
 
         // Constructor
-        public TDevices(Activity activity, MAlarmMode mAlarm) {
+        public TDevices(Activity activity, MAlarm mAlarm) {
             // Set Attribute
             this.bRunning = true;
 
             // Associate
-            this.mAlarmMode = mAlarm;
-
+            this.mAlarm = mAlarm;
             // Associate Attribute
-            this.power = this.mAlarmMode.getPower();
+            this.power = this.mAlarm.getPower();
 
             // Create Component
             this.tRingtone = new TRingtone(activity);
@@ -100,11 +88,11 @@ public class TAlarm {
                     Thread.sleep(Constant.waitTimePerCount/this.power);
                     flashWaitCount++;
                     screenWaitCount++;
-                    if (mAlarmMode.isFlashChecked() && flashWaitCount > Constant.FlashSwitchCount) {
+                    if (mAlarm.isFlashChecked() && flashWaitCount > Constant.FlashSwitchCount) {
                         flashWaitCount = 0;
                         tFlash.switchFlash();
                     }
-                    if (mAlarmMode.isScreenChecked() && screenWaitCount > Constant.ScreenSwitchCount) {
+                    if (mAlarm.isScreenChecked() && screenWaitCount > Constant.ScreenSwitchCount) {
                         screenWaitCount = 0;
                         tScreen.switchBrightness();
                     }
@@ -113,16 +101,16 @@ public class TAlarm {
         }
 
         public void onStart() {
-            if (this.mAlarmMode.getRingtone().isChecked()) { this.tRingtone.start(this.mAlarmMode.getRingtone().getUri().toString()); }
-            if (this.mAlarmMode.getVibration().isVibrationChecked()) { this.tVibrator.start(Constant.EVibrationPattern.values()[this.mAlarmMode.getVibration().getPattern()].getPattern(), 0); }
-            if (this.mAlarmMode.isFlashChecked()) { this.tFlash.start(); }
-            if (this.mAlarmMode.isScreenChecked()) { this.tScreen.start(); }
+            if (this.mAlarm.getRingtone().isChecked()) { this.tRingtone.start(this.mAlarm.getRingtone().getUri().toString()); }
+            if (this.mAlarm.getVibration().isVibrationChecked()) { this.tVibrator.start(Constant.EVibrationPattern.values()[this.mAlarm.getVibration().getPattern()].getPattern(), 0); }
+            if (this.mAlarm.isFlashChecked()) { this.tFlash.start(); }
+            if (this.mAlarm.isScreenChecked()) { this.tScreen.start(); }
         }
         public void onStop() {
-            if (this.mAlarmMode.getRingtone().isChecked()) { this.tRingtone.stop(); }
-            if (this.mAlarmMode.getVibration().isVibrationChecked()) { this.tVibrator.stop(); }
-            if (this.mAlarmMode.isFlashChecked()) { this.tFlash.stop(); }
-            if (this.mAlarmMode.isScreenChecked()) { this.tScreen.stop(); }
+            if (this.mAlarm.getRingtone().isChecked()) { this.tRingtone.stop(); }
+            if (this.mAlarm.getVibration().isVibrationChecked()) { this.tVibrator.stop(); }
+            if (this.mAlarm.isFlashChecked()) { this.tFlash.stop(); }
+            if (this.mAlarm.isScreenChecked()) { this.tScreen.stop(); }
         }
     }
 }

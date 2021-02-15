@@ -2,6 +2,7 @@ package com.onandon.moca.onAndOn.oButton.oActionButton;
 
 import android.content.Context;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -21,5 +22,9 @@ public class OVectorAnimationActionButton extends OActionButton {
     @Override
     protected void changeBackground(Drawable background) {
         OAnimatedVectorDrawableBackgroundChanger.changeBackground(this, background);
+    }
+    @Override
+    protected void stopNowAnimation() {
+        ((AnimatedVectorDrawable) (this.isPressed()? this.normalToPressedBackground:this.pressedToNormalBackground)).stop();
     }
 }
