@@ -12,7 +12,6 @@ import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.model.MReAlarm;
 import com.onandon.moca.model.MSnooze;
-import com.onandon.moca.model.ModeManager;
 import com.onandon.moca.technical.TAlarm;
 
 import java.util.Locale;
@@ -52,7 +51,7 @@ public class VAlarmCallBack implements View.OnClickListener{
         this.cAlarm.onCreate(Locale.KOREA);
         this.mAlarm = this.cAlarm.findByKey(scheduledAlarm.schedulerNextAlarm().getKey());
         if (this.mAlarm != null && this.mAlarm.isChecked()) { // if not removed && checked
-            this.tAlarm.onCreate(new ModeManager(activity).getMAlarmMode(this.mAlarm.getMode()));
+            this.tAlarm.onCreate(this.mAlarm);
             this.tAlarm.onStartCommand();
             this.name.setText(this.mAlarm.getName());
             MSnooze mSnooze = this.mAlarm.getmAlarmSnooze();
@@ -63,7 +62,10 @@ public class VAlarmCallBack implements View.OnClickListener{
             });
             this.alarmDismissThread.start();
         } else { // if removed || not checked
-            this.activity.finish();
+            this.name.setText("removed || not checked");
+            this.tAlarm.onCreate(scheduledAlarm);
+            this.tAlarm.onStartCommand();
+//            this.activity.finish();
         }
     }
     public void onDestroy() { this.cAlarm.onDestroy(); }

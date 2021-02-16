@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.MAlarmMode;
 import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
 import com.onandon.moca.technical.device.TVibrator;
 import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;
@@ -18,7 +17,7 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
 
     // Associate
     private View view;
-    private MAlarmMode mAlarm;
+    private MAlarm mAlarm;
     private TextView name;
     private OVectorAnimationToggleButton aSwitch;
 
@@ -26,7 +25,7 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
     private int selectedPattern;
 
     // Constructor
-    public VVibration(View view, MAlarmMode mAlarm) {
+    public VVibration(View view, MAlarm mAlarm) {
         // Associate
         this.view = view;
         this.mAlarm = mAlarm;

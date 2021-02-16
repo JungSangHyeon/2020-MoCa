@@ -9,16 +9,13 @@ import android.widget.TextView;
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.MAlarmMode;
 import com.onandon.moca.onAndOn.compoundView.OTitleInfoView;
-import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
 import com.onandon.moca.technical.TAlarm;
-import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;
 
 public class VPower  implements Switch.OnCheckedChangeListener, View.OnClickListener, View.OnTouchListener {
 
     // Associate
-    private MAlarmMode mAlarm;
+    private MAlarm mAlarm;
     private TextView name;
 //    private OVectorAnimationToggleButton aSwitch;
 
@@ -28,7 +25,7 @@ public class VPower  implements Switch.OnCheckedChangeListener, View.OnClickList
     private TAlarm tAlarm;
 
     // Constructor
-    public VPower(View view, MAlarmMode mAlarm, TAlarm tAlarm) {
+    public VPower(View view, MAlarm mAlarm, TAlarm tAlarm) {
         this.mAlarm = mAlarm;
         this.tAlarm = tAlarm;
 

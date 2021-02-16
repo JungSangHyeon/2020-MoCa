@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.kevalpatel.ringtonepicker.RingtonePickerDialog;
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.MAlarmMode;
 import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
 import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;
 
@@ -18,12 +17,12 @@ public class VRingtone implements View.OnClickListener, Switch.OnCheckedChangeLi
 
     // Association
     private View view;
-    private MAlarmMode mAlarm;
+    private MAlarm mAlarm;
     private TextView ringtoneName;
     private OVectorAnimationToggleButton aSwitch;
 
     // Constructor
-    public VRingtone(View view, MAlarmMode mAlarm) {
+    public VRingtone(View view, MAlarm mAlarm) {
         this.view = view;
         this.mAlarm = mAlarm;
 

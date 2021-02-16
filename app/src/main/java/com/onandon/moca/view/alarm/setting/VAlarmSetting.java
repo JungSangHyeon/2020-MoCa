@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 
 import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.ModeManager;
 import com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton;
 import com.onandon.moca.technical.TAlarm;
 
@@ -36,7 +35,7 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
 
         this.setDefaultValues();
         TAlarm tAlarm = new TAlarm(this.getActivity());
-        tAlarm.onCreate(new ModeManager(this.getContext()).getMAlarmMode(this.mAlarm.getMode()));
+        tAlarm.onCreate(this.mAlarm);
 
         this.vName = new VName(view, this.mAlarm);
         new VTime(view, this.mAlarm);
@@ -78,6 +77,10 @@ public class VAlarmSetting extends Fragment implements View.OnClickListener {
                 this.mAlarm.setName("Alarm "+this.mAlarmCount);
             }
             this.saveActionListener.onClick(view);
+//            this.cAlarm.saveAlarm();
+//            this.cAlarm.store();
+//            this.cAlarm.scheduleAlarm();
+//            this.vDashboard.update();
         }
         this.getActivity().onBackPressed();
     }

@@ -16,6 +16,7 @@ import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.onAndOn.OAnimator;
 import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
+import com.onandon.moca.technical.device.TEarphone;
 import com.onandon.moca.view.alarm.setting.VTime;
 
 import java.text.SimpleDateFormat;
@@ -28,12 +29,13 @@ public class VDashboard implements View.OnClickListener, CompoundButton.OnChecke
     private enum EMode{eAlarmTime, eLeftTime}
     private EMode mode;
     private String nowAlarmKey = "";
+    private long nowAlarmTime;
 
     // Associate
     private CAlarm cAlarm;
     private View view;
     private ConstraintLayout container;
-    private TextView time, date, dayOfWeek, name;
+    private TextView time, date, dayOfWeek, name, earphone;
     private OVectorAnimationToggleButton onOffButton;
     private View.OnClickListener editListener;
     private UpdateCallback updateCallback;
@@ -55,6 +57,8 @@ public class VDashboard implements View.OnClickListener, CompoundButton.OnChecke
         this.dayOfWeek = view.findViewById(R.id.alarm_list_dashboard_dayofweek);
         this.name = view.findViewById(R.id.alarm_list_dashboard_name);
         this.onOffButton = view.findViewById(R.id.alarm_list_dashboard_switch);
+        this.earphone = view.findViewById(R.id.alarm_list_earphone);
+        this.earphone.setVisibility(TEarphone.isEarphoneConnected(view.getContext())? View.VISIBLE : View.INVISIBLE);
 
         this.container.setOnClickListener(editListener);
         this.container.setOnLongClickListener(removeListener);
@@ -82,7 +86,8 @@ public class VDashboard implements View.OnClickListener, CompoundButton.OnChecke
 
     public void updateWithAnimation() {
         MAlarm nextAlarm = this.cAlarm.getNextCloneAlarm();
-        if((nextAlarm!=null && !nextAlarm.getKey().equals(this.nowAlarmKey)) || nextAlarm==null){
+//        if((nextAlarm!=null && !nextAlarm.getKey().equals(this.nowAlarmKey)) || nextAlarm==null){
+        if((nextAlarm!=null && nextAlarm.getAlarmTime()!=this.nowAlarmTime) || nextAlarm==null){
             Animator.AnimatorListener animatorListener = new Animator.AnimatorListener() {
                 @Override public void onAnimationEnd(Animator animation) {
                     update();
@@ -99,7 +104,8 @@ public class VDashboard implements View.OnClickListener, CompoundButton.OnChecke
     public void update() {
         MAlarm nextAlarm = this.cAlarm.getNextCloneAlarm();
         if(nextAlarm!=null){
-            this.nowAlarmKey = nextAlarm.getKey();
+//            this.nowAlarmKey = nextAlarm.getKey();
+            nowAlarmTime = nextAlarm.getAlarmTime();
             this.container.setOnClickListener(this.editListener);
             this.container.setOnLongClickListener(this.removeListener);
             this.onOffButton.setVisibility(View.VISIBLE);

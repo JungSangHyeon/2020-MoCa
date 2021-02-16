@@ -3,72 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/OSPrimarySurface"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/setting_modebuttons"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/setting_soundbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/setting_userdefinedbutton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/setting_nosoundbutton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/setting_nosoundbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/setting_crazybutton"
-            app:layout_constraintEnd_toStartOf="@+id/setting_soundbutton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/setting_userdefinedbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/setting_crazybutton"
-            app:layout_constraintTop_toBottomOf="@+id/setting_soundbutton" />
-
-        <Button
-            android:id="@+id/setting_crazybutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/setting_userdefinedbutton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/setting_nosoundbutton" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        style="@style/OSLine"
-
-        app:layout_constraintTop_toBottomOf="@+id/setting_modebuttons"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
 
     <com.onandon.moca.onAndOn.compoundView.OTitleInfoView
         android:id="@+id/alarm_setting_power"
@@ -80,7 +20,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setting_modebuttons"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView

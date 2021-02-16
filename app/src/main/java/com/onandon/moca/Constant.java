@@ -20,7 +20,7 @@ public class Constant {
         // Alarm
         public static final int AlarmRingMinute = 5;
         // Snooze
-        public static int SnoozeInterval = 1; // min
+        public static int SnoozeInterval = 5; // min
         // Repeat
         public static class ReAlarm {
             public static final int[] interval = {1, 3, 5, 8, 10};
@@ -43,14 +43,16 @@ public class Constant {
             public String getLevelName() { return levelName; }
         }
         public enum EAlarmMode {
-            eNoSound("무음"),
-            eSound("표준"),
-            eCrazy("광란"),
-            eUserDefined("사용자 설정");
+            eNoSound("무음", R.id.alarm_setting_mode_radio_nosound),
+            eSound("표준", R.id.alarm_setting_mode_radio_sound),
+            eCrazy("광란", R.id.alarm_setting_mode_radio_crazy),
+            eUserDefined("사용자 설정", R.id.alarm_setting_mode_radio_userdefined);
 
             private String levelName;
-            EAlarmMode(String levelName){ this.levelName=levelName;}
+            private int radioButtonId;
+            EAlarmMode(String levelName, int radioButtonId){ this.levelName=levelName; this.radioButtonId=radioButtonId;}
             public String getModeName() { return levelName; }
+            public int getRadioButtonId() { return radioButtonId; }
         }
 
 

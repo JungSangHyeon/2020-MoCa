@@ -175,95 +175,135 @@
             app:layout_constraintStart_toStartOf="parent"
             />
 
-        <com.onandon.moca.onAndOn.compoundView.OTitleInfoButtonView
-            android:id="@+id/alarm_setting_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoButtonView-->
+<!--            android:id="@+id/alarm_setting_mode"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
 
-            app:tib_title="@string/alarm_setting_mode_title"
-
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoView-->
-<!--            android:id="@+id/alarm_setting_power"-->
-
-<!--            style="@style/SAlarmSettingItem"-->
-
-<!--            app:ti_title="@string/alarm_setting_power_title"-->
+<!--            app:tib_title="@string/alarm_setting_mode_title"-->
 
 <!--            android:layout_marginTop="10dp"-->
 <!--            app:layout_constraintEnd_toEndOf="parent"-->
 <!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_mode"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
 <!--            />-->
 
-<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView-->
-<!--            android:id="@+id/alarm_setting_ringtone"-->
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
 
-<!--            style="@style/SAlarmSettingItem"-->
+            android:id="@+id/alarm_setting_mode"
 
-<!--            app:tis_title="@string/alarm_setting_ringtone_title"-->
-<!--            app:tis_info="@layout/titleinfoswitch_info_1textview"-->
+            android:orientation="horizontal"
 
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_power"-->
-<!--            />-->
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
-<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView-->
-<!--            android:id="@+id/alarm_setting_vibration"-->
+            <TextView
+                android:id="@+id/alarm_setting_mode_title"
 
-<!--            style="@style/SAlarmSettingItem"-->
+                style="@style/OSTextView"
 
-<!--            app:tis_title="@string/alarm_setting_vibration_title"-->
-<!--            app:tis_info="@layout/titleinfoswitch_info_1textview"-->
+                android:text="알림 모드"
 
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_ringtone"-->
-<!--            />-->
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                />
 
-<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView-->
-<!--            android:id="@+id/alarm_setting_flash"-->
+            <com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton
+                android:id="@+id/alarm_setting_mode_setting"
 
-<!--            style="@style/SAlarmSettingItem"-->
+                style="@style/OSActionButton"
+                android:text="Setting"
 
-<!--            app:tis_title="@string/alarm_setting_flash_title"-->
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="center_vertical"
+                />
 
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_vibration"-->
-<!--            />-->
+            <com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton
+                android:id="@+id/alarm_setting_mode_test"
 
-<!--        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView-->
-<!--            android:id="@+id/alarm_setting_screen"-->
+                style="@style/OSActionButton"
+                android:text="Test"
 
-<!--            style="@style/SAlarmSettingItem"-->
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="center_vertical"
+                />
 
-<!--            app:tis_title="@string/alarm_setting_screen_title"-->
+        </LinearLayout>
 
-<!--            android:layout_marginBottom="10dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_flash"-->
-<!--            />-->
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/alarm_setting_mode_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_mode"
+            >
+            <RadioButton
+                android:id="@+id/alarm_setting_mode_radio_nosound"
 
-<!--        <TextView-->
-<!--            android:id="@+id/alarm_setting_earphone"-->
+                android:layoutDirection="rtl"
+                android:textAlignment="textStart"
 
-<!--            android:text="알림이 이어폰으로 울립니다"-->
+                android:text="무음"
 
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="3dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_screen" />-->
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="start"
+                />
+            <RadioButton
+                android:id="@+id/alarm_setting_mode_radio_sound"
+
+                android:layoutDirection="rtl"
+                android:textAlignment="textStart"
+
+                android:text="표준"
+
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="start"
+                />
+            <RadioButton
+                android:id="@+id/alarm_setting_mode_radio_crazy"
+
+                android:layoutDirection="rtl"
+                android:textAlignment="textStart"
+
+                android:text="광란"
+
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="start"
+                />
+            <RadioButton
+                android:id="@+id/alarm_setting_mode_radio_userdefined"
+
+                android:layoutDirection="rtl"
+                android:textAlignment="textStart"
+
+                android:text="사용자 설정"
+
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="start"
+                />
+        </RadioGroup>
+
         <TextView
             android:id="@+id/alarm_setting_earphone"
 
@@ -275,7 +315,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_mode" />
+            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_mode_radio" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout

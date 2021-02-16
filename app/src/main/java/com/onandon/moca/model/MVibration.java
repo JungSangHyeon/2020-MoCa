@@ -21,8 +21,8 @@ public class MVibration implements Serializable, Cloneable {
 
     // Constructor
     public MVibration() {
-        this.setVibrationChecked(false);
-        this.pattern = Constant.defaultVibrationPattern;
+        this.setVibrationChecked(true);
+        this.pattern = Constant.EVibrationPattern.pattern_1.ordinal();
     }
     public boolean isVibrationChecked() { return bChecked; }
     public void setVibrationChecked(boolean bChecked) { this.bChecked = bChecked; }

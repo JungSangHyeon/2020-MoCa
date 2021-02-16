@@ -43,7 +43,7 @@ public class MAlarm implements Serializable, Cloneable {
         this.bScheduled = false;
         this.bChecked = true;
         this.bAlarmPowerChecked = true;
-        this.bFlashChecked = false;
+        this.bFlashChecked = true;
         this.bScreenChecked = false;
         this.powerLevel = Constant.EAlarmPower.eLevel2.ordinal();
         this.mode = Constant.EAlarmMode.eSound.ordinal();
@@ -69,8 +69,8 @@ public class MAlarm implements Serializable, Cloneable {
         else if(this.mReAlarm.isReAlarming()){ return this.mReAlarm.getReAlarmTime(); }
         else{return this.getTime().getTimeInMillis();}
     }
-    public String getKey() { return Long.toString(this.getAlarmTime()); }
-//    public String getKey() { return Long.toString(this.getTime().getTimeInMillis()); }
+//    public String getKey() { return Long.toString(this.getAlarmTime()); }
+    public String getKey() { return Long.toString(this.getTime().getTimeInMillis()); }
     public String getName() {
         return name;
     }
@@ -128,4 +128,12 @@ public class MAlarm implements Serializable, Cloneable {
     }
     public MSnooze getmAlarmSnooze() { return mSnooze; }
     public void setmAlarmSnooze(MSnooze mSnooze) { this.mSnooze = mSnooze; }
+
+    public void setAlarmValues(MAlarm mAlarm) {
+        this.setPowerLevel(mAlarm.getPowerLevel());
+        this.setRingtone(mAlarm.getRingtone().clone());
+        this.setVibration(mAlarm.getVibration().clone());
+        this.setFlashChecked(mAlarm.isFlashChecked());
+        this.setScreenChecked(mAlarm.isScreenChecked());
+    }
 }

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.onandon.moca.R;
 import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.ModeManager;
 import com.onandon.moca.onAndOn.customView.OMovableFloatingActionButton;
 import com.onandon.moca.technical.device.TVibrator;
 
@@ -43,7 +41,6 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
     private VAlarmAdapter vAlarmAdapter;
     private CAlarm cAlarm;
     private View view;
-    private Button setting;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -169,14 +166,7 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
         this.createAlarmBtn.setOnClickListener((v)->createAlarm());
         this.view.getViewTreeObserver().addOnGlobalLayoutListener(new CreateAlarmButtonAlignmentListener());
 
-        this.setting = this.view.findViewById(R.id.alarm_list_setting);
-        this.setting.setOnClickListener((v)->setting());
-
         this.update();
-    }
-
-    private void setting() {
-        new Setting(this.getContext()).start();
     }
 
     /**
