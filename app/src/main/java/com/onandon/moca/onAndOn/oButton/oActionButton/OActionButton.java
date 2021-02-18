@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi;
 
 import com.onandon.moca.R;
 import com.onandon.moca.onAndOn.OAnimator;
+import com.onandon.moca.onAndOn.OConstants;
 
 public abstract class OActionButton extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener {
 
@@ -61,7 +62,7 @@ public abstract class OActionButton extends androidx.appcompat.widget.AppCompatB
     @Override
     public void setEnabled(boolean enable){
         super.setEnabled(enable);
-        OAnimator.animateAlphaChange(300, (this.isEnabled())? 1:0.3f, null, this);
+        OAnimator.animateAlphaChange(OConstants.AnimationTime, (this.isEnabled())? OConstants.Alpha_Normal:OConstants.Alpha_Disable, null, this);
     }
 
     protected Drawable getBackgroundById(int id) { return this.getContext().getDrawable(this.attributeArray.getResourceId(id, -1)); }

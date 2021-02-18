@@ -38,7 +38,7 @@ public class VVibration implements Switch.OnCheckedChangeListener, View.OnClickL
         this.name.setOnClickListener(this);
 
         Constant.EVibrationPattern selectedVibrationPattern = Constant.EVibrationPattern.values()[this.selectedPattern];
-        this.name.setText(this.view.getResources().getString(selectedVibrationPattern.getNameId()));
+        this.name.setText(this.mAlarm.getVibration().isVibrationChecked()? this.view.getResources().getString(selectedVibrationPattern.getNameId()):"");
 
         this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
         this.aSwitch.setOnCheckedChangeListener(this);

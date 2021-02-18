@@ -10,13 +10,13 @@ import com.onandon.moca.technical.DataAccessObject;
 
 import java.util.Vector;
 
-public class ModeManager2 {
+public class ModeManager {
 
     // Associate
     private Context context;
 
     // Constructor
-    public ModeManager2(Context context){
+    public ModeManager(Context context){
         this.context=context;
     }
 

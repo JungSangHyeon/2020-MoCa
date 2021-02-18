@@ -62,12 +62,10 @@ public class VAlarmCallBack implements View.OnClickListener{
             });
             this.alarmDismissThread.start();
         } else { // if removed || not checked
-            this.name.setText("removed || not checked");
-            this.tAlarm.onCreate(scheduledAlarm);
-            this.tAlarm.onStartCommand();
-//            this.activity.finish();
+            this.finish();
         }
     }
+
     public void onDestroy() { this.cAlarm.onDestroy(); }
 
     @Override
@@ -94,6 +92,10 @@ public class VAlarmCallBack implements View.OnClickListener{
         this.tAlarm.onStopCommand();
         this.cAlarm.scheduleAlarm();
         this.cAlarm.store();
+        this.finish();
+    }
+
+    private void finish() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.activity.finishAndRemoveTask();
         } else {
@@ -101,4 +103,5 @@ public class VAlarmCallBack implements View.OnClickListener{
             System.exit(0);
         }
     }
+
 }

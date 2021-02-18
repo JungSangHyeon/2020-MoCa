@@ -116,8 +116,6 @@ public class VDashboard implements View.OnClickListener, CompoundButton.OnChecke
 
             long alarmTime = nextAlarm.getAlarmTime();
 
-            Log.d("TEST4", "UPDATE "+nextAlarm.getAlarmTime()+", "+nextAlarm.getmAlarmSnooze().isSnoozing());
-
             if(this.mode == EMode.eAlarmTime){
                 SimpleDateFormat simpleDateFormat = (SimpleDateFormat) SimpleDateFormat.getInstance();
                 simpleDateFormat.applyPattern(VTime.TIME_PATTERN);
@@ -129,8 +127,8 @@ public class VDashboard implements View.OnClickListener, CompoundButton.OnChecke
                 leftTime = leftTime%(60*60*1000);
                 long minute = leftTime / (60*1000);
                 String result = "";
-                if(hour!=0){result+=hour+"시간 ";}
-                result+=minute+"분 후";
+                if(hour!=0){result+=hour+this.view.getContext().getResources().getString(R.string.hour)+" ";}
+                result+=minute+this.view.getContext().getResources().getString(R.string.minute)+" "+this.view.getContext().getResources().getString(R.string.later);
                 this.time.setText(result);
             }
             this.date.setText(nextAlarm.getTime().format(VTime.DAY_PATTERN));
@@ -138,7 +136,8 @@ public class VDashboard implements View.OnClickListener, CompoundButton.OnChecke
             this.name.setText(nextAlarm.getName());
         }else{
             this.nowAlarmKey = "";
-            this.time.setText("알람이 없습니다");
+            nowAlarmTime = -1;
+            this.time.setText(this.view.getContext().getResources().getString(R.string.no_alarm));
             this.date.setText("");
             this.dayOfWeek.setText("");
             this.name.setText("");

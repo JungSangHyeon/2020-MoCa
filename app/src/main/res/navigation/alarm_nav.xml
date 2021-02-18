@@ -13,6 +13,10 @@
         <action
             android:id="@+id/action_VAlarmList_to_VAlarmSetting"
             app:destination="@id/VAlarmSetting" />
+        <argument
+            android:name="isSaved"
+            app:argType="boolean"
+            android:defaultValue="false"/>
     </fragment>
 
     <fragment
@@ -24,11 +28,14 @@
             android:id="@+id/action_VAlarmSetting_to_VAlarmList"
             app:destination="@id/VAlarmList" />
         <argument
-            android:name="MAlarm"
+            android:name="mAlarm"
             app:argType="com.onandon.moca.model.MAlarm" />
         <argument
-            android:name="SaveActionListener"
-            app:argType="com.onandon.moca.view.alarm.list.VAlarmList$SaveListener" />
+            android:name="saveFlag"
+            app:argType="com.onandon.moca.view.alarm.setting.SaveFlag" />
+        <argument
+            android:name="mAlarmCount"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

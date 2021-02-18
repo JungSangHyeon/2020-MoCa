@@ -15,6 +15,9 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
 
     // Often, there will be a slight, unintentional, drag when the user taps the FAB, so we need to account for this.
     private final static float CLICK_DRAG_TOLERANCE = 10;
+    private final static String  X = "x";
+    private final static String  Y = "y";
+    private final static String  UserMoved = "userMoved";
 
     // Working Variable
     private float defaultX, defaultY;
@@ -30,7 +33,7 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
     }
 
     public void save() {
-        SharedPreferences prefs = this.getContext().getSharedPreferences("OMovableFloatingActionButton", Context.MODE_PRIVATE);
+        SharedPreferences prefs = this.getContext().getSharedPreferences(OMovableFloatingActionButton.class.getSimpleName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putFloat("x", this.getX());
         editor.putFloat("y", this.getY());
@@ -41,10 +44,10 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
         this.defaultX = width - this.getWidth() - 60;
         this.defaultY = (parentHeight-limitTop<this.getHeight()+30)? parentHeight - this.getHeight() - 30:limitTop+30;
 
-        SharedPreferences prefs = this.getContext().getSharedPreferences("OMovableFloatingActionButton", Context.MODE_PRIVATE);
-        float x = prefs.getFloat("x", -1);
-        float y = prefs.getFloat("y", -1);
-        boolean userMoved = prefs.getBoolean("userMoved", false);
+        SharedPreferences prefs = this.getContext().getSharedPreferences(OMovableFloatingActionButton.class.getSimpleName(), Context.MODE_PRIVATE);
+        float x = prefs.getFloat(X, -1);
+        float y = prefs.getFloat(Y, -1);
+        boolean userMoved = prefs.getBoolean(UserMoved, false);
         this.userMoved=userMoved;
 
         this.setX((this.userMoved && x!=-1)? x:this.defaultX);
@@ -57,8 +60,8 @@ public class OMovableFloatingActionButton extends FloatingActionButton implement
         if(this.userMoved && this.pressed && !this.moved ){
             this.userMoved = false;
             this.reseted = true;
-            PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("x", this.defaultX);
-            PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("y", this.defaultY);
+            PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(X, this.defaultX);
+            PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(Y, this.defaultY);
             ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(this, pvhX, pvhY);
             animator.setDuration(300);
             animator.start();

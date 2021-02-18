@@ -8,7 +8,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -22,6 +21,7 @@ import com.onandon.moca.control.CAlarm;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.onAndOn.customView.OMovableFloatingActionButton;
 import com.onandon.moca.technical.device.TVibrator;
+import com.onandon.moca.view.alarm.setting.SaveFlag;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -45,7 +45,6 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.alarm_list, container, false);
-
         return  this.view;
     }
 
@@ -73,11 +72,9 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
     /**
      * Callbacks
      */
-    private class SaveListener implements View.OnClickListener, Serializable { // for save alarm
-        @Override public void onClick(View view) { saveAlarm(); }
-    }
     @Override
     public boolean onLongClick(View view) { // for remove dashboard alarm
+        Log.d("TEST8", "onLongClick end action");
         this.removeAlarm(this.cAlarm.getNextAlarmIndex());
         return true;
     }
@@ -146,9 +143,15 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
         }
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+
+        if(saveFlag!=null && saveFlag.isSaved()){
+            this.saveAlarm();
+            saveFlag=null;
+        }
 
         this.cAlarm = new CAlarm(this.getActivity());
         this.cAlarm.onCreate(Locale.KOREA);
@@ -160,7 +163,11 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
         this.recyclerView =  this.view.findViewById(R.id.alarm_list_items);
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setAdapter(this.vAlarmAdapter);
-        new ItemTouchHelper(new OSimpleCallback()).attachToRecyclerView(this.recyclerView);
+        if(itemTouchHelper!=null){
+            this.itemTouchHelper.attachToRecyclerView(null);
+        }
+        this.itemTouchHelper = new ItemTouchHelper(new OSimpleCallback());
+        this.itemTouchHelper.attachToRecyclerView(this.recyclerView);
 
         this.createAlarmBtn =  this.view.findViewById(R.id.alarm_list_create);
         this.createAlarmBtn.setOnClickListener((v)->createAlarm());
@@ -168,6 +175,8 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
 
         this.update();
     }
+
+    private ItemTouchHelper itemTouchHelper;
 
     /**
      * for save & load create alarm button location
@@ -181,26 +190,49 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
         @Override
         public void onGlobalLayout() { // 사용자에게 화면이 보여질 때
             LinearLayoutManager layoutManager = ((LinearLayoutManager)recyclerView.getLayoutManager());
-            int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
-            View alignmentTarget = recyclerView.getChildAt(lastVisiblePosition);
-            Log.d("TEST5", ""+(alignmentTarget==null));
-            if(alignmentTarget==null){
-                createAlarmBtn.load((int) (recyclerView.getY()), view.getHeight(), recyclerView.getWidth());
-            }else{
-                createAlarmBtn.load((int) (recyclerView.getY()+alignmentTarget.getY()+alignmentTarget.getHeight()), view.getHeight(), recyclerView.getWidth());
+            int sumHeight = 0;
+            for(int i=0; i<layoutManager.getItemCount(); i++){
+                sumHeight += layoutManager.getChildAt(i).getHeight();
             }
+            createAlarmBtn.load((int) (recyclerView.getY()+sumHeight), view.getHeight(), recyclerView.getWidth());
+//            int lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
+//            View alignmentTarget = recyclerView.getChildAt(lastVisiblePosition);
+//            if(alignmentTarget==null){
+//                createAlarmBtn.load((int) (recyclerView.getY()), view.getHeight(), recyclerView.getWidth());
+//            }else{
+//                createAlarmBtn.load((int) (recyclerView.getY()+alignmentTarget.getY()+alignmentTarget.getHeight()), view.getHeight(), recyclerView.getWidth());
+//            }
         }
     }
 
     /**
      * Navigate to alarm setting fragment
      */
+    private SaveFlag saveFlag;
+
     private void goToAlarmSetting() {
+        this.saveFlag = new SaveFlag();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("MAlarm", this.cAlarm.getCurrentAlarm()); // for set alarm setting items
-        bundle.putSerializable("SaveActionListener", new SaveListener()); // for callback
-        bundle.putInt("MAlarmCount", this.cAlarm.getMAlarms().size()+1); // for alarm name
+        bundle.putSerializable(this.getContext().getResources().getString(R.string.mAlarm), this.cAlarm.getCurrentAlarm()); // for set alarm setting items
+        bundle.putSerializable("saveFlag", this.saveFlag); // for set alarm setting items
+        bundle.putInt(this.getContext().getResources().getString(R.string.mAlarmCount), this.getNameNumber()); // for alarm name
         Navigation.findNavController(this.getView()).navigate(R.id.action_VAlarmList_to_VAlarmSetting, bundle);
+    }
+
+    private int getNameNumber() {
+        int num = 0;
+        boolean noSameName = false;
+        while(!noSameName){
+            noSameName = true;
+            for(MAlarm mAlarm : this.cAlarm.getMAlarms()){
+                if(mAlarm.getName().equals("Alarm "+num)){
+                    noSameName = false;
+                    num++;
+                    break;
+                }
+            }
+        }
+        return num;
     }
 
     /**
@@ -209,8 +241,8 @@ public class VAlarmList extends Fragment implements View.OnLongClickListener, Up
     private void showRemoveConfirmDialog(int targetPosition) {
         MAlarm target = this.cAlarm.getAlarm(targetPosition);
         AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
-        dialog.setTitle("알람 삭제");
-        dialog.setMessage(target.getName()+" 알람을 삭제하시겠습니까?");
+        dialog.setTitle(this.getContext().getResources().getString(R.string.delete_alarm_dialog_title));
+        dialog.setMessage(target.getName()+" "+this.getContext().getResources().getString(R.string.delete_alarm_dialog_content));
         dialog.setPositiveButton(this.getContext().getResources().getString(R.string.common_ok), (dialog1, which) -> {
             this.cAlarm.removeAlarm(targetPosition);
             this.vAlarmAdapter.notifyItemRemoved(targetPosition);

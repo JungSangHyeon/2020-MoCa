@@ -6,7 +6,7 @@
         <item name="android:background">@color/white</item>
     </style>
     <style name="OSSecondaryBackground" >
-        <item name="android:background">@color/light_gray</item>
+        <item name="android:background">@color/gray</item>
     </style>
 
     <!--  surface -->
@@ -17,7 +17,7 @@
         <item name="android:background">@color/white</item>
     </style>
     <style name="OSSecondarySurface" parent="@style/OSSurface">
-        <item name="android:background">@color/gray</item>
+        <item name="android:background">@color/light_gray</item>
     </style>
 
     <!--  line -->
@@ -33,6 +33,10 @@
         <item name="android:textSize">15sp</item>
         <item name="obutton_normal_to_checked">@drawable/oround_square_normal_to_checked</item>
         <item name="obutton_checked_to_normal">@drawable/oround_square_checked_to_normal</item>
+    </style>
+    <style name="OSActionButton_Volume" >
+        <item name="obutton_normal_to_checked">@drawable/ovolume_up_normal_to_checked</item>
+        <item name="obutton_checked_to_normal">@drawable/ovolume_up_checked_to_normal</item>
     </style>
     <style name="OSWeekToggleButton" >
         <item name="android:layout_width">40dp</item>

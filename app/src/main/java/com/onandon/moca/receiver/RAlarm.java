@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.onandon.moca.R;
 import com.onandon.moca.activity.AAlarmCallback;
 import com.onandon.moca.control.CAlarm;
 
@@ -21,7 +22,7 @@ public class RAlarm extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             this.rescheduleAlarms(context, intent);
-        } else if ("RAlarm.START".equals(intent.getAction())){
+        } else if (context.getResources().getString(R.string.alarm_action).equals(intent.getAction())){
             this.startAlarm(context, intent);
         }
     }
@@ -32,9 +33,9 @@ public class RAlarm extends BroadcastReceiver {
         cAlarm.scheduleAlarm();
     }
     private void startAlarm(Context context, Intent intent) {
-        Bundle bundle = intent.getBundleExtra("bundle");
+        Bundle bundle = intent.getBundleExtra(context.getString(R.string.alarm_bundle));
         Intent newIntent = new Intent(context, AAlarmCallback.class);
-        newIntent.putExtra("bundle", bundle);
+        newIntent.putExtra(context.getString(R.string.alarm_bundle), bundle);
         newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(newIntent);
     }

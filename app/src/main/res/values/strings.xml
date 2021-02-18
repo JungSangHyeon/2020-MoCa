@@ -1,6 +1,11 @@
 <resources>
     <!--  system  -->
     <string name="null_string"></string>
+    <string name="alarm_bundle">AlarmBundle</string>
+    <string name="alarm_action">RAlarm.START</string>
+    <string name="mAlarm">MAlarm</string>
+    <string name="saveActionListener">SaveActionListener</string>
+    <string name="mAlarmCount">MAlarmCount</string>
 
     <!--  main  -->
     <string name="app_name">MoCa</string>
@@ -78,6 +83,19 @@
     <!--  permission util  -->
     <string name="overlayPermissionDialogTitle">알람을 앱 위에 띄우기 위해 권한이 필요합니다.</string>
     <string name="overlayPermissionDialogMessage">다음 목록에서 MoCa를 선택하여 권한을 부여해 주세요.</string>
+
+    <!--  Mode  -->
+    <string name="user_defined_mode">사용자 설정 모드</string>
+
+    <!--  Dashboard  -->
+    <string name="no_alarm">알람이 없습니다</string>
+    <string name="hour">시간</string>
+    <string name="minute">분</string>
+    <string name="later">후</string>
+
+    <!--  alarm delete dialog  -->
+    <string name="delete_alarm_dialog_title">알람 삭제</string>
+    <string name="delete_alarm_dialog_content">알람을 삭제하시겠습니까?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.onandon.moca.Constant;
+import com.onandon.moca.R;
 import com.onandon.moca.model.MAlarm;
 import com.onandon.moca.receiver.RAlarm;
 import com.onandon.moca.technical.DataAccessObject;
@@ -114,8 +115,8 @@ public class CAlarm implements Serializable {
             Bundle bundle = new Bundle();
             bundle.putSerializable(MAlarm.class.getSimpleName(), nextCloneAlarm);
             Intent intentStartAlarm = new Intent(this.mainActivity, RAlarm.class);
-            intentStartAlarm.setAction("RAlarm.START");
-            intentStartAlarm.putExtra("bundle", bundle);
+            intentStartAlarm.setAction(this.mainActivity.getResources().getString(R.string.alarm_action));
+            intentStartAlarm.putExtra(this.mainActivity.getResources().getString(R.string.alarm_bundle), bundle);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this.mainActivity, 0, intentStartAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextCloneAlarm.getAlarmTime(), pendingIntent);
         }

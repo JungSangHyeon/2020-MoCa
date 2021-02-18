@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.onandon.moca.Constant;
 import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.ModeManager2;
+import com.onandon.moca.model.ModeManager;
 import com.onandon.moca.technical.device.TScreen;
 import com.onandon.moca.technical.device.TFlash;
 import com.onandon.moca.technical.device.TRingtone;
@@ -61,7 +61,7 @@ public class TAlarm {
             this.bRunning = true;
 
             // Associate
-            this.mAlarm = new ModeManager2(activity).getMAlarmByMode(mAlarm);
+            this.mAlarm = new ModeManager(activity).getMAlarmByMode(mAlarm);
 
             // Associate Attribute
             this.power = this.mAlarm.getPower();

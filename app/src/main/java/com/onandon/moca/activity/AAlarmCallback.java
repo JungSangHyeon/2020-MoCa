@@ -26,7 +26,7 @@ public class AAlarmCallback extends AppCompatActivity {
         ShowOnLockScreenUtil.makeActivityAbleToShowOnLockedScreen(this);
 
         this.vCallBack = new VAlarmCallBack(this);
-        Bundle bundle = this.getIntent().getBundleExtra("bundle");
+        Bundle bundle = this.getIntent().getBundleExtra(this.getResources().getString(R.string.alarm_bundle));
         if (bundle != null) {
             MAlarm mAlarm = (MAlarm) bundle.getSerializable(MAlarm.class.getSimpleName());
             this.vCallBack.onCreate(mAlarm);
