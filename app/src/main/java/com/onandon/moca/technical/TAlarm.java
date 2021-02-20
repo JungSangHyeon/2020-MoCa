@@ -3,8 +3,8 @@ package com.onandon.moca.technical;
 import android.app.Activity;
 
 import com.onandon.moca.Constant;
-import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.ModeManager;
+import com.onandon.moca.model.roomDatabase.entity.MAlarm;
+import com.onandon.moca.ModeManager;
 import com.onandon.moca.technical.device.TScreen;
 import com.onandon.moca.technical.device.TFlash;
 import com.onandon.moca.technical.device.TRingtone;
@@ -23,7 +23,7 @@ public class TAlarm {
     public TAlarm(Activity activity) {
         this.activity = activity;
     }
-    public void onCreate(MAlarm mAlarm) {
+    public void setTargetMAlarm(MAlarm mAlarm) {
         this.mAlarm = mAlarm;
     }
 

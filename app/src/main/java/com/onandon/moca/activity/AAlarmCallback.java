@@ -2,14 +2,12 @@ package com.onandon.moca.activity;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.onandon.moca.Constant;
 import com.onandon.moca.R;
-import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.model.roomDatabase.entity.MAlarm;
 import com.onandon.moca.utility.ShowOnLockScreenUtil;
 import com.onandon.moca.view.alarm.callback.VAlarmCallBack;
 

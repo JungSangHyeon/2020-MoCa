@@ -4,20 +4,15 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
-import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.model.roomDatabase.entity.MAlarm;
 import com.onandon.moca.receiver.RAlarm;
 import com.onandon.moca.technical.DataAccessObject;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -132,6 +127,7 @@ public class CAlarm implements Serializable {
     public MAlarm getCurrentAlarm() { return this.currentAlarm; }
     public MAlarm getAlarm(int position) { return this.mAlarms.get(position); }
     public Vector<MAlarm> getMAlarms() { return mAlarms; }
+
     public MAlarm getNextCloneAlarm() {
         int nextAlarmIndex = this.getNextAlarmIndex();
         if (nextAlarmIndex != -1) { return this.mAlarms.get(nextAlarmIndex).schedulerNextAlarm(); }

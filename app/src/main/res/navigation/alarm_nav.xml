@@ -28,13 +28,7 @@
             android:id="@+id/action_VAlarmSetting_to_VAlarmList"
             app:destination="@id/VAlarmList" />
         <argument
-            android:name="mAlarm"
-            app:argType="com.onandon.moca.model.MAlarm" />
-        <argument
-            android:name="saveFlag"
-            app:argType="com.onandon.moca.view.alarm.setting.SaveFlag" />
-        <argument
-            android:name="mAlarmCount"
+            android:name="targetIndex"
             app:argType="integer" />
     </fragment>
 

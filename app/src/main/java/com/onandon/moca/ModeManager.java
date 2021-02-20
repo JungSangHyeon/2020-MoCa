@@ -1,4 +1,4 @@
-package com.onandon.moca.model;
+package com.onandon.moca;
 
 import android.content.Context;
 import android.media.Ringtone;
@@ -6,9 +6,9 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 
 import com.onandon.moca.Constant;
-import com.onandon.moca.technical.DataAccessObject;
-
-import java.util.Vector;
+import com.onandon.moca.model.roomDatabase.entity.MAlarm;
+import com.onandon.moca.model.roomDatabase.entity.MRingtone;
+import com.onandon.moca.model.roomDatabase.entity.MVibration;
 
 public class ModeManager {
 

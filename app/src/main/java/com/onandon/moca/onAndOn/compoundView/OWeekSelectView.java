@@ -5,10 +5,8 @@ import android.util.AttributeSet;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
-import androidx.annotation.Nullable;
-
 import com.onandon.moca.R;
-import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.model.roomDatabase.entity.MAlarm;
 import com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton;
 
 import java.util.Calendar;
@@ -28,15 +26,15 @@ public class OWeekSelectView extends LinearLayout implements CompoundButton.OnCh
     private OIndexToggleButton[] checkBoxes;
 
     // Constructor
-    public OWeekSelectView(Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
-
-    public void onCreate(InterfaceSetAlarmDay interfaceSetAlarmDay, MAlarm mAlarm){
-        // Create Component
+    public OWeekSelectView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         this.checkBoxes = new OIndexToggleButton[Calendar.DAY_OF_WEEK];
+    }
 
-        // Associate
+    public void onViewCreated(InterfaceSetAlarmDay interfaceSetAlarmDay){
         this.interfaceSetAlarmDay=interfaceSetAlarmDay;
-        this.mAlarm=mAlarm;
+
+        // Associate View
         this.checkBoxes[Calendar.SUNDAY-1] = this.findViewById(R.id.alarm_setting_weekdays_0);
         this.checkBoxes[Calendar.MONDAY-1] = this.findViewById(R.id.alarm_setting_weekdays_1);
         this.checkBoxes[Calendar.TUESDAY-1] = this.findViewById(R.id.alarm_setting_weekdays_2);
@@ -45,15 +43,18 @@ public class OWeekSelectView extends LinearLayout implements CompoundButton.OnCh
         this.checkBoxes[Calendar.FRIDAY-1] = this.findViewById(R.id.alarm_setting_weekdays_5);
         this.checkBoxes[Calendar.SATURDAY-1] = this.findViewById(R.id.alarm_setting_weekdays_6);
 
-        this.onCreateButtons();
-    }
-    private void onCreateButtons() {
+        // Set View Callback
         int index=0;
         for (OIndexToggleButton checkBox: this.checkBoxes) { // init buttons
-            checkBox.setCheckedWithoutAnimation(this.mAlarm.getTime().isDayOfWeekChecked(index));
-            if(checkBox.isChecked()){this.numberOfDaysChecked++;}
             checkBox.setOnCheckedChangeListener(this);
             checkBox.setIndex(index++);
+        }
+    }
+    public void update(MAlarm mAlarm){
+        this.mAlarm=mAlarm;
+        for (OIndexToggleButton checkBox: this.checkBoxes) { // init buttons
+            checkBox.setCheckedWithoutAnimation(this.mAlarm.getTime().isDayOfWeekChecked(checkBox.getIndex()));
+            if(checkBox.isChecked()){this.numberOfDaysChecked++;}
         }
     }
 

@@ -1,4 +1,4 @@
-package com.onandon.moca.model;
+package com.onandon.moca.model.roomDatabase.entity;
 
 import androidx.annotation.NonNull;
 

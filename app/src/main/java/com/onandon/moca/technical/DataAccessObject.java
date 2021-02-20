@@ -1,6 +1,7 @@
 package com.onandon.moca.technical;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.onandon.moca.Constant;
 
@@ -26,6 +27,7 @@ public class DataAccessObject implements Serializable {
      */
     public <T extends Serializable> void save(String fileName, T objectToSave) {
         try {
+            Log.d("Test10" ,"save "+applicationContext);
             FileOutputStream fileOutputStream =
                     this.applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);

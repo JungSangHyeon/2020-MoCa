@@ -9,9 +9,9 @@ import com.onandon.moca.Constant;
 import com.onandon.moca.R;
 import com.onandon.moca.activity.AAlarmCallback;
 import com.onandon.moca.control.CAlarm;
-import com.onandon.moca.model.MAlarm;
-import com.onandon.moca.model.MReAlarm;
-import com.onandon.moca.model.MSnooze;
+import com.onandon.moca.model.roomDatabase.entity.MAlarm;
+import com.onandon.moca.model.roomDatabase.entity.MReAlarm;
+import com.onandon.moca.model.roomDatabase.entity.MSnooze;
 import com.onandon.moca.technical.TAlarm;
 
 import java.util.Locale;
@@ -51,7 +51,7 @@ public class VAlarmCallBack implements View.OnClickListener{
         this.cAlarm.onCreate(Locale.KOREA);
         this.mAlarm = this.cAlarm.findByKey(scheduledAlarm.schedulerNextAlarm().getKey());
         if (this.mAlarm != null && this.mAlarm.isChecked()) { // if not removed && checked
-            this.tAlarm.onCreate(this.mAlarm);
+            this.tAlarm.setTargetMAlarm(this.mAlarm);
             this.tAlarm.onStartCommand();
             this.name.setText(this.mAlarm.getName());
             MSnooze mSnooze = this.mAlarm.getmAlarmSnooze();

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
-import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.model.roomDatabase.entity.MAlarm;
 import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
 import com.onandon.moca.technical.device.TVibrator;
 import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;

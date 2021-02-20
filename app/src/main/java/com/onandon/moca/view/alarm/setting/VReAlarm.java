@@ -5,55 +5,64 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.onandon.moca.Constant;
 import com.onandon.moca.R;
-import com.onandon.moca.model.MAlarm;
+import com.onandon.moca.model.roomDatabase.entity.MAlarm;
 import com.onandon.moca.onAndOn.oButton.oToggleButton.OVectorAnimationToggleButton;
 import com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView;
 
 public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeListener {
 
-    // Working Variable
-    private int intervalIndex, countIndex;
+    // Attribute
     private String intervalUnitString, countUnitString;
 
-    // Associations
-    private View view;
-    private MAlarm mAlarm;
-    private TextView interval, intervalUnit, count, countUnit;
-    private OVectorAnimationToggleButton aSwitch;
+    // Working Variable
+    private int intervalIndex, countIndex;
 
-    // Constructor
-    public VReAlarm(View view, MAlarm mAlarm) {
-        this.view = view;
+    // Associate
+    private MAlarm mAlarm;
+        // View
+        private TextView interval, intervalUnit, count, countUnit;
+        private OVectorAnimationToggleButton aSwitch;
+
+    /**
+     * System Callback
+     */
+    public void onCreate(FragmentActivity activity) {
+        // Set Attribute
+        this.intervalUnitString = activity.getResources().getString(R.string.alarm_setting_realarm_intervalunit);
+        this.countUnitString = activity.getResources().getString(R.string.alarm_setting_realarm_count_unit);
+    }
+    public void onViewCreated(View view){
+        // Associate View
+        OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_realarm);
+        this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
+        View reAlarmSettingLayout = itemTitleInfoSwitch.getSettingLayout();
+        this.interval = reAlarmSettingLayout.findViewById(R.id.interval);
+        this.intervalUnit = reAlarmSettingLayout.findViewById(R.id.interval_unit);
+        this.count = reAlarmSettingLayout.findViewById(R.id.count);
+        this.countUnit = reAlarmSettingLayout.findViewById(R.id.count_unit);
+
+        // Set View Callback
+        this.aSwitch.setOnCheckedChangeListener(this);
+        this.interval.setOnClickListener(this);
+        this.intervalUnit.setOnClickListener(this);
+        this.count.setOnClickListener(this);
+        this.countUnit.setOnClickListener(this);
+    }
+
+    /**
+     * Update
+     */
+    public void update(MAlarm mAlarm){
         this.mAlarm = mAlarm;
 
         this.intervalIndex = this.findIndex(Constant.ReAlarm.interval, this.mAlarm.getReAlarm().getInterval());
         this.countIndex = this.findIndex(Constant.ReAlarm.count, this.mAlarm.getReAlarm().getCount());
-
-        this.intervalUnitString = this.view.getResources().getString(R.string.alarm_setting_realarm_intervalunit);
-        this.countUnitString = this.view.getResources().getString(R.string.alarm_setting_realarm_count_unit);
-
-        OTitleInfoSwitchView itemTitleInfoSwitch = view.findViewById(R.id.alarm_setting_realarm);
-        View reAlarmSettingLayout = itemTitleInfoSwitch.getSettingLayout();
-
-        this.interval = reAlarmSettingLayout.findViewById(R.id.interval);
-        this.interval.setOnClickListener(this);
-
-        this.intervalUnit = reAlarmSettingLayout.findViewById(R.id.interval_unit);
-        this.intervalUnit.setOnClickListener(this);
-
-        this.count = reAlarmSettingLayout.findViewById(R.id.count);
-        this.count.setOnClickListener(this);
-
-        this.countUnit = reAlarmSettingLayout.findViewById(R.id.count_unit);
-        this.countUnit.setOnClickListener(this);
-
-        this.aSwitch = itemTitleInfoSwitch.getOnOffButton();
-        this.aSwitch.setOnCheckedChangeListener(this);
         this.aSwitch.setCheckedWithoutAnimation(this.mAlarm.getReAlarm().isChecked());
     }
-
     private int findIndex(int[] intervals, int interval) {
         for(int i=0; i<intervals.length; i++){
             if(interval == intervals[i]){ return i; }
@@ -61,6 +70,9 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         return -1;
     }
 
+    /**
+     * Callback
+     */
     @Override // For "selectedNameView"
     public void onClick(View view) {
         if (view == this.interval || view == this.intervalUnit) { this.nextInterval(); }
@@ -80,7 +92,6 @@ public class VReAlarm implements View.OnClickListener, Switch.OnCheckedChangeLis
         this.mAlarm.getReAlarm().setCount(newCount);
         this.count.setText(Integer.toString(newCount));
     }
-
     @Override // For "switch"
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         this.mAlarm.getReAlarm().setChecked(isChecked);
