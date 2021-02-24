@@ -3,7 +3,7 @@
     <string name="null_string"></string>
     <string name="alarm_bundle">AlarmBundle</string>
     <string name="alarm_action">RAlarm.START</string>
-    <string name="mAlarm">MAlarm</string>
+    <string name="mAlarmData">MAlarm</string>
     <string name="saveActionListener">SaveActionListener</string>
     <string name="mAlarmCount">MAlarmCount</string>
 

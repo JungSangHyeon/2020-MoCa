@@ -1,60 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-
-    tools:context=".activity.AAlarmCallback"
-
-    style="@style/OSPrimaryBackground"
-    android:orientation="vertical"
-
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/alarmcallback_name"
+    <fragment
+        android:id="@+id/alarmcallback_fragment"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="128dp"
-
-        android:gravity="center"
-        android:text="Temp"
-        android:textSize="50sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp"
-        />
-
-    <Button
-        android:id="@+id/alarmcallback_off"
-
-        android:textSize="25sp"
-
-        android:text="@string/alarmcallback_off"
-
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="72dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alarmcallback_name"
-        />
-
-    <Button
-        android:id="@+id/alarmcallback_snooze"
-
-        android:textSize="25sp"
-
-        android:text="@string/alarmcallback_snooze"
+        android:name="com.onandon.moca.domain.view.alarm.callback.VAlarmCallBackFragment"
+        tools:layout="@layout/alarmcallback_main"
 
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="152dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alarmcallback_off"
+        android:layout_height="match_parent"
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    style="@style/OSPrimarySurface"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <com.onandon.moca.onAndOnAsset.view.comp.widget.compoundView.OTitleInfoView
+        android:id="@+id/alarm_setting_power"
+
+        style="@style/SAlarmSettingItem"
+
+        app:ti_title="@string/alarm_setting_power_title"
+
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.onandon.moca.onAndOnAsset.view.comp.widget.compoundView.OTitleInfoSwitchView
+        android:id="@+id/alarm_setting_ringtone"
+
+        style="@style/SAlarmSettingItem"
+
+        app:tis_title="@string/alarm_setting_ringtone_title"
+        app:tis_info="@layout/titleinfoswitch_info_1textview"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_power"
+        />
+
+    <com.onandon.moca.onAndOnAsset.view.comp.widget.compoundView.OTitleInfoSwitchView
+        android:id="@+id/alarm_setting_vibration"
+
+        style="@style/SAlarmSettingItem"
+
+        app:tis_title="@string/alarm_setting_vibration_title"
+        app:tis_info="@layout/titleinfoswitch_info_1textview"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_ringtone"
+        />
+
+    <com.onandon.moca.onAndOnAsset.view.comp.widget.compoundView.OTitleInfoSwitchView
+        android:id="@+id/alarm_setting_flash"
+
+        style="@style/SAlarmSettingItem"
+
+        app:tis_title="@string/alarm_setting_flash_title"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_vibration"
+        />
+
+    <com.onandon.moca.onAndOnAsset.view.comp.widget.compoundView.OTitleInfoSwitchView
+        android:id="@+id/alarm_setting_screen"
+
+        style="@style/SAlarmSettingItem"
+
+        app:tis_title="@string/alarm_setting_screen_title"
+
+        android:layout_marginBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_setting_flash"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

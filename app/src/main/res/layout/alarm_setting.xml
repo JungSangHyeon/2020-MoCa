@@ -98,10 +98,11 @@
                 />
         </LinearLayout>
 
-        <include
+        <fragment
             android:id="@+id/alarm_setting_weekday"
 
-            layout="@layout/alarm_setting_weekdays"
+            android:name="com.onandon.moca.onAndOnAsset.view.comp.fragment.weekSelect.OWeekSelectView"
+            tools:layout="@layout/alarm_setting_weekdays"
 
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -110,6 +111,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alarm_setting_day"
             />
+
+<!--        <include-->
+<!--            android:id="@+id/alarm_setting_weekday"-->
+
+<!--            layout="@layout/alarm_setting_weekdays"-->
+
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/alarm_setting_day"-->
+<!--            />-->
 
         <View
             style="@style/OSLine"
@@ -120,7 +134,7 @@
             app:layout_constraintTop_toBottomOf="@+id/alarm_setting_weekday"
             />
 
-        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.compoundView.OTitleInfoSwitchView
             android:id="@+id/alarm_setting_holiday"
 
             style="@style/SAlarmSettingItem"
@@ -134,7 +148,7 @@
             app:layout_constraintTop_toBottomOf="@+id/alarm_setting_weekday"
             />
 
-        <com.onandon.moca.onAndOn.compoundView.OTitleInfoSwitchView
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.compoundView.OTitleInfoSwitchView
             android:id="@+id/alarm_setting_realarm"
 
             style="@style/SAlarmSettingItem"
@@ -203,7 +217,7 @@
                 android:layout_gravity="center_vertical"
                 />
 
-            <com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton
+            <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oActionButton.OVectorAnimationActionButton
                 android:id="@+id/alarm_setting_mode_test"
 
                 style="@style/OSActionButton_Volume"
@@ -302,7 +316,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         >
 
-        <com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oActionButton.OVectorAnimationActionButton
             android:id="@+id/alarm_setting_cancel"
 
             style="@style/OSActionButton"
@@ -316,7 +330,7 @@
             android:layout_weight="1"
             />
 
-        <com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oActionButton.OVectorAnimationActionButton
             android:id="@+id/alarm_setting_save"
 
             style="@style/OSActionButton"

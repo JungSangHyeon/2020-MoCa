@@ -1,4 +1,4 @@
-<com.onandon.moca.onAndOn.compoundView.OWeekSelectView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         >
 
-        <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_0"
 
             style="@style/OSWeekToggleButton"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_1"
 
             style="@style/OSWeekToggleButton"
@@ -41,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_2"
 
             style="@style/OSWeekToggleButton"
@@ -54,7 +54,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_3"
 
             style="@style/OSWeekToggleButton"
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_4"
 
             style="@style/OSWeekToggleButton"
@@ -80,7 +80,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_5"
 
             style="@style/OSWeekToggleButton"
@@ -93,7 +93,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <com.onandon.moca.onAndOn.oButton.oToggleButton.OIndexToggleButton
+        <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oToggleButton.OIndexToggleButton
             android:id="@+id/alarm_setting_weekdays_6"
 
             style="@style/OSWeekToggleButton"
@@ -108,4 +108,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.onandon.moca.onAndOn.compoundView.OWeekSelectView>
+</LinearLayout>

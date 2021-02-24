@@ -21,17 +21,17 @@
         android:theme="@style/Theme.MoCa"
 
         >
-        <activity android:name=".activity.AMain">
+        <activity android:name=".domain.activity.AMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AAlarmCallback" />
+        <activity android:name=".domain.activity.AAlarmCallback" />
 
         <receiver
-            android:name=".receiver.RAlarm"
+            android:name=".domain.receiver.RAlarm"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/main_alarm"
-        android:name="com.onandon.moca.view.alarm.VAlarm"
+        android:name="com.onandon.moca.domain.view.alarm.VAlarm"
         android:label="alarm"
         tools:layout="@layout/alarm" />
 
     <fragment
         android:id="@+id/main_stopwatch"
-        android:name="com.onandon.moca.view.stopwatch.VStopWatch"
+        android:name="com.onandon.moca.domain.view.stopwatch.VStopWatch"
         android:label="stopwatch"
         tools:layout="@layout/stopwatch" />
 
     <fragment
         android:id="@+id/main_worldtime"
-        android:name="com.onandon.moca.view.worldtime.VWorldTime"
+        android:name="com.onandon.moca.domain.view.worldtime.VWorldTime"
         android:label="worldtime"
         tools:layout="@layout/globalclock" >
     </fragment>

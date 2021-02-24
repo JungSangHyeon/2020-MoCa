@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    style="@style/OSPrimarySurface"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="160dp">
+
+    <TextView
+        android:id="@+id/time"
+
+        style="@style/OSTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10dp"
+        android:autoSizeTextType="uniform"
+
+        android:gravity="center"
+        android:text="@string/alarm_list_item_default_time"
+        android:textSize="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/name"
+
+        style="@style/OSTextView"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/alarm_list_item_default_name"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/earphone"
+
+        android:text="알림이 이어폰으로 울립니다"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginRight="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/on_off_switch"
+        app:layout_constraintTop_toBottomOf="@+id/time"
+        app:layout_constraintVertical_bias="0.273">
+
+        <TextView
+            android:id="@+id/date"
+
+            style="@style/OSTextView"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:gravity="left|center_vertical"
+            android:text="@string/alarm_list_item_default_day"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/day_of_week"
+
+            style="@style/OSTextView"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
+            android:text="@string/alarm_list_item_default_dayofweek"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/date"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oToggleButton.OVectorAnimationToggleButton
+        android:id="@+id/on_off_switch"
+
+        style="@style/OSCheckToggleButton"
+
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time"
+        app:layout_constraintVertical_bias="0.273" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

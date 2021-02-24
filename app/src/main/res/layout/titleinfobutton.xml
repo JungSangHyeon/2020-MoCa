@@ -37,7 +37,7 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.onandon.moca.onAndOn.oButton.oActionButton.OVectorAnimationActionButton
+    <com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oActionButton.OVectorAnimationActionButton
         android:id="@+id/tib_button"
 
         style="@style/OSActionButton"

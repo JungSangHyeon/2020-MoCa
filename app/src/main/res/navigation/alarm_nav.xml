@@ -7,29 +7,36 @@
 
     <fragment
         android:id="@+id/VAlarmList"
-        android:name="com.onandon.moca.view.alarm.list.VAlarmList"
+        android:name="com.onandon.moca.domain.view.alarm.main.VAlarmMain"
         android:label="VAlarmList"
-        tools:layout="@layout/alarm_list">
+        tools:layout="@layout/alarm_main">
         <action
             android:id="@+id/action_VAlarmList_to_VAlarmSetting"
-            app:destination="@id/VAlarmSetting" />
-        <argument
-            android:name="isSaved"
-            app:argType="boolean"
-            android:defaultValue="false"/>
+            app:destination="@id/VAlarmSetting"
+            app:enterAnim="@animator/scroll_up"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
         android:id="@+id/VAlarmSetting"
-        android:name="com.onandon.moca.view.alarm.setting.VAlarmSetting"
+        android:name="com.onandon.moca.domain.view.alarm.setting.VAlarmSetting"
         android:label="VAlarmSetting"
         tools:layout="@layout/alarm_setting">
         <action
             android:id="@+id/action_VAlarmSetting_to_VAlarmList"
-            app:destination="@id/VAlarmList" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:destination="@id/VAlarmList"
+            />
         <argument
             android:name="targetIndex"
             app:argType="integer" />
     </fragment>
 
+<!--    app:enterAnim="@anim/nav_default_enter_anim"-->
+<!--    app:exitAnim="@anim/nav_default_exit_anim"-->
+<!--    app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
+<!--    app:popExitAnim="@anim/nav_default_pop_exit_anim"-->
 </navigation>
