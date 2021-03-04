@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -67,6 +68,7 @@ public class AlarmModelTool {
     }
 
     public void scheduleAlarm(Context context, Alarm target) {
+        Log.d("TEST1131", "AlarmModelTool schedule "+target.getId());
         MAlarmData nextCloneAlarm = target.getMAlarm().schedulerNextAlarm();
         if (nextCloneAlarm != null){
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

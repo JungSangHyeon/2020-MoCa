@@ -100,7 +100,7 @@ public class VAlarmSetting extends OFragment<AlarmViewModel> {
         if (this.targetIndex == NewAlarm) {
             Alarm alarm = new Alarm();
             alarm.setMAlarm(this.targetMAlarmData);
-            alarm.setIndex(this.getAlarms().size()==0? 0:this.getAlarms().get(this.getAlarms().size()-1).getIndex()+1);
+            alarm.setIndex(this.getAlarms().size()==0? 0:this.findNextIndex());
             this.model.insert(alarm);
         } else {
             Alarm alarm = this.getAlarms().get(this.targetIndex);
@@ -109,6 +109,17 @@ public class VAlarmSetting extends OFragment<AlarmViewModel> {
         }
         this.goBack();
     }
+
+    private int findNextIndex() {
+        int index = 0;
+        for(Alarm alarm : this.getAlarms()){
+            if(index <= alarm.getIndex()){
+                index = alarm.getIndex()+1;
+            }
+        }
+        return index;
+    }
+
     public void goBack(){
         this.removeModelObserver(); Navigation.findNavController(this.getView()).popBackStack();
     }

@@ -2,6 +2,7 @@ package com.onandon.moca.domain.view.alarm.main.list;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -126,6 +127,7 @@ public class VListFragment extends OFragment<AlarmViewModel> {
                 int index2 = alarm2.getIndex();
                 alarm1.setIndex(index2);
                 alarm2.setIndex(index1);
+                Log.d("TEST1234", index1+", "+index2+" / "+alarm1.getIndex()+", "+alarm2.getIndex());
                 Collections.swap( this.updateTarget, fromPosition, toPosition);
                 Collections.swap(cloneAlarmList, fromPosition, toPosition);
                 vAlarmAdapter.notifyItemMoved(fromPosition, toPosition);

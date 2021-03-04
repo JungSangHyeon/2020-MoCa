@@ -6,8 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.onandon.moca.R;
 import com.onandon.moca.onAndOnAsset.utility.UShowOnLockScreen;
+import com.onandon.moca.onAndOnAsset.view.comp.activity.OFullScreenActivity;
 
-public class AAlarmCallback extends AppCompatActivity {
+public class AAlarmCallback extends OFullScreenActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

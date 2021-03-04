@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.onandon.moca">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -18,9 +19,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MoCa"
+        android:theme="@style/Theme.MoCa">
+        <service
+            android:name=".domain.service.SAlarmSetNotification"
+            android:enabled="true"
+            android:exported="true"></service>
 
-        >
         <activity android:name=".domain.activity.AMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".domain.activity.AAlarmCallback" />
+        <activity
+            android:name=".domain.activity.AAlarmCallback"
+            android:showOnLockScreen="true" />
 
         <receiver
             android:name=".domain.receiver.RAlarm"

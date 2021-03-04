@@ -24,8 +24,6 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
         private OVectorAnimationToggleButton aSwitch;
         // Model
         private AlarmViewModel model;
-        private Alarm alarm;
-        private MAlarmData mAlarmData;
 
     // Constructor
     public VAlarmViewHolder(View view, View.OnClickListener editListener, View.OnTouchListener actionInitListener) {
@@ -46,10 +44,9 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
         // Associate Model
         this.model=model;
 
-        this.alarm = this.model.getAlarm(this.getAdapterPosition());
-        this.mAlarmData = this.alarm.getMAlarm();
+        MAlarmData mAlarmData = this.model.getAlarm(this.getAdapterPosition()).getMAlarm();
 
-        OAnimator.animateAlphaChange(0, (this.mAlarmData.isChecked())? 1:0.3f, null, this.time, this.name, this.date, this.dayOfWeek);
+        OAnimator.animateAlphaChange(0, (mAlarmData.isChecked())? 1:0.3f, null, this.time, this.name, this.date, this.dayOfWeek);
 
         ViewGroup.LayoutParams layoutParams = this.itemView.getLayoutParams();
         layoutParams.height = (this.model.getNextAlarmIndex()==this.getAdapterPosition())? 0:this.itemView.getMinimumHeight();
@@ -62,7 +59,7 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
      * Update
      */
     private void update() {
-        MAlarmData mAlarmData = this.mAlarmData.schedulerNextAlarm();
+        MAlarmData mAlarmData = this.model.getAlarm(this.getAdapterPosition()).getMAlarm().schedulerNextAlarm();
         this.name.setText(mAlarmData.getName());
         this.time.setText(mAlarmData.getTime().format(VTime.TIME_PATTERN));
         this.date.setText(mAlarmData.getTime().format(VTime.DAY_PATTERN));
@@ -77,8 +74,10 @@ public class VAlarmViewHolder extends RecyclerView.ViewHolder implements Compoun
      */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Alarm alarm = this.model.getAlarm(this.getAdapterPosition());
+        MAlarmData mAlarmData = alarm.getMAlarm();
         mAlarmData.setChecked(isChecked);
-        this.alarm.setMAlarm(mAlarmData);
+        alarm.setMAlarm(mAlarmData);
         this.model.update(alarm);
     }
 }

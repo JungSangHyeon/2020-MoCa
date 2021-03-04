@@ -51,6 +51,13 @@ public class VAlarmCallBackFragment extends OFragment<AlarmViewModel> implements
         this.alarmOffButton.setOnClickListener(this);
         this.snoozeButton.setOnClickListener(this);
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(this.alarmDismissThread!=null){ // after update
+            this.onClick(this.alarmOffButton);
+        }
+    }
 
     /**
      * Update
@@ -62,21 +69,17 @@ public class VAlarmCallBackFragment extends OFragment<AlarmViewModel> implements
         if (bundle != null) {
             int id = bundle.getInt(MAlarmData.class.getSimpleName());
             this.target = this.model.findAlarmById(id);
-//            if (this.target != null && this.target.getMAlarm().isChecked()) { // if not removed && checked
-                this.mAlarmData = this.target.getMAlarm();
-                this.tAlarm.setTargetMAlarm(this.mAlarmData);
-                this.tAlarm.onStartCommand();
-                this.name.setText(this.mAlarmData.getName());
-                MSnooze mSnooze = this.mAlarmData.getmAlarmSnooze();
-                if(mSnooze.isSnoozing()){ mSnooze.resetSnooze(); this.model.update(target);}
-                this.alarmDismissThread = new Thread(() -> {
-                    try { Thread.sleep(Constant.AlarmRingMinute *1000*60); this.alarmMissed(); }
-                    catch (InterruptedException e) {}
-                });
-                this.alarmDismissThread.start();
-//            } else { // if removed || not checked
-//                this.finish();
-//            }
+            this.mAlarmData = this.target.getMAlarm();
+            this.tAlarm.setTargetMAlarm(this.mAlarmData);
+            this.tAlarm.onStartCommand();
+            this.name.setText(this.mAlarmData.getName());
+            MSnooze mSnooze = this.mAlarmData.getmAlarmSnooze();
+            if(mSnooze.isSnoozing()){ mSnooze.resetSnooze(); this.model.update(target);}
+            this.alarmDismissThread = new Thread(() -> {
+                try { Thread.sleep(Constant.AlarmRingMinute *1000*60); this.alarmMissed(); }
+                catch (InterruptedException e) {}
+            });
+            this.alarmDismissThread.start();
         }
     }
 

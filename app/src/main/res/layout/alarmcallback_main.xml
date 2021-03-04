@@ -52,7 +52,7 @@
         android:text="@string/alarmcallback_snooze"
 
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="150dp"
         android:layout_marginTop="152dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alarmcallback_off"
