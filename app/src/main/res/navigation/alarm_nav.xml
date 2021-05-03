@@ -13,10 +13,6 @@
         <action
             android:id="@+id/action_VAlarmList_to_VAlarmSetting"
             app:destination="@id/VAlarmSetting"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             />
     </fragment>
 
@@ -27,8 +23,6 @@
         tools:layout="@layout/alarm_setting">
         <action
             android:id="@+id/action_VAlarmSetting_to_VAlarmList"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
             app:destination="@id/VAlarmList"
             />
         <argument

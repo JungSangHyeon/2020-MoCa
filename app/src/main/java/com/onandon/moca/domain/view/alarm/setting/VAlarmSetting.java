@@ -121,7 +121,8 @@ public class VAlarmSetting extends OFragment<AlarmViewModel> {
     }
 
     public void goBack(){
-        this.removeModelObserver(); Navigation.findNavController(this.getView()).popBackStack();
+        this.removeModelObserver();
+        Navigation.findNavController(this.getView()).popBackStack();
     }
 
     /**

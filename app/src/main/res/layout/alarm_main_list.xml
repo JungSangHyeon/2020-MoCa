@@ -8,6 +8,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
 
+        android:background="@color/middle_gray"
+
         tools:itemCount="4"
         tools:listitem="@layout/alarm_main_list_item"
         android:scrollbars="vertical"

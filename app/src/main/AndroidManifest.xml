@@ -25,7 +25,8 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".domain.activity.AMain">
+        <activity android:name=".domain.activity.AMain"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +35,8 @@
         </activity>
         <activity
             android:name=".domain.activity.AAlarmCallback"
-            android:showOnLockScreen="true" />
+            android:showOnLockScreen="true"
+            android:screenOrientation="portrait"/>
 
         <receiver
             android:name=".domain.receiver.RAlarm"

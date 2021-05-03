@@ -21,7 +21,7 @@ import com.onandon.moca.onAndOnAsset.view.comp.widget.oButton.oToggleButton.OVec
 public class VTime implements OCustomViewCompLifeCycle, TimePicker.OnTimeChangedListener, CompoundButton.OnCheckedChangeListener {
 
     // Constant
-    public static final String TIME_PATTERN = "hh:mm a";
+    public static final String TIME_PATTERN = "a hh:mm";
     public static final String DAY_PATTERN = "yyyy/MM/dd";
     public static final String DAY_OF_WEEK_PATTERN = "(EEE)";
 

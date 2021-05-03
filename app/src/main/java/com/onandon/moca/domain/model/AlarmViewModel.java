@@ -5,12 +5,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
 import com.onandon.moca.domain.model.database.entity.Alarm;
 import com.onandon.moca.domain.service.SAlarmSetNotification;
@@ -43,40 +40,55 @@ public class AlarmViewModel extends AndroidViewModel implements OViewModel {
     public void insert(Alarm alarm) { this.mRepository.insert(alarm); this.updateTime = true; }
     public void update(Alarm... alarms) { this.mRepository.update(alarms); this.updateTime = true; }
     public void delete(Alarm alarm) { this.mRepository.delete(alarm); this.updateTime = true; }
+
+    boolean first = true;
     private void afterModify() {
+        if(first){
+            first=false;
+            this.updateService();
+        }
         if(this.updateTime){
             Vector<Alarm> modifiedAlarms = new Vector<>();
             modifiedAlarms.addAll(this.getAlarms().getValue());
             this.updateFold(modifiedAlarms);
             this.scheduleNextAlarm(modifiedAlarms);
+            this.updateService();
         }
-        this.updateService();
         this.updateTime = false;
     }
 
+    int showingAlarmId = -1;
+    public void stopService(){
+        Intent intent = new Intent(this.getApplication().getApplicationContext(), SAlarmSetNotification.class);
+        this.getApplication().getApplicationContext().stopService(intent);
+    }
+    public void startService(){
+        Intent intent = new Intent(this.getApplication().getApplicationContext(), SAlarmSetNotification.class);
+        intent.putExtra("NextAlarmInfo", this.getNextAlarm().getAlarmData());
+        if (Build.VERSION.SDK_INT >= 26) { this.getApplication().getApplicationContext().startForegroundService(intent); }
+        else { this.getApplication().getApplicationContext().startService(intent); }
+    }
     private void updateService() {
         if(this.isMyServiceRunning(SAlarmSetNotification.class) && this.getNextAlarm()==null){ // off
-            Intent intent = new Intent(this.getApplication().getApplicationContext(), SAlarmSetNotification.class);
-            this.getApplication().getApplicationContext().stopService(intent);
-        } else if(!this.isMyServiceRunning(SAlarmSetNotification.class) && this.getNextAlarm()!=null) { // on
-            Intent intent = new Intent(this.getApplication().getApplicationContext(), SAlarmSetNotification.class);
-            intent.putExtra("NextAlarmInfo", this.getNextAlarm().getAlarmData());
-            if (Build.VERSION.SDK_INT >= 26) {
-                this.getApplication().getApplicationContext().startForegroundService(intent);
-            } else {
-                this.getApplication().getApplicationContext().startService(intent);
+            this.stopService();
+        } else if(this.isMyServiceRunning(SAlarmSetNotification.class) && this.getNextAlarm()!=null){
+            if(showingAlarmId!=this.getNextAlarm().getId()){
+                showingAlarmId = this.getNextAlarm().getId();
+                this.stopService();
             }
+           this.startService();
+        } else if(!this.isMyServiceRunning(SAlarmSetNotification.class) && this.getNextAlarm()!=null) { // on
+            this.startService();
         }
     }
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) this.getApplication().getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
+            if (serviceClass.getName().equals(service.service.getClassName())) { return true; }
         }
         return false;
     }
+
     private void updateFold(Vector<Alarm> modifiedAlarms) {
         for(Alarm alarm : modifiedAlarms){
             if(alarm.isFold()){

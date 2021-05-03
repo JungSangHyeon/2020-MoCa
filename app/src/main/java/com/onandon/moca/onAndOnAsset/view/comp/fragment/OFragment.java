@@ -43,7 +43,7 @@ public abstract class OFragment<T> extends Fragment implements OCustomViewCompLi
     }
     protected abstract void createComponent();
     public abstract void onCreate(Activity activity);
-    private void associateModel(Class<? extends ViewModel> clazz){
+    public void associateModel(Class<? extends ViewModel> clazz){
         if(clazz.isAssignableFrom(AndroidViewModel.class)){
             this.model = (T) new ViewModelProvider(this.getViewModelStoreOwner(),
                     ViewModelProvider.AndroidViewModelFactory.getInstance(this.getActivity().getApplication())).get(clazz);
